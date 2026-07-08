@@ -1,0 +1,128 @@
+- Come varia il silhouette score al variare della dimensionalità
+
+variance=0.80 | components=133 | k=2 | silhouette=0.2504
+variance=0.80 | components=133 | k=3 | silhouette=0.1454
+variance=0.80 | components=133 | k=4 | silhouette=0.1591
+variance=0.80 | components=133 | k=5 | silhouette=0.1043
+------------------------------------------------------------
+variance=0.85 | components=177 | k=2 | silhouette=0.2447
+variance=0.85 | components=177 | k=3 | silhouette=0.1341
+variance=0.85 | components=177 | k=4 | silhouette=0.1471
+variance=0.85 | components=177 | k=5 | silhouette=0.0899
+------------------------------------------------------------
+variance=0.90 | components=239 | k=2 | silhouette=0.2406
+variance=0.90 | components=239 | k=3 | silhouette=0.1246
+variance=0.90 | components=239 | k=4 | silhouette=0.1368
+variance=0.90 | components=239 | k=5 | silhouette=0.0776
+------------------------------------------------------------
+variance=0.95 | components=344 | k=2 | silhouette=0.2380
+variance=0.95 | components=344 | k=3 | silhouette=0.1162
+variance=0.95 | components=344 | k=4 | silhouette=0.1277
+variance=0.95 | components=344 | k=5 | silhouette=0.0664
+------------------------------------------------------------
+variance=0.50 | components=23 | k=2 | silhouette=0.3207
+variance=0.50 | components=23 | k=3 | silhouette=0.2671
+variance=0.50 | components=23 | k=4 | silhouette=0.2890
+variance=0.50 | components=23 | k=5 | silhouette=0.2611
+------------------------------------------------------------
+variance=0.60 | components=43 | k=2 | silhouette=0.2864
+variance=0.60 | components=43 | k=3 | silhouette=0.2113
+variance=0.60 | components=43 | k=4 | silhouette=0.2294
+variance=0.60 | components=43 | k=5 | silhouette=0.1883
+------------------------------------------------------------
+variance=0.70 | components=77 | k=2 | silhouette=0.2650
+variance=0.70 | components=77 | k=3 | silhouette=0.1725
+variance=0.70 | components=77 | k=4 | silhouette=0.1880
+variance=0.70 | components=77 | k=5 | silhouette=0.1382
+------------------------------------------------------------
+variance=0.80 | components=133 | k=2 | silhouette=0.2504
+variance=0.80 | components=133 | k=3 | silhouette=0.1454
+variance=0.80 | components=133 | k=4 | silhouette=0.1591
+variance=0.80 | components=133 | k=5 | silhouette=0.1043
+------------------------------------------------------------
+
+
+
+- Come varia la distribuzione della classe target sui cluster 
+
+PCA components: 239
+Explained variance: 0.9001
+
+K-Means with k=2
+
+Cluster 0: 47.87% Activity 0, 52.13% Activity 1
+Cluster 1: 40.44% Activity 0, 59.56% Activity 1
+------------------------------
+Counts:
+Activity     0     1
+cluster             
+0         1290  1405
+1          427   629
+
+Percentages by cluster:
+Activity      0      1
+cluster               
+0         47.87  52.13
+1         40.44  59.56
+
+K-Means with k=4
+
+Cluster 0: 52.10% Activity 0, 47.90% Activity 1
+Cluster 1: 43.09% Activity 0, 56.91% Activity 1
+Cluster 2: 34.10% Activity 0, 65.90% Activity 1
+Cluster 3: 41.68% Activity 0, 58.32% Activity 1
+------------------------------
+Counts:
+Activity    0    1
+cluster           
+0         744  684
+1         546  721
+2          59  114
+3         368  515
+
+Percentages by cluster:
+Activity      0      1
+cluster               
+0         52.10  47.90
+1         43.09  56.91
+2         34.10  65.90
+3         41.68  58.32
+
+------------------------------
+******************************
+------------------------------
+
+PCA components: 133
+Explained variance: 0.8002
+
+K-Means with k=2
+------------------------------
+Counts:
+Activity     0     1
+cluster             
+0          427   629
+1         1290  1405
+
+Percentages by cluster:
+Activity      0      1
+cluster               
+0         40.44  59.56
+1         47.87  52.13
+
+K-Means with k=4
+------------------------------
+Counts:
+Activity    0    1
+cluster           
+0         368  515
+1         744  684
+2          59  114
+3         546  721
+
+Percentages by cluster:
+Activity      0      1
+cluster               
+0         41.68  58.32
+1         52.10  47.90
+2         34.10  65.90
+3         43.09  56.91
