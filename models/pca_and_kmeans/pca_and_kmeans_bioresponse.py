@@ -15,8 +15,8 @@ TARGET_PATH = PROJECT_DIR / "Dataset" / "train_activity_target.csv"
 
 REPORT_DIR = PROJECT_DIR / "reports" / "cluster_target_distribution"
 
-VARIANCE_TO_KEEP = 0.90
-K_VALUES = [2, 4]
+VARIANCE_TO_KEEP = 0.29
+K_VALUES = [2, 4, 5]
 
 
 def main():
