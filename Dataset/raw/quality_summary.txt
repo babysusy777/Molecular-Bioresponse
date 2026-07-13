@@ -1,0 +1,39 @@
+DATA QUALITY AUDIT - BIORESPONSE DATASET
+============================================================
+
+Dataset shape: 3751 rows x 1777 columns
+Target column: Activity
+Number of features: 1776
+
+
+LOW-INFORMATION FEATURES
+------------------------------------------------------------
+Constant features: 0
+Quasi-constant features, dominant value >= 99%: 253
+Features with more than 95% zeros: 878
+
+TOP 20 QUASI-CONSTANT FEATURES
+------------------------------------------------------------
+    feature  dominant_value_pct  n_unique  is_binary_01
+71      D72           99.973340         2          True
+857    D858           99.973340         2          True
+822    D823           99.973340         2         False
+825    D826           99.946681         3         False
+241    D242           99.946681         3         False
+887    D888           99.920021         3         False
+827    D828           99.893362         3         False
+237    D238           99.893362         5         False
+239    D240           99.893362         5         False
+839    D840           99.893362         4         False
+302    D303           99.893362         3         False
+821    D822           99.893362         3         False
+823    D824           99.893362         3         False
+861    D862           99.866702         3         False
+829    D830           99.866702         5         False
+858    D859           99.866702         6         False
+487    D488           99.866702         3         False
+233    D234           99.866702         6         False
+826    D827           99.840043         5         False
+820    D821           99.840043         4         False
+
+

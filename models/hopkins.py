@@ -13,7 +13,7 @@ from sklearn.neighbors import NearestNeighbors
 BASE_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = BASE_DIR.parent
 
-INPUT_PATH = PROJECT_DIR / "Dataset" / "train_pca_90_no_activity.csv"
+INPUT_PATH = PROJECT_DIR / "Dataset" / "raw" / "train.csv"
 REPORT_PATH = PROJECT_DIR / "reports" / "hopkins_report.csv"
 SUMMARY_PATH = PROJECT_DIR / "reports" / "hopkins_summary.csv"
 
@@ -83,10 +83,11 @@ def main():
     if not INPUT_PATH.exists():
         raise FileNotFoundError(f"Input file not found: {INPUT_PATH}")
 
-    # Load PCA-reduced molecular descriptors, without Activity
+    # Load train test, without Activity
     X = pd.read_csv(INPUT_PATH)
 
     # Keep only numeric columns, just to be safe
+    X = X.drop(columns=["Activity"])
     X = X.drop(columns=["Unnamed: 0"], errors="ignore")
     X = X.select_dtypes(include=["number"])
 
