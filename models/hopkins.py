@@ -78,7 +78,6 @@ def compute_hopkins(X, n_samples, seed):
 
 
 def main():
-    print("Starting Hopkins script...", flush=True)
 
     if not INPUT_PATH.exists():
         raise FileNotFoundError(f"Input file not found: {INPUT_PATH}")
