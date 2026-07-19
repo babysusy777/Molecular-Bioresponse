@@ -47,7 +47,7 @@ outside_range = (mins < 0) | (maxs > 1)
 # Distribuzione delle feature binarie
 
 binary_distribution = []
-
+quit
 for col in binary_features:
     pct_zeros = (X_train[col] == 0).mean() * 100
     pct_ones = (X_train[col] == 1).mean() * 100
