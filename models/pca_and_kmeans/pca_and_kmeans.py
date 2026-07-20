@@ -194,12 +194,12 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from scipy.stats import chi2
+from scipy.stats import chi2, t, ttest_1samp
 
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
-from sklearn.metrics import pairwise_distances, silhouette_samples
-from sklearn.model_selection import RepeatedKFold
+from sklearn.metrics import pairwise_distances, silhouette_score
+from sklearn.model_selection import KFold
 
 
 # ============================================================
@@ -216,10 +216,6 @@ QUASI_CONSTANT_THRESHOLD = 0.99
 PEARSON_THRESHOLD = 0.95
 PHI_THRESHOLD = 0.95
 POINT_BISERIAL_THRESHOLD = 0.95
-
-# Mantenuto per coerenza con la precedente analisi.
-# Con |phi| >= 0.95 e migliaia di campioni, la condizione
-# p < 0.05 sarà normalmente sempre soddisfatta.
 ALPHA = 0.05
 
 # PCA
@@ -229,15 +225,12 @@ VARIANCE_TO_KEEP = 0.90
 K_VALUES = list(range(2, 11))
 KMEANS_N_INIT = 50
 
-# Repeated cross-validation:
-# 5 fold × 6 ripetizioni = 30 valutazioni per ciascun k.
-N_SPLITS = 5
-N_REPEATS = 6
-
-# Intervalli di confidenza
+# Cross-validation convenzionale
+N_SPLITS = 10
 CONFIDENCE_LEVEL = 0.95
-N_BOOTSTRAP = 2_000
-BOOTSTRAP_CHUNK_SIZE = 200
+
+# Modelli finali da visualizzare
+FINAL_CLUSTER_VALUES = [4, 5]
 
 FIGURE_DPI = 200
 
@@ -256,7 +249,11 @@ INPUT_PATH = (
     / "train.csv"
 )
 
-REPORTS_DIR = PROJECT_DIR / "reports" / "kmeans_pca_cv"
+REPORTS_DIR = (
+    PROJECT_DIR
+    / "reports"
+    / "kmeans_pca_cv_standard"
+)
 
 SUMMARY_REPORT_PATH = (
     REPORTS_DIR
@@ -268,6 +265,11 @@ FOLD_REPORT_PATH = (
     / "kmeans_pca_cv_fold_results.csv"
 )
 
+DIFFERENCE_TEST_PATH = (
+    REPORTS_DIR
+    / "kmeans_adjacent_k_difference_tests.csv"
+)
+
 PREPROCESSING_REPORT_PATH = (
     REPORTS_DIR
     / "preprocessing_fold_diagnostics.csv"
@@ -275,12 +277,17 @@ PREPROCESSING_REPORT_PATH = (
 
 ELBOW_PLOT_PATH = (
     REPORTS_DIR
-    / "kmeans_pca_cv_elbow_plot.png"
+    / "kmeans_elbow_plot_cv.png"
 )
 
 SILHOUETTE_PLOT_PATH = (
     REPORTS_DIR
-    / "kmeans_pca_cv_silhouette_plot.png"
+    / "kmeans_silhouette_plot_cv.png"
+)
+
+CLUSTER_PLOTS_DIR = (
+    REPORTS_DIR
+    / "final_cluster_plots"
 )
 
 
@@ -291,6 +298,7 @@ SILHOUETTE_PLOT_PATH = (
 def load_raw_dataset(
     path: Path,
 ) -> tuple[pd.DataFrame, pd.Series]:
+
     if not path.exists():
         raise FileNotFoundError(
             f"Dataset non trovato: {path}"
@@ -345,9 +353,7 @@ def load_raw_dataset(
 def dominant_value_ratio(
     series: pd.Series,
 ) -> float:
-    """
-    Frequenza relativa del valore più comune.
-    """
+
     frequencies = series.value_counts(
         normalize=True,
         dropna=False,
@@ -359,18 +365,15 @@ def dominant_value_ratio(
 def identify_binary_columns(
     X: pd.DataFrame,
 ) -> list[str]:
-    """
-    Una feature è binaria se tutti i valori osservati
-    nel training fold appartengono a {0, 1}.
-    """
+
     binary_columns = []
 
     for column in X.columns:
-        unique_values = X[column].dropna().unique()
+        values = X[column].dropna().unique()
 
         if (
-            len(unique_values) > 0
-            and set(unique_values).issubset(
+            len(values) > 0
+            and set(values).issubset(
                 {0, 1, 0.0, 1.0, False, True}
             )
         ):
@@ -387,6 +390,7 @@ def find_quasi_constant_features(
     X_train: pd.DataFrame,
     threshold: float,
 ) -> tuple[list[str], pd.DataFrame]:
+
     report_rows = []
 
     for column in X_train.columns:
@@ -420,31 +424,27 @@ def find_quasi_constant_features(
 # CORRELATION ANALYSIS
 # ============================================================
 
+def empty_correlation_pairs() -> pd.DataFrame:
+
+    return pd.DataFrame(
+        columns=[
+            "feature_1",
+            "feature_2",
+            "coefficient",
+            "abs_coefficient",
+            "pair_type",
+            "chi2",
+            "p_value",
+        ]
+    )
+
+
 def find_highly_correlated_pairs(
     X_train: pd.DataFrame,
 ) -> pd.DataFrame:
-    """
-    Calcola sul solo training fold:
 
-    - Pearson: numerica-numerica;
-    - Phi: binaria-binaria;
-    - punto-biseriale: numerica-binaria.
-
-    Le tre misure corrispondono alla correlazione di Pearson
-    quando le variabili binarie sono codificate come 0/1.
-    """
     if X_train.shape[1] < 2:
-        return pd.DataFrame(
-            columns=[
-                "feature_1",
-                "feature_2",
-                "coefficient",
-                "abs_coefficient",
-                "pair_type",
-                "chi2",
-                "p_value",
-            ]
-        )
+        return empty_correlation_pairs()
 
     binary_columns = identify_binary_columns(
         X_train
@@ -452,7 +452,7 @@ def find_highly_correlated_pairs(
 
     binary_set = set(binary_columns)
 
-    columns = np.asarray(
+    column_names = np.asarray(
         X_train.columns,
         dtype=object,
     )
@@ -460,7 +460,7 @@ def find_highly_correlated_pairs(
     is_binary = np.asarray(
         [
             column in binary_set
-            for column in columns
+            for column in column_names
         ],
         dtype=bool,
     )
@@ -472,7 +472,7 @@ def find_highly_correlated_pairs(
     )
 
     row_indices, column_indices = np.triu_indices(
-        len(columns),
+        X_train.shape[1],
         k=1,
     )
 
@@ -485,45 +485,41 @@ def find_highly_correlated_pairs(
         coefficients
     )
 
-    left_is_binary = is_binary[row_indices]
-    right_is_binary = is_binary[column_indices]
+    left_binary = is_binary[row_indices]
+    right_binary = is_binary[column_indices]
 
     binary_binary_mask = (
-        left_is_binary
-        & right_is_binary
+        left_binary & right_binary
     )
 
     numeric_numeric_mask = (
-        ~left_is_binary
-        & ~right_is_binary
+        ~left_binary & ~right_binary
     )
 
     mixed_mask = (
-        left_is_binary
-        ^ right_is_binary
+        left_binary ^ right_binary
     )
 
-    finite_mask = np.isfinite(coefficients)
+    finite_mask = np.isfinite(
+        coefficients
+    )
 
-    # Chi-quadrato per le sole coppie binaria-binaria:
-    # chi2 = n * phi^2
     chi2_statistics = np.full(
         len(coefficients),
         np.nan,
-        dtype=np.float64,
     )
 
     p_values = np.full(
         len(coefficients),
         np.nan,
-        dtype=np.float64,
     )
 
     binary_positions = np.where(
-        binary_binary_mask
-        & finite_mask
+        binary_binary_mask & finite_mask
     )[0]
 
+    # Per tabelle 2x2:
+    # chi2 = n * phi^2
     chi2_statistics[binary_positions] = (
         len(X_train)
         * coefficients[binary_positions] ** 2
@@ -534,7 +530,7 @@ def find_highly_correlated_pairs(
         df=1,
     )
 
-    selected_numeric_numeric = (
+    selected_numeric = (
         numeric_numeric_mask
         & finite_mask
         & (
@@ -543,7 +539,7 @@ def find_highly_correlated_pairs(
         )
     )
 
-    selected_binary_binary = (
+    selected_binary = (
         binary_binary_mask
         & finite_mask
         & (
@@ -563,8 +559,8 @@ def find_highly_correlated_pairs(
     )
 
     selected_mask = (
-        selected_numeric_numeric
-        | selected_binary_binary
+        selected_numeric
+        | selected_binary
         | selected_mixed
     )
 
@@ -573,45 +569,28 @@ def find_highly_correlated_pairs(
     )[0]
 
     if len(selected_positions) == 0:
-        return pd.DataFrame(
-            columns=[
-                "feature_1",
-                "feature_2",
-                "coefficient",
-                "abs_coefficient",
-                "pair_type",
-                "chi2",
-                "p_value",
-            ]
-        )
+        return empty_correlation_pairs()
 
-    pair_types = np.empty(
-        len(selected_positions),
-        dtype=object,
+    pair_types = np.select(
+        [
+            numeric_numeric_mask[selected_positions],
+            binary_binary_mask[selected_positions],
+            mixed_mask[selected_positions],
+        ],
+        [
+            "numeric_numeric",
+            "binary_binary",
+            "numeric_binary",
+        ],
+        default="unknown",
     )
-
-    for output_position, original_position in enumerate(
-        selected_positions
-    ):
-        if numeric_numeric_mask[original_position]:
-            pair_types[output_position] = (
-                "numeric_numeric"
-            )
-        elif binary_binary_mask[original_position]:
-            pair_types[output_position] = (
-                "binary_binary"
-            )
-        else:
-            pair_types[output_position] = (
-                "numeric_binary"
-            )
 
     pairs = pd.DataFrame(
         {
-            "feature_1": columns[
+            "feature_1": column_names[
                 row_indices[selected_positions]
             ],
-            "feature_2": columns[
+            "feature_2": column_names[
                 column_indices[selected_positions]
             ],
             "coefficient": coefficients[
@@ -633,13 +612,13 @@ def find_highly_correlated_pairs(
     )
 
     return pairs.sort_values(
-        by="abs_coefficient",
+        "abs_coefficient",
         ascending=False,
     ).reset_index(drop=True)
 
 
 # ============================================================
-# CORRELATED-FEATURE SELECTION
+# CORRELATED FEATURE REMOVAL
 # ============================================================
 
 def choose_feature_to_drop(
@@ -648,27 +627,27 @@ def choose_feature_to_drop(
     variances: pd.Series,
     dominant_ratios: pd.Series,
 ) -> str:
-    """
-    Regola deterministica e non supervisionata.
 
-    1. Elimina la feature con varianza minore.
-    2. A parità, elimina quella con dominant ratio maggiore.
-    3. A ulteriore parità, elimina quella lessicograficamente
-       successiva.
-    """
-    variance_1 = float(variances[feature_1])
-    variance_2 = float(variances[feature_2])
+    variance_1 = float(
+        variances[feature_1]
+    )
 
+    variance_2 = float(
+        variances[feature_2]
+    )
+
+    # Prima regola: elimina la feature con minore varianza.
     if not np.isclose(
         variance_1,
         variance_2,
         rtol=1e-10,
         atol=1e-12,
     ):
-        if variance_1 < variance_2:
-            return feature_1
-
-        return feature_2
+        return (
+            feature_1
+            if variance_1 < variance_2
+            else feature_2
+        )
 
     dominant_1 = float(
         dominant_ratios[feature_1]
@@ -678,30 +657,28 @@ def choose_feature_to_drop(
         dominant_ratios[feature_2]
     )
 
+    # Seconda regola: elimina quella più sbilanciata.
     if not np.isclose(
         dominant_1,
         dominant_2,
         rtol=1e-10,
         atol=1e-12,
     ):
-        if dominant_1 > dominant_2:
-            return feature_1
+        return (
+            feature_1
+            if dominant_1 > dominant_2
+            else feature_2
+        )
 
-        return feature_2
-
+    # Spareggio deterministico.
     return max(feature_1, feature_2)
 
 
-def select_redundant_features_to_drop(
+def select_correlated_features_to_drop(
     X_train: pd.DataFrame,
     correlated_pairs: pd.DataFrame,
 ) -> list[str]:
-    """
-    Analizza le coppie dalla correlazione più alta alla più bassa.
 
-    Se una delle due feature è già stata eliminata, la coppia
-    è già risolta e non viene eliminata un'altra feature.
-    """
     if correlated_pairs.empty:
         return []
 
@@ -730,10 +707,10 @@ def select_redundant_features_to_drop(
             continue
 
         feature_to_drop = choose_feature_to_drop(
-            feature_1=feature_1,
-            feature_2=feature_2,
-            variances=variances,
-            dominant_ratios=dominant_ratios,
+            feature_1,
+            feature_2,
+            variances,
+            dominant_ratios,
         )
 
         dropped_features.add(
@@ -744,75 +721,57 @@ def select_redundant_features_to_drop(
 
 
 # ============================================================
-# COMPLETE FOLD PREPROCESSING
+# COMPLETE PREPROCESSING
 # ============================================================
 
-def fit_fold_preprocessing(
+def fit_preprocessing(
     X_train_raw: pd.DataFrame,
-) -> tuple[
-    list[str],
-    dict[str, object],
-]:
-    """
-    Adatta tutte le decisioni di preprocessing esclusivamente
-    sul training fold.
-    """
+) -> tuple[list[str], dict[str, object]]:
 
-    # --------------------------------------------------------
-    # 1. Quasi-constant filtering
-    # --------------------------------------------------------
-
-    (
-        quasi_constant_features,
-        quasi_constant_report,
-    ) = find_quasi_constant_features(
-        X_train=X_train_raw,
-        threshold=QUASI_CONSTANT_THRESHOLD,
+    quasi_constant_features, _ = (
+        find_quasi_constant_features(
+            X_train_raw,
+            QUASI_CONSTANT_THRESHOLD,
+        )
     )
 
-    X_after_quasi_constant = X_train_raw.drop(
-        columns=quasi_constant_features,
+    X_after_quasi_constant = (
+        X_train_raw.drop(
+            columns=quasi_constant_features
+        )
     )
 
-    if X_after_quasi_constant.empty:
+    if X_after_quasi_constant.shape[1] == 0:
         raise ValueError(
             "Tutte le feature sono state eliminate "
-            "dal filtro quasi-costante."
+            "come quasi-costanti."
         )
 
-    # --------------------------------------------------------
-    # 2. Correlation analysis
-    # --------------------------------------------------------
-
-    correlated_pairs = find_highly_correlated_pairs(
-        X_after_quasi_constant
+    correlated_pairs = (
+        find_highly_correlated_pairs(
+            X_after_quasi_constant
+        )
     )
 
-    correlated_features_to_drop = (
-        select_redundant_features_to_drop(
-            X_train=X_after_quasi_constant,
-            correlated_pairs=correlated_pairs,
+    correlated_features = (
+        select_correlated_features_to_drop(
+            X_after_quasi_constant,
+            correlated_pairs,
         )
     )
 
     retained_features = [
         column
         for column in X_after_quasi_constant.columns
-        if column
-        not in correlated_features_to_drop
+        if column not in correlated_features
     ]
 
     if not retained_features:
         raise ValueError(
-            "Tutte le feature sono state eliminate "
-            "dalla correlation analysis."
+            "Tutte le feature sono state eliminate."
         )
 
-    binary_columns = identify_binary_columns(
-        X_after_quasi_constant
-    )
-
-    pair_type_counts = (
+    pair_counts = (
         correlated_pairs["pair_type"]
         .value_counts()
         if not correlated_pairs.empty
@@ -829,33 +788,26 @@ def fit_fold_preprocessing(
         "features_after_quasi_constant": (
             X_after_quasi_constant.shape[1]
         ),
-        "binary_features_after_quasi_constant": (
-            len(binary_columns)
-        ),
-        "numeric_features_after_quasi_constant": (
-            X_after_quasi_constant.shape[1]
-            - len(binary_columns)
-        ),
-        "numeric_numeric_pairs_above_threshold": int(
-            pair_type_counts.get(
+        "numeric_numeric_pairs": int(
+            pair_counts.get(
                 "numeric_numeric",
                 0,
             )
         ),
-        "binary_binary_pairs_above_threshold": int(
-            pair_type_counts.get(
+        "binary_binary_pairs": int(
+            pair_counts.get(
                 "binary_binary",
                 0,
             )
         ),
-        "numeric_binary_pairs_above_threshold": int(
-            pair_type_counts.get(
+        "numeric_binary_pairs": int(
+            pair_counts.get(
                 "numeric_binary",
                 0,
             )
         ),
         "correlated_features_removed": (
-            len(correlated_features_to_drop)
+            len(correlated_features)
         ),
         "remaining_features": (
             len(retained_features)
@@ -864,21 +816,18 @@ def fit_fold_preprocessing(
             quasi_constant_features
         ),
         "correlated_feature_names": ";".join(
-            correlated_features_to_drop
+            correlated_features
         ),
     }
 
     return retained_features, diagnostics
 
 
-def transform_fold_preprocessing(
+def transform_preprocessing(
     X: pd.DataFrame,
     retained_features: list[str],
 ) -> pd.DataFrame:
-    """
-    Applica a training o validation l'elenco di feature
-    determinato esclusivamente sul training fold.
-    """
+
     missing_features = [
         feature
         for feature in retained_features
@@ -887,7 +836,7 @@ def transform_fold_preprocessing(
 
     if missing_features:
         raise ValueError(
-            "Feature mancanti durante la trasformazione: "
+            "Feature mancanti: "
             f"{missing_features}"
         )
 
@@ -898,62 +847,14 @@ def transform_fold_preprocessing(
 
 
 # ============================================================
-# VALIDATION METRICS
+# STATISTICAL UTILITIES
 # ============================================================
 
-def validation_squared_distances(
-    validation_data: np.ndarray,
-    labels: np.ndarray,
-    centroids: np.ndarray,
-) -> np.ndarray:
-    """
-    Distanza euclidea quadratica dal centroide assegnato
-    per ogni molecola del validation fold.
-    """
-    assigned_centroids = centroids[labels]
-
-    residuals = (
-        validation_data
-        - assigned_centroids
-    )
-
-    return np.einsum(
-        "ij,ij->i",
-        residuals,
-        residuals,
-    )
-
-
-def silhouette_is_defined(
-    labels: np.ndarray,
-) -> bool:
-    number_of_clusters = len(
-        np.unique(labels)
-    )
-
-    return (
-        number_of_clusters >= 2
-        and number_of_clusters < len(labels)
-    )
-
-
-# ============================================================
-# BOOTSTRAP CONFIDENCE INTERVAL
-# ============================================================
-
-def bootstrap_mean_confidence_interval(
-    values: np.ndarray,
-    rng: np.random.Generator,
+def t_confidence_interval(
+    values: np.ndarray | pd.Series,
+    confidence_level: float = CONFIDENCE_LEVEL,
 ) -> tuple[float, float, float, float]:
-    """
-    Intervallo percentile bootstrap per la media.
 
-    Restituisce:
-    - media;
-    - deviazione standard tra molecole;
-    - limite inferiore;
-    - limite superiore.
-    """
     values = np.asarray(
         values,
         dtype=np.float64,
@@ -963,7 +864,9 @@ def bootstrap_mean_confidence_interval(
         np.isfinite(values)
     ]
 
-    if len(values) < 2:
+    n = len(values)
+
+    if n < 2:
         return (
             np.nan,
             np.nan,
@@ -971,138 +874,107 @@ def bootstrap_mean_confidence_interval(
             np.nan,
         )
 
-    number_of_values = len(values)
-
-    bootstrap_means = np.empty(
-        N_BOOTSTRAP,
-        dtype=np.float64,
+    mean = values.mean()
+    standard_deviation = values.std(
+        ddof=1
     )
 
-    for start in range(
-        0,
-        N_BOOTSTRAP,
-        BOOTSTRAP_CHUNK_SIZE,
-    ):
-        end = min(
-            start + BOOTSTRAP_CHUNK_SIZE,
-            N_BOOTSTRAP,
-        )
-
-        chunk_size = end - start
-
-        bootstrap_indices = rng.integers(
-            low=0,
-            high=number_of_values,
-            size=(
-                chunk_size,
-                number_of_values,
-            ),
-        )
-
-        bootstrap_means[start:end] = (
-            values[bootstrap_indices]
-            .mean(axis=1)
-        )
-
-    alpha = 1 - CONFIDENCE_LEVEL
-
-    lower = np.quantile(
-        bootstrap_means,
-        alpha / 2,
+    standard_error = (
+        standard_deviation
+        / np.sqrt(n)
     )
 
-    upper = np.quantile(
-        bootstrap_means,
+    alpha = 1 - confidence_level
+
+    critical_value = t.ppf(
         1 - alpha / 2,
+        df=n - 1,
+    )
+
+    margin = (
+        critical_value
+        * standard_error
     )
 
     return (
-        float(values.mean()),
-        float(values.std(ddof=1)),
-        float(lower),
-        float(upper),
+        float(mean),
+        float(standard_deviation),
+        float(mean - margin),
+        float(mean + margin),
     )
 
 
+def holm_adjust(
+    p_values: np.ndarray | pd.Series,
+) -> np.ndarray:
+
+    p_values = np.asarray(
+        p_values,
+        dtype=np.float64,
+    )
+
+    number_of_tests = len(p_values)
+
+    order = np.argsort(
+        p_values
+    )
+
+    adjusted = np.empty(
+        number_of_tests,
+        dtype=np.float64,
+    )
+
+    running_maximum = 0.0
+
+    for rank, original_index in enumerate(
+        order
+    ):
+        multiplier = (
+            number_of_tests - rank
+        )
+
+        corrected_value = min(
+            1.0,
+            multiplier
+            * p_values[original_index],
+        )
+
+        running_maximum = max(
+            running_maximum,
+            corrected_value,
+        )
+
+        adjusted[original_index] = (
+            running_maximum
+        )
+
+    return adjusted
+
+
 # ============================================================
-# REPEATED CROSS-VALIDATION
+# CROSS-VALIDATION
 # ============================================================
 
-def run_repeated_cross_validation(
+def run_cross_validation(
     X: pd.DataFrame,
-) -> tuple[
-    pd.DataFrame,
-    pd.DataFrame,
-    dict[int, np.ndarray],
-    dict[int, np.ndarray],
-]:
-    number_of_samples = len(X)
+) -> tuple[pd.DataFrame, pd.DataFrame]:
 
-    cross_validator = RepeatedKFold(
+    cross_validator = KFold(
         n_splits=N_SPLITS,
-        n_repeats=N_REPEATS,
+        shuffle=True,
         random_state=RANDOM_STATE,
     )
-
-    within_sums = {
-        k: np.zeros(
-            number_of_samples,
-            dtype=np.float64,
-        )
-        for k in K_VALUES
-    }
-
-    within_counts = {
-        k: np.zeros(
-            number_of_samples,
-            dtype=np.int32,
-        )
-        for k in K_VALUES
-    }
-
-    silhouette_sums = {
-        k: np.zeros(
-            number_of_samples,
-            dtype=np.float64,
-        )
-        for k in K_VALUES
-    }
-
-    silhouette_counts = {
-        k: np.zeros(
-            number_of_samples,
-            dtype=np.int32,
-        )
-        for k in K_VALUES
-    }
 
     fold_records = []
     preprocessing_records = []
 
-    total_splits = (
-        N_SPLITS
-        * N_REPEATS
-    )
-
-    for split_number, (
+    for fold_number, (
         train_indices,
         validation_indices,
     ) in enumerate(
         cross_validator.split(X),
         start=1,
     ):
-        repeat_number = (
-            (split_number - 1)
-            // N_SPLITS
-            + 1
-        )
-
-        fold_number = (
-            (split_number - 1)
-            % N_SPLITS
-            + 1
-        )
-
         X_train_raw = X.iloc[
             train_indices
         ].copy()
@@ -1111,46 +983,34 @@ def run_repeated_cross_validation(
             validation_indices
         ].copy()
 
-        # ====================================================
-        # PREPROCESSING FIT SUL SOLO TRAINING FOLD
-        # ====================================================
+        # ----------------------------------------------------
+        # Preprocessing fit solo sul training fold
+        # ----------------------------------------------------
 
         (
             retained_features,
             preprocessing_diagnostics,
-        ) = fit_fold_preprocessing(
+        ) = fit_preprocessing(
             X_train_raw
         )
 
         X_train_preprocessed = (
-            transform_fold_preprocessing(
-                X=X_train_raw,
-                retained_features=retained_features,
+            transform_preprocessing(
+                X_train_raw,
+                retained_features,
             )
         )
 
         X_validation_preprocessed = (
-            transform_fold_preprocessing(
-                X=X_validation_raw,
-                retained_features=retained_features,
+            transform_preprocessing(
+                X_validation_raw,
+                retained_features,
             )
         )
 
-        X_train_array = (
-            X_train_preprocessed.to_numpy(
-                dtype=np.float64
-            )
-        )
-
-        X_validation_array = (
-            X_validation_preprocessed.to_numpy(
-                dtype=np.float64
-            )
-        )
-
-        # ====================================================
-        # PCA FIT SUL SOLO TRAINING FOLD
-        # ====================================================
+        # ----------------------------------------------------
+        # PCA fit solo sul training fold
+        # ----------------------------------------------------
 
         pca = PCA(
             n_components=VARIANCE_TO_KEEP,
@@ -1158,25 +1018,23 @@ def run_repeated_cross_validation(
         )
 
         X_train_pca = pca.fit_transform(
-            X_train_array
+            X_train_preprocessed
         )
 
         X_validation_pca = pca.transform(
-            X_validation_array
-        )
-
-        number_of_components = (
-            X_train_pca.shape[1]
+            X_validation_preprocessed
         )
 
         explained_variance = float(
             pca.explained_variance_ratio_.sum()
         )
 
+        number_of_components = (
+            X_train_pca.shape[1]
+        )
+
         preprocessing_records.append(
             {
-                "split": split_number,
-                "repeat": repeat_number,
                 "fold": fold_number,
                 "train_size": len(train_indices),
                 "validation_size": (
@@ -1192,8 +1050,7 @@ def run_repeated_cross_validation(
             }
         )
 
-        # Calcolata una volta per fold e riutilizzata
-        # per tutti i valori di k.
+        # Una sola matrice delle distanze per fold.
         validation_distance_matrix = (
             pairwise_distances(
                 X_validation_pca,
@@ -1203,29 +1060,14 @@ def run_repeated_cross_validation(
         )
 
         print(
-            f"\nSplit {split_number:>2}/{total_splits} | "
-            f"repeat={repeat_number} | "
-            f"fold={fold_number}"
-        )
-
-        print(
-            "  Feature: "
-            f"{X_train_raw.shape[1]} -> "
+            f"\nFold {fold_number}/{N_SPLITS} | "
+            f"feature="
             f"{X_train_preprocessed.shape[1]} | "
-            "quasi-constant removed="
-            f"{preprocessing_diagnostics['quasi_constant_removed']} | "
-            "correlated removed="
-            f"{preprocessing_diagnostics['correlated_features_removed']}"
+            f"PCA components="
+            f"{number_of_components} | "
+            f"variance="
+            f"{explained_variance:.6f}"
         )
-
-        print(
-            f"  PCA components={number_of_components} | "
-            f"variance={explained_variance:.6f}"
-        )
-
-        # ====================================================
-        # K-MEANS PER k = 2, ..., 10
-        # ====================================================
 
         for k in K_VALUES:
             kmeans = KMeans(
@@ -1234,7 +1076,7 @@ def run_repeated_cross_validation(
                 n_init=KMEANS_N_INIT,
                 random_state=(
                     RANDOM_STATE
-                    + split_number * 100
+                    + fold_number * 100
                     + k
                 ),
             )
@@ -1249,51 +1091,39 @@ def run_repeated_cross_validation(
                 )
             )
 
-            squared_distances = (
-                validation_squared_distances(
-                    validation_data=(
-                        X_validation_pca
-                    ),
-                    labels=validation_labels,
-                    centroids=(
-                        kmeans.cluster_centers_
-                    ),
-                )
+            assigned_centroids = (
+                kmeans.cluster_centers_[
+                    validation_labels
+                ]
             )
 
-            within_sums[k][
-                validation_indices
-            ] += squared_distances
+            squared_distances = np.sum(
+                (
+                    X_validation_pca
+                    - assigned_centroids
+                ) ** 2,
+                axis=1,
+            )
 
-            within_counts[k][
-                validation_indices
-            ] += 1
-
-            mean_within = float(
+            mean_within_distance = float(
                 squared_distances.mean()
             )
 
-            if silhouette_is_defined(
+            unique_labels = np.unique(
                 validation_labels
+            )
+
+            if (
+                len(unique_labels) >= 2
+                and len(unique_labels)
+                < len(validation_labels)
             ):
-                silhouette_values = (
-                    silhouette_samples(
+                mean_silhouette = float(
+                    silhouette_score(
                         validation_distance_matrix,
                         validation_labels,
                         metric="precomputed",
                     )
-                )
-
-                silhouette_sums[k][
-                    validation_indices
-                ] += silhouette_values
-
-                silhouette_counts[k][
-                    validation_indices
-                ] += 1
-
-                mean_silhouette = float(
-                    silhouette_values.mean()
                 )
             else:
                 mean_silhouette = np.nan
@@ -1305,27 +1135,10 @@ def run_repeated_cross_validation(
 
             fold_records.append(
                 {
-                    "split": split_number,
-                    "repeat": repeat_number,
                     "fold": fold_number,
                     "k": k,
-                    "train_size": len(
-                        train_indices
-                    ),
-                    "validation_size": len(
-                        validation_indices
-                    ),
-                    "remaining_features": (
-                        X_train_preprocessed.shape[1]
-                    ),
-                    "pca_components": (
-                        number_of_components
-                    ),
-                    "explained_variance": (
-                        explained_variance
-                    ),
-                    "mean_validation_within_variance": (
-                        mean_within
+                    "mean_validation_within_distance": (
+                        mean_within_distance
                     ),
                     "mean_validation_silhouette": (
                         mean_silhouette
@@ -1341,64 +1154,29 @@ def run_repeated_cross_validation(
                     "maximum_cluster_size": int(
                         cluster_sizes.max()
                     ),
+                    "remaining_features": (
+                        X_train_preprocessed.shape[1]
+                    ),
+                    "pca_components": (
+                        number_of_components
+                    ),
+                    "explained_variance": (
+                        explained_variance
+                    ),
                 }
             )
 
             print(
-                f"    k={k:>2} | "
-                f"within={mean_within:10.4f} | "
-                f"silhouette={mean_silhouette:7.4f}"
+                f"  k={k:>2} | "
+                f"within="
+                f"{mean_within_distance:10.4f} | "
+                f"silhouette="
+                f"{mean_silhouette:7.4f}"
             )
-
-    fold_results = pd.DataFrame(
-        fold_records
-    )
-
-    preprocessing_results = pd.DataFrame(
-        preprocessing_records
-    )
-
-    per_sample_within = {}
-    per_sample_silhouette = {}
-
-    for k in K_VALUES:
-        if np.any(
-            within_counts[k] == 0
-        ):
-            raise RuntimeError(
-                f"Alcune molecole non sono mai "
-                f"state valutate per k={k}."
-            )
-
-        per_sample_within[k] = (
-            within_sums[k]
-            / within_counts[k]
-        )
-
-        silhouette_values = np.full(
-            number_of_samples,
-            np.nan,
-            dtype=np.float64,
-        )
-
-        valid_mask = (
-            silhouette_counts[k] > 0
-        )
-
-        silhouette_values[valid_mask] = (
-            silhouette_sums[k][valid_mask]
-            / silhouette_counts[k][valid_mask]
-        )
-
-        per_sample_silhouette[k] = (
-            silhouette_values
-        )
 
     return (
-        fold_results,
-        preprocessing_results,
-        per_sample_within,
-        per_sample_silhouette,
+        pd.DataFrame(fold_records),
+        pd.DataFrame(preprocessing_records),
     )
 
 
@@ -1407,21 +1185,25 @@ def run_repeated_cross_validation(
 # ============================================================
 
 def build_summary(
-    per_sample_within: dict[int, np.ndarray],
-    per_sample_silhouette: dict[int, np.ndarray],
-    rng: np.random.Generator,
+    fold_results: pd.DataFrame,
 ) -> pd.DataFrame:
-    rows = []
+
+    summary_rows = []
 
     for k in K_VALUES:
+        subset = fold_results[
+            fold_results["k"] == k
+        ]
+
         (
             within_mean,
             within_std,
             within_lower,
             within_upper,
-        ) = bootstrap_mean_confidence_interval(
-            per_sample_within[k],
-            rng,
+        ) = t_confidence_interval(
+            subset[
+                "mean_validation_within_distance"
+            ]
         )
 
         (
@@ -1429,18 +1211,20 @@ def build_summary(
             silhouette_std,
             silhouette_lower,
             silhouette_upper,
-        ) = bootstrap_mean_confidence_interval(
-            per_sample_silhouette[k],
-            rng,
+        ) = t_confidence_interval(
+            subset[
+                "mean_validation_silhouette"
+            ]
         )
 
-        rows.append(
+        summary_rows.append(
             {
                 "k": k,
-                "mean_validation_within_variance": (
+                "n_folds": len(subset),
+                "mean_validation_within_distance": (
                     within_mean
                 ),
-                "std_validation_within_variance": (
+                "std_validation_within_distance": (
                     within_std
                 ),
                 "within_ci_lower_95": (
@@ -1464,59 +1248,177 @@ def build_summary(
             }
         )
 
-    return pd.DataFrame(rows)
-
-
-def print_summary(
-    summary: pd.DataFrame,
-) -> None:
-    print("\n" + "=" * 105)
-    print(
-        "RISULTATI MEDI OUT-OF-FOLD "
-        f"CON IC {CONFIDENCE_LEVEL:.0%}"
+    return pd.DataFrame(
+        summary_rows
     )
-    print("=" * 105)
 
-    for row in summary.itertuples(
-        index=False
+
+# ============================================================
+# PAIRED DIFFERENCE TESTS
+# ============================================================
+
+def build_difference_tests(
+    fold_results: pd.DataFrame,
+) -> pd.DataFrame:
+
+    within_pivot = fold_results.pivot(
+        index="fold",
+        columns="k",
+        values="mean_validation_within_distance",
+    )
+
+    silhouette_pivot = fold_results.pivot(
+        index="fold",
+        columns="k",
+        values="mean_validation_silhouette",
+    )
+
+    test_rows = []
+
+    for current_k, next_k in zip(
+        K_VALUES[:-1],
+        K_VALUES[1:],
     ):
-        print(
-            f"k={row.k:>2} | "
-            f"within="
-            f"{row.mean_validation_within_variance:10.4f} "
-            f"[{row.within_ci_lower_95:.4f}, "
-            f"{row.within_ci_upper_95:.4f}] | "
-            f"silhouette="
-            f"{row.mean_validation_silhouette:7.4f} "
-            f"[{row.silhouette_ci_lower_95:.4f}, "
-            f"{row.silhouette_ci_upper_95:.4f}]"
+        # Positive = riduzione della within distance.
+        within_difference = (
+            within_pivot[current_k]
+            - within_pivot[next_k]
         )
 
-    best_row = summary.loc[
-        summary[
-            "mean_validation_silhouette"
-        ].idxmax()
-    ]
+        (
+            within_mean,
+            within_std,
+            within_lower,
+            within_upper,
+        ) = t_confidence_interval(
+            within_difference
+        )
 
-    print(
-        "\nMigliore configurazione "
-        "per silhouette media:"
+        within_test = ttest_1samp(
+            within_difference,
+            popmean=0,
+            nan_policy="omit",
+        )
+
+        relative_reduction = (
+            (
+                within_pivot[current_k]
+                - within_pivot[next_k]
+            )
+            / within_pivot[current_k]
+            * 100
+        ).mean()
+
+        test_rows.append(
+            {
+                "metric": "within_distance",
+                "comparison": (
+                    f"k={current_k} vs k={next_k}"
+                ),
+                "k_from": current_k,
+                "k_to": next_k,
+                "mean_difference": within_mean,
+                "std_difference": within_std,
+                "difference_ci_lower_95": (
+                    within_lower
+                ),
+                "difference_ci_upper_95": (
+                    within_upper
+                ),
+                "mean_relative_change_percentage": (
+                    relative_reduction
+                ),
+                "t_statistic": float(
+                    within_test.statistic
+                ),
+                "p_value": float(
+                    within_test.pvalue
+                ),
+            }
+        )
+
+        # Positive = aumento della silhouette.
+        silhouette_difference = (
+            silhouette_pivot[next_k]
+            - silhouette_pivot[current_k]
+        )
+
+        (
+            silhouette_mean,
+            silhouette_std,
+            silhouette_lower,
+            silhouette_upper,
+        ) = t_confidence_interval(
+            silhouette_difference
+        )
+
+        silhouette_test = ttest_1samp(
+            silhouette_difference,
+            popmean=0,
+            nan_policy="omit",
+        )
+
+        test_rows.append(
+            {
+                "metric": "silhouette",
+                "comparison": (
+                    f"k={current_k} vs k={next_k}"
+                ),
+                "k_from": current_k,
+                "k_to": next_k,
+                "mean_difference": (
+                    silhouette_mean
+                ),
+                "std_difference": (
+                    silhouette_std
+                ),
+                "difference_ci_lower_95": (
+                    silhouette_lower
+                ),
+                "difference_ci_upper_95": (
+                    silhouette_upper
+                ),
+                "mean_relative_change_percentage": (
+                    np.nan
+                ),
+                "t_statistic": float(
+                    silhouette_test.statistic
+                ),
+                "p_value": float(
+                    silhouette_test.pvalue
+                ),
+            }
+        )
+
+    tests = pd.DataFrame(
+        test_rows
     )
 
-    print(
-        f"k = {int(best_row['k'])}"
+    tests["p_value_holm"] = np.nan
+
+    for metric in [
+        "within_distance",
+        "silhouette",
+    ]:
+        mask = (
+            tests["metric"] == metric
+        )
+
+        tests.loc[
+            mask,
+            "p_value_holm",
+        ] = holm_adjust(
+            tests.loc[
+                mask,
+                "p_value",
+            ].to_numpy()
+        )
+
+    tests["significant_holm_0_05"] = (
+        tests["p_value_holm"] < 0.05
     )
 
-    print(
-        "Silhouette media = "
-        f"{best_row['mean_validation_silhouette']:.4f}"
-    )
-
-    print(
-        f"IC {CONFIDENCE_LEVEL:.0%} = "
-        f"[{best_row['silhouette_ci_lower_95']:.4f}, "
-        f"{best_row['silhouette_ci_upper_95']:.4f}]"
-    )
+    return tests
 
 
 # ============================================================
@@ -1526,8 +1428,9 @@ def print_summary(
 def plot_elbow(
     summary: pd.DataFrame,
 ) -> None:
+
     means = summary[
-        "mean_validation_within_variance"
+        "mean_validation_within_distance"
     ].to_numpy()
 
     lower_errors = (
@@ -1554,19 +1457,18 @@ def plot_elbow(
             upper_errors,
         ],
         marker="o",
-        capsize=4,
+        capsize=5,
     )
 
-    plt.xlabel("Number of clusters k")
+    plt.xlabel("Numero di cluster k")
 
     plt.ylabel(
-        "Mean squared within-cluster distance "
-        "on validation folds"
+        "Distanza quadratica media intra-cluster "
+        "sui validation fold"
     )
 
     plt.title(
-        "K-Means elbow plot "
-        "with repeated cross-validation"
+        "K-Means elbow plot con 10-fold cross-validation"
     )
 
     plt.xticks(K_VALUES)
@@ -1585,6 +1487,7 @@ def plot_elbow(
 def plot_silhouette(
     summary: pd.DataFrame,
 ) -> None:
+
     means = summary[
         "mean_validation_silhouette"
     ].to_numpy()
@@ -1613,17 +1516,16 @@ def plot_silhouette(
             upper_errors,
         ],
         marker="o",
-        capsize=4,
+        capsize=5,
     )
 
-    plt.xlabel("Number of clusters k")
+    plt.xlabel("Numero di cluster k")
     plt.ylabel(
-        "Mean silhouette on validation folds"
+        "Silhouette media sui validation fold"
     )
 
     plt.title(
-        "K-Means silhouette "
-        "with repeated cross-validation"
+        "Silhouette media con 10-fold cross-validation"
     )
 
     plt.xticks(K_VALUES)
@@ -1640,13 +1542,195 @@ def plot_silhouette(
 
 
 # ============================================================
+# FINAL MODELS AND CLUSTER PLOTS
+# ============================================================
+
+def fit_final_models_and_plot(
+    X: pd.DataFrame,
+) -> None:
+
+    CLUSTER_PLOTS_DIR.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    # Preprocessing riadattato sull'intero dataset.
+    retained_features, diagnostics = (
+        fit_preprocessing(X)
+    )
+
+    X_preprocessed = transform_preprocessing(
+        X,
+        retained_features,
+    )
+
+    pca = PCA(
+        n_components=VARIANCE_TO_KEEP,
+        svd_solver="full",
+    )
+
+    X_pca = pca.fit_transform(
+        X_preprocessed
+    )
+
+    explained = (
+        pca.explained_variance_ratio_
+    )
+
+    print("\nModello finale")
+    print("-" * 60)
+    print(
+        f"Feature finali: "
+        f"{X_preprocessed.shape[1]}"
+    )
+    print(
+        f"Componenti PCA: "
+        f"{X_pca.shape[1]}"
+    )
+    print(
+        f"Varianza conservata: "
+        f"{explained.sum():.6f}"
+    )
+
+    for k in FINAL_CLUSTER_VALUES:
+        kmeans = KMeans(
+            n_clusters=k,
+            init="k-means++",
+            n_init=KMEANS_N_INIT,
+            random_state=RANDOM_STATE + k,
+        )
+
+        labels = kmeans.fit_predict(
+            X_pca
+        )
+
+        centroids = (
+            kmeans.cluster_centers_
+        )
+
+        cluster_sizes = np.bincount(
+            labels,
+            minlength=k,
+        )
+
+        print(
+            f"k={k} | cluster sizes: "
+            f"{cluster_sizes.tolist()}"
+        )
+
+        plt.figure(figsize=(9, 7))
+
+        plt.scatter(
+            X_pca[:, 0],
+            X_pca[:, 1],
+            c=labels,
+            s=12,
+            alpha=0.55,
+        )
+
+        plt.scatter(
+            centroids[:, 0],
+            centroids[:, 1],
+            marker="X",
+            s=200,
+            edgecolors="black",
+        )
+
+        plt.xlabel(
+            "PC1 — varianza spiegata: "
+            f"{explained[0] * 100:.2f}%"
+        )
+
+        plt.ylabel(
+            "PC2 — varianza spiegata: "
+            f"{explained[1] * 100:.2f}%"
+        )
+
+        plt.title(
+            f"K-Means con k={k} — "
+            "visualizzazione su PC1 e PC2"
+        )
+
+        plt.tight_layout()
+
+        output_path = (
+            CLUSTER_PLOTS_DIR
+            / f"kmeans_clusters_pc1_pc2_k{k}.png"
+        )
+
+        plt.savefig(
+            output_path,
+            dpi=FIGURE_DPI,
+            bbox_inches="tight",
+        )
+
+        plt.close()
+
+        print(
+            f"Cluster plot salvato: "
+            f"{output_path}"
+        )
+
+
+# ============================================================
+# PRINTING
+# ============================================================
+
+def print_summary(
+    summary: pd.DataFrame,
+) -> None:
+
+    print("\n" + "=" * 105)
+    print(
+        "RISULTATI 10-FOLD CROSS-VALIDATION "
+        "CON INTERVALLI t AL 95%"
+    )
+    print("=" * 105)
+
+    for row in summary.itertuples(
+        index=False
+    ):
+        print(
+            f"k={row.k:>2} | "
+            f"within="
+            f"{row.mean_validation_within_distance:10.4f} "
+            f"[{row.within_ci_lower_95:.4f}, "
+            f"{row.within_ci_upper_95:.4f}] | "
+            f"silhouette="
+            f"{row.mean_validation_silhouette:7.4f} "
+            f"[{row.silhouette_ci_lower_95:.4f}, "
+            f"{row.silhouette_ci_upper_95:.4f}]"
+        )
+
+
+def print_difference_tests(
+    tests: pd.DataFrame,
+) -> None:
+
+    print("\n" + "=" * 105)
+    print("TEST t APPAIATI TRA VALORI CONSECUTIVI DI k")
+    print("=" * 105)
+
+    for row in tests.itertuples(
+        index=False
+    ):
+        print(
+            f"{row.metric:<16} | "
+            f"{row.comparison:<14} | "
+            f"diff={row.mean_difference:9.5f} | "
+            f"IC=[{row.difference_ci_lower_95:.5f}, "
+            f"{row.difference_ci_upper_95:.5f}] | "
+            f"p-Holm={row.p_value_holm:.6g} | "
+            f"significativo="
+            f"{row.significant_holm_0_05}"
+        )
+
+
+# ============================================================
 # MAIN
 # ============================================================
 
 def main() -> None:
-    rng = np.random.default_rng(
-        RANDOM_STATE
-    )
 
     REPORTS_DIR.mkdir(
         parents=True,
@@ -1660,7 +1744,7 @@ def main() -> None:
     print("=" * 75)
     print(
         "PREPROCESSING + PCA + K-MEANS "
-        "REPEATED CROSS-VALIDATION"
+        "10-FOLD CROSS-VALIDATION"
     )
     print("=" * 75)
 
@@ -1675,62 +1759,32 @@ def main() -> None:
 
     print(
         "Il target non viene utilizzato "
-        "nel preprocessing o nel clustering."
+        "nel clustering."
     )
 
     print(
-        f"Target distribution: "
+        f"Distribuzione target: "
         f"{y.value_counts().to_dict()}"
     )
 
-    print(
-        f"Quasi-constant threshold: "
-        f"{QUASI_CONSTANT_THRESHOLD:.0%}"
-    )
-
-    print(
-        f"Correlation thresholds: "
-        f"Pearson={PEARSON_THRESHOLD}, "
-        f"Phi={PHI_THRESHOLD}, "
-        f"Point-biserial="
-        f"{POINT_BISERIAL_THRESHOLD}"
-    )
-
-    print(
-        f"PCA variance threshold: "
-        f"{VARIANCE_TO_KEEP:.0%}"
-    )
-
-    print(
-        f"k range: "
-        f"{min(K_VALUES)}-{max(K_VALUES)}"
-    )
-
-    print(
-        f"Cross-validation: "
-        f"{N_SPLITS} folds × "
-        f"{N_REPEATS} repeats = "
-        f"{N_SPLITS * N_REPEATS} "
-        "valutazioni per k"
-    )
-
-    (
-        fold_results,
-        preprocessing_results,
-        per_sample_within,
-        per_sample_silhouette,
-    ) = run_repeated_cross_validation(
-        X
+    fold_results, preprocessing_results = (
+        run_cross_validation(X)
     )
 
     summary = build_summary(
-        per_sample_within,
-        per_sample_silhouette,
-        rng,
+        fold_results
+    )
+
+    difference_tests = build_difference_tests(
+        fold_results
     )
 
     print_summary(
         summary
+    )
+
+    print_difference_tests(
+        difference_tests
     )
 
     fold_results.to_csv(
@@ -1748,6 +1802,11 @@ def main() -> None:
         index=False,
     )
 
+    difference_tests.to_csv(
+        DIFFERENCE_TEST_PATH,
+        index=False,
+    )
+
     plot_elbow(
         summary
     )
@@ -1756,61 +1815,38 @@ def main() -> None:
         summary
     )
 
-    print("\nDiagnostica del preprocessing")
-    print("-" * 60)
-
-    print(
-        "Feature quasi-costanti rimosse, media: "
-        f"{preprocessing_results['quasi_constant_removed'].mean():.2f}"
-    )
-
-    print(
-        "Feature correlate rimosse, media: "
-        f"{preprocessing_results['correlated_features_removed'].mean():.2f}"
-    )
-
-    print(
-        "Feature finali, media: "
-        f"{preprocessing_results['remaining_features'].mean():.2f}"
-    )
-
-    print(
-        "Componenti PCA, media: "
-        f"{preprocessing_results['pca_components'].mean():.2f}"
-    )
-
-    print(
-        "Componenti PCA, intervallo: "
-        f"[{preprocessing_results['pca_components'].min()}, "
-        f"{preprocessing_results['pca_components'].max()}]"
-    )
-
-    print(
-        "Varianza media conservata: "
-        f"{preprocessing_results['explained_variance'].mean():.6f}"
+    fit_final_models_and_plot(
+        X
     )
 
     print("\nFile salvati:")
     print(
-        f"Summary: {SUMMARY_REPORT_PATH}"
+        f"Fold results: "
+        f"{FOLD_REPORT_PATH}"
     )
-
     print(
-        f"Fold results: {FOLD_REPORT_PATH}"
+        f"Summary: "
+        f"{SUMMARY_REPORT_PATH}"
     )
-
     print(
-        "Preprocessing diagnostics: "
+        f"Difference tests: "
+        f"{DIFFERENCE_TEST_PATH}"
+    )
+    print(
+        f"Preprocessing diagnostics: "
         f"{PREPROCESSING_REPORT_PATH}"
     )
-
     print(
-        f"Elbow plot: {ELBOW_PLOT_PATH}"
+        f"Elbow plot: "
+        f"{ELBOW_PLOT_PATH}"
     )
-
     print(
-        "Silhouette plot: "
+        f"Silhouette plot: "
         f"{SILHOUETTE_PLOT_PATH}"
+    )
+    print(
+        f"Cluster plots: "
+        f"{CLUSTER_PLOTS_DIR}"
     )
 
 
