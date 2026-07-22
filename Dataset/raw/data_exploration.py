@@ -39,6 +39,38 @@ X_test = X_test[X_train.columns]
 
 X_all = pd.concat([X_train, X_test], ignore_index=True)
 
+
+# Minimo e massimo per ogni feature
+feature_ranges = pd.DataFrame({
+    "train_min": X_train.min(),
+    "train_max": X_train.max(),
+    "test_min": X_test.min(),
+    "test_max": X_test.max(),
+    "global_min": X_all.min(),
+    "global_max": X_all.max()
+})
+
+feature_ranges["global_range"] = (
+    feature_ranges["global_max"] - feature_ranges["global_min"]
+)
+
+print("\nMINIMO E MASSIMO PER OGNI FEATURE")
+print("-" * 90)
+
+# Permette a pandas di stampare tutte le feature
+with pd.option_context(
+    "display.max_rows", None,
+    "display.max_columns", None,
+    "display.width", 150
+):
+    print(feature_ranges)
+
+# Salvataggio opzionale
+feature_ranges.to_csv(
+    BASE_DIR / "feature_min_max.csv",
+    index_label="feature"
+)
+
 mins = X_all.min()
 maxs = X_all.max()
 
@@ -46,8 +78,24 @@ outside_range = (mins < 0) | (maxs > 1)
 
 # Distribuzione delle feature binarie
 
+numeric_ranges = pd.DataFrame({
+    "min": X_train[numeric_non_binary_features].min(),
+    "max": X_train[numeric_non_binary_features].max()
+})
+
+numeric_ranges["range"] = numeric_ranges["max"] - numeric_ranges["min"]
+
+print("\nDistribuzione dei range delle feature numeriche:")
+print(numeric_ranges["range"].describe())
+
+print("\nFeature numeriche con range inferiore a 0.01:")
+print((numeric_ranges["range"] < 0.01).sum())
+
+print("\nFeature numeriche con range inferiore a 0.10:")
+print((numeric_ranges["range"] < 0.10).sum())
+
 binary_distribution = []
-quit
+
 for col in binary_features:
     pct_zeros = (X_train[col] == 0).mean() * 100
     pct_ones = (X_train[col] == 1).mean() * 100

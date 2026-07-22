@@ -1,0 +1,9 @@
+{
+  "representation": "row_normalized_cosine",
+  "selected_k": 2,
+  "selected_is_admissible": false,
+  "overall_silhouette": 0.6636114716529846,
+  "minimum_cluster_fraction": 0.0010663822980538523,
+  "minimum_cluster_mean_silhouette": 0.40242573618888855,
+  "admissibility_reason": "at least one cluster is smaller than 5.0%"
+}

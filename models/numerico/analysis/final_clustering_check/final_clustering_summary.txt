@@ -1,0 +1,50 @@
+FINAL NUMERIC CLUSTERING CHECK
+============================================
+
+Samples: 3751
+Numeric features: 695
+
+PRESENCE / JACCARD
+------------------
+Selected k: 2
+Admissible under the predefined criteria: True
+Overall silhouette: 0.191870
+Minimum cluster fraction: 0.053319
+Minimum cluster mean silhouette: 0.157493
+Cluster-size ratio: 17.755000
+Activity Cramer's V: 0.088008
+Activity NMI: 0.008884
+Activity ARI: 0.007616
+Reason/status: admissible
+
+ROW-NORMALIZED PROFILE / COSINE
+-------------------------------
+Selected k: 2
+Admissible under the predefined criteria: False
+Overall silhouette: 0.663611
+Minimum cluster fraction: 0.001066
+Minimum cluster mean silhouette: 0.402426
+Cluster-size ratio: 936.750000
+Activity Cramer's V: 0.010969
+Activity NMI: 0.000541
+Activity ARI: 0.000212
+Reason/status: at least one cluster is smaller than 5.0%
+
+PARTITION AGREEMENT
+--------------------
+ARI between selected Jaccard and cosine partitions: 0.035146
+NMI between selected Jaccard and cosine partitions: 0.028967
+
+FEATURE-SUBSAMPLING STABILITY
+------------------------------
+presence_jaccard: mean ARI=0.130023, minimum ARI=0.017719, mean NMI=0.092823
+row_normalized_cosine: mean ARI=0.427648, minimum ARI=-0.000711, mean NMI=0.405450
+
+DBSCAN
+--------------------
+No DBSCAN configuration satisfied all predefined requirements.
+
+DECISION RULE
+--------------------
+A sample clustering should be retained only if it is admissible, stable under feature subsampling and not specific to a single representation.
+If neither Jaccard nor cosine produces an admissible and stable result, and DBSCAN has no admissible configuration, the defensible conclusion is that the numeric descriptors do not exhibit robust global sample clusters.

@@ -1,0 +1,6 @@
+run,representation,selected_feature_count,actual_n_clusters,ari_against_full_feature_partition,nmi_against_full_feature_partition
+1,row_normalized_cosine,486,2,-0.0007106671962259746,8.812025084111818e-05
+2,row_normalized_cosine,486,2,0.28287760754813457,0.23290778311881122
+3,row_normalized_cosine,486,2,-0.0007106671962259746,8.812025084111818e-05
+4,row_normalized_cosine,486,2,0.8567831879463248,0.7941653224382527
+5,row_normalized_cosine,486,2,1.0,1.0

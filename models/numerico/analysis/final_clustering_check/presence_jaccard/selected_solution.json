@@ -1,0 +1,9 @@
+{
+  "representation": "presence_jaccard",
+  "selected_k": 2,
+  "selected_is_admissible": true,
+  "overall_silhouette": 0.1918698251247406,
+  "minimum_cluster_fraction": 0.053319114902692616,
+  "minimum_cluster_mean_silhouette": 0.1574932336807251,
+  "admissibility_reason": "admissible"
+}

@@ -1,0 +1,6 @@
+run,representation,selected_feature_count,actual_n_clusters,ari_against_full_feature_partition,nmi_against_full_feature_partition
+1,presence_jaccard,486,2,0.017718518648337463,0.014719036426138253
+2,presence_jaccard,486,2,0.017718518648337463,0.014719036426138253
+3,presence_jaccard,486,2,0.5792384995481031,0.4052385770120547
+4,presence_jaccard,486,2,0.017718518648337463,0.014719036426138253
+5,presence_jaccard,486,2,0.017718518648337463,0.014719036426138253
