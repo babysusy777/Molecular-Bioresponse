@@ -1,6 +1,6 @@
 {
   "preprocessing": {
-    "input_path": "/Users/federico.colangelo/Desktop/dmml_project/Molecular-Bioresponse/Dataset/train_filtered_no_activity.csv",
+    "input_path": "/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/Dataset/train_filtered_no_activity.csv",
     "input_kind": "filtered",
     "n_objects": 3751,
     "features_in_input_file": 1523,
@@ -24,8 +24,8 @@
     "sigma_reference_median": 0.1937503218650818,
     "sigma": 0.3875006437301636,
     "gower_silhouette_exact": 0.3238230621763022,
-    "spectral_silhouette_exact": 0.7495214493614166,
-    "eigengap": 0.020650506570370958,
+    "spectral_silhouette_exact": 0.7495214493614168,
+    "eigengap": 0.02065050657037088,
     "cluster_sizes": "[1058, 2693]",
     "valid_cluster_sizes": true
   },
@@ -39,8 +39,8 @@
     "sigma_reference_median": 0.43060219287872314,
     "sigma": 0.21530109643936157,
     "gower_silhouette_exact": 0.1732687023183623,
-    "spectral_silhouette_exact": 0.8376427455429823,
-    "eigengap": 0.07433816858123211,
+    "spectral_silhouette_exact": 0.8376427455429826,
+    "eigengap": 0.07433816858123235,
     "cluster_sizes": "[1056, 951, 1267, 477]",
     "valid_cluster_sizes": true
   },
@@ -54,8 +54,8 @@
     "sigma_reference_median": 0.43060219287872314,
     "sigma": 0.21530109643936157,
     "gower_silhouette_exact": 0.15485536446834536,
-    "spectral_silhouette_exact": 0.8857951034205684,
-    "eigengap": 0.10547801726343192,
+    "spectral_silhouette_exact": 0.8857951034205676,
+    "eigengap": 0.1054780172634325,
     "cluster_sizes": "[1428, 2323]",
     "valid_cluster_sizes": true
   },
@@ -69,8 +69,8 @@
     "sigma_reference_median": 0.43060219287872314,
     "sigma": 0.21530109643936157,
     "gower_silhouette_exact": 0.1732687023183623,
-    "spectral_silhouette_exact": 0.8376427455429826,
-    "eigengap": 0.07433816858123214,
+    "spectral_silhouette_exact": 0.8376427455429822,
+    "eigengap": 0.074338168581232,
     "cluster_sizes": "[1056, 1267, 477, 951]",
     "valid_cluster_sizes": true
   },

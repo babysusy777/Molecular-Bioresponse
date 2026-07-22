@@ -2,7 +2,7 @@
 
 ## 1. Dataset used
 The analysis used **3751 observations** and **1523 retained descriptors**: **695 numerical (45.6%) and **828 binary (54.4%)**.
-Input source: `/Users/federico.colangelo/Desktop/dmml_project/Molecular-Bioresponse/Dataset/train_filtered_no_activity.csv`. The Activity variable was excluded from all unsupervised steps.
+Input source: `/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/Dataset/train_filtered_no_activity.csv`. The Activity variable was excluded from all unsupervised steps.
 
 ## 2. Classical Gower baseline
 The representative classical solution used k=2 and sigma=2.0 times the median positive Gower dissimilarity. It produced cluster sizes [1058, 2693], Gower silhouette 0.3238, spectral silhouette 0.7495, and eigengap 0.020651.
