@@ -1,0 +1,2 @@
+n_rows,n_features,n_row_clusters,n_column_clusters,n_blocks,method,block_r2,smallest_row_cluster,largest_row_cluster,smallest_column_cluster,largest_column_cluster
+3751,1523,4,4,16,bistochastic,0.3563245353136525,383,1418,63,988

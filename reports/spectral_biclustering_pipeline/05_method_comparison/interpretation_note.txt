@@ -1,0 +1,4 @@
+The metrics of the two methods are not optimization-equivalent.
+Spectral biclustering partitions all rows and columns into a global checkerboard.
+Delta biclustering extracts one or more local submatrices satisfying a direct coherence constraint.
+Therefore block R² and delta H-score must not be used as if they were the same objective.
