@@ -1,0 +1,39 @@
+NUMERIC FEATURE EXPLORATION SUMMARY
+==========================================
+Samples: 3751
+Numeric features: 695
+Global Activity=1 fraction: 0.542255
+
+DISTRIBUTIONS
+Median zero fraction: 0.919222
+Features with zero fraction >= 0.95: 284
+Features with dominant value fraction >= 0.95: 289
+
+FEATURE CLUSTERING
+Distance: 1 - |Spearman rho|
+Linkage: average
+Feature clusters: 12
+
+PCA AND K-MEANS
+Retained PCs: 156
+Retained variance: 0.900839
+Best k by silhouette: 2
+Best silhouette: 0.717619
+
+ACTIVITY ASSOCIATION
+Chi-square p-value: 0.00854477
+Cramer's V: 0.042938
+NMI: 0.002561
+ARI: 0.002153
+
+Top features by absolute rank-biserial effect:
+D66: r_rb=0.275720, FDR p=2.98062e-49, MI=0.079878
+D469: r_rb=0.269259, FDR p=8.2863e-71, MI=0.053070
+D78: r_rb=0.257407, FDR p=3.75078e-41, MI=0.030389
+D659: r_rb=0.249439, FDR p=9.48723e-40, MI=0.048374
+D87: r_rb=-0.246903, FDR p=4.05649e-37, MI=0.067319
+D146: r_rb=0.245115, FDR p=4.53591e-37, MI=0.034411
+D747: r_rb=0.242851, FDR p=3.37122e-55, MI=0.043468
+D660: r_rb=0.233578, FDR p=4.20224e-37, MI=0.042542
+D739: r_rb=0.220923, FDR p=4.98088e-32, MI=0.041720
+D106: r_rb=0.220778, FDR p=7.7177e-30, MI=0.026635

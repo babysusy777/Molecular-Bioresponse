@@ -1,0 +1,74 @@
+K-MEANS SEPARATION DIAGNOSIS
+==========================================
+
+CLUSTER GEOMETRY
+--------------------
+Cluster sizes: {0: 3678, 1: 73}
+Large/small cluster size ratio: 50.3836
+Overall silhouette: 0.687258
+
+SAMPLE-LEVEL PROPERTIES WITH LARGEST EFFECT
+------------------------------------------------
+l1_norm_standardized: mean0=295.025691, mean1=1317.645475, d=7.295851, r_rb=0.998570, FDR p=6.41559e-48
+PC1: mean0=-1.040626, mean1=52.430447, d=7.122215, r_rb=0.999687, FDR p=6.41559e-48
+distance_to_global_centroid_pca: mean0=18.723721, mean1=88.826317, d=6.175941, r_rb=0.992141, FDR p=1.59391e-47
+raw_mean: mean0=0.063625, mean1=0.159905, d=6.053521, r_rb=0.999128, FDR p=6.41559e-48
+raw_sum: mean0=44.219569, mean1=111.134081, d=6.053521, r_rb=0.999128, FDR p=6.41559e-48
+l1_norm_raw: mean0=44.219569, mean1=111.134081, d=6.053521, r_rb=0.999128, FDR p=6.41559e-48
+l2_norm_standardized: mean0=20.183671, mean1=90.548497, d=6.032515, r_rb=0.992268, FDR p=1.59391e-47
+l2_norm_raw: mean0=4.731001, mean1=7.407137, d=5.965128, r_rb=0.995709, FDR p=9.89041e-48
+
+FEATURES WITH LARGEST STANDARDIZED DIFFERENCE
+----------------------------------------------------
+D76: std_diff=4.472227, d=5.685882, zero_diff=-0.138119, feature_cluster=6
+D453: std_diff=4.340758, d=5.422637, zero_diff=-0.743071, feature_cluster=6
+D1: std_diff=4.282457, d=5.310181, zero_diff=-0.181892, feature_cluster=6
+D548: std_diff=4.277199, d=5.300160, zero_diff=-0.567938, feature_cluster=6
+D315: std_diff=4.175054, d=5.109327, zero_diff=-0.631977, feature_cluster=6
+D24: std_diff=4.151290, d=5.065935, zero_diff=-0.803552, feature_cluster=6
+D928: std_diff=4.140950, d=5.047168, zero_diff=-0.815828, feature_cluster=6
+D314: std_diff=4.108595, d=4.988883, zero_diff=-0.656488, feature_cluster=6
+D449: std_diff=4.071807, d=4.923403, zero_diff=-0.644983, feature_cluster=6
+D342: std_diff=4.047306, d=4.880246, zero_diff=-0.545331, feature_cluster=6
+D456: std_diff=4.029590, d=4.849263, zero_diff=-0.585067, feature_cluster=6
+D589: std_diff=4.007987, d=4.811729, zero_diff=-0.645676, feature_cluster=6
+D447: std_diff=3.997543, d=4.793678, zero_diff=-0.764527, feature_cluster=6
+D69: std_diff=3.993090, d=4.786002, zero_diff=-0.075313, feature_cluster=6
+D448: std_diff=3.965361, d=4.738448, zero_diff=-0.738847, feature_cluster=6
+
+PRINCIPAL COMPONENTS WITH LARGEST EFFECT
+-----------------------------------------------
+PC1: mean_diff=53.471073, d=7.122215, r_rb=0.999687
+PC5: mean_diff=-6.347218, d=-1.386420, r_rb=-0.390512
+PC4: mean_diff=7.116520, d=1.370204, r_rb=0.351926
+PC34: mean_diff=1.858596, d=0.984427, r_rb=0.258903
+PC30: mean_diff=-1.898934, d=-0.957755, r_rb=-0.299500
+PC17: mean_diff=2.154539, d=0.848341, r_rb=0.211953
+PC10: mean_diff=-2.538189, d=-0.778157, r_rb=-0.233674
+PC73: mean_diff=0.934865, d=0.718624, r_rb=0.241018
+PC3: mean_diff=-3.640781, d=-0.652797, r_rb=-0.256922
+PC42: mean_diff=-1.128284, d=-0.651393, r_rb=-0.261354
+
+SPEARMAN FEATURE CLUSTERS WITH LARGEST EFFECT
+--------------------------------------------------
+FeatureCluster 6: n=541, mean_std_diff=1.965662, top_feature=D76, top_diff=4.472227
+FeatureCluster 5: n=26, mean_std_diff=0.724395, top_feature=D932, top_diff=2.872523
+FeatureCluster 4: n=24, mean_std_diff=0.654914, top_feature=D542, top_diff=2.559392
+FeatureCluster 7: n=3, mean_std_diff=0.418811, top_feature=D599, top_diff=0.835433
+FeatureCluster 9: n=10, mean_std_diff=0.277476, top_feature=D920, top_diff=0.916367
+FeatureCluster 1: n=3, mean_std_diff=-0.111554, top_feature=D387, top_diff=-0.171773
+FeatureCluster 10: n=10, mean_std_diff=-0.105665, top_feature=D220, top_diff=-0.174860
+FeatureCluster 11: n=1, mean_std_diff=-0.103403, top_feature=D236, top_diff=-0.103403
+
+ACTIVITY COMPOSITION
+--------------------
+Cluster 0: n=3678, Activity=1 fraction=0.545405, enrichment=0.003150
+Cluster 1: n=73, Activity=1 fraction=0.383562, enrichment=-0.158694
+
+AUTOMATIC DIAGNOSTIC CUES
+----------------------------
+Largest sample-level standardized effect: l1_norm_standardized (Cohen's d=7.2959).
+Principal component most associated with the split: PC1 (Cohen's d=7.1222).
+The separation is strongly associated with this sample-level property.
+The solution is strongly imbalanced and may represent a large central population plus a small extreme group.
+PC1 is a dominant direction of the K-means separation.

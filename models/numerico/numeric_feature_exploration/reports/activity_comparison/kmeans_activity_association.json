@@ -1,0 +1,9 @@
+{
+  "chi_square": 6.915584152679978,
+  "chi_square_p_value": 0.00854477228588252,
+  "degrees_of_freedom": 1,
+  "cramers_v": 0.042937910175972926,
+  "normalized_mutual_information": 0.002561064978159277,
+  "adjusted_rand_index": 0.0021534154899014923,
+  "global_activity_1_fraction": 0.5422553985603839
+}

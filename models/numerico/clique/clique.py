@@ -27,7 +27,7 @@ OUTPUT_DIR = BASE_DIR / "models" / "numerico" / "clique" / "reports"
 MAX_DOMINANT_BIN_FRACTION = 0.75
 XI = 10
 TAU = 0.10
-MAX_DIM = 2
+MAX_DIM = 3
 
 # Protezione contro esplosione combinatoria per dimensioni >= 3
 MAX_CANDIDATES = 2_000_000
@@ -905,6 +905,7 @@ def main() -> None:
             dominant_bin_upper = maximum
             dominant_bin_count = len(values)
             dominant_bin_fraction = 1.0
+            top_3_bins_fraction = 1.0
 
         else:
             counts, edges = np.histogram(
@@ -940,8 +941,8 @@ def main() -> None:
 
         retained = (
             unique_values > 1
-            and dominant_bin_fraction
-            <= MAX_DOMINANT_BIN_FRACTION
+            and dominant_bin_fraction <= 0.75
+            and top_3_bins_fraction <= 0.90
         )
 
         filtering_records.append(
@@ -966,6 +967,7 @@ def main() -> None:
                     dominant_bin_fraction
                 ),
                 "retained": retained,
+                "top_3_bins_fraction": top_3_bins_fraction
             }
         )
 
@@ -1006,9 +1008,9 @@ def main() -> None:
     )
 
     print(
-        "Filtering criterion: "
-        f"dominant bin fraction <= "
-        f"{MAX_DOMINANT_BIN_FRACTION:.2f}"
+        "Filtering criteria: "
+        "dominant bin fraction <= 0.75; "
+        "top-3 bins fraction <= 0.90"
     )
 
     if X_clique.shape[1] < 2:
