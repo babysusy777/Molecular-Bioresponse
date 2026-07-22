@@ -2,6 +2,7 @@ from __future__ import annotations
 
 """Binary-only clustering: asymmetric Jaccard + Ng-Jordan-Weiss.
 
+This script is designed to be placed inside ``models/binario``.
 It keeps the same clustering protocol used for the mixed-data baseline while
 changing only the representation:
 
