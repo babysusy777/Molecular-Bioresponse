@@ -1,0 +1,49 @@
+SUBTYPE VS OUTLIERS DIAGNOSIS
+==========================================
+
+BASELINE
+--------------------
+Small cluster size: 73
+Small cluster fraction: 0.019461
+Activity=1 fraction in large cluster: 0.545405
+Activity=1 fraction in small cluster: 0.383562
+
+PREPROCESSING STABILITY
+----------------------------
+Jaccard under raw unscaled PCA: 0.014245
+Jaccard under RobustScaler PCA: 0.075949
+Jaccard under presence-only PCA: 0.150106
+Median Jaccard across alternative representations: 0.113028
+
+SINGLE-SCALAR EXPLANATION
+----------------------------
+Best scalar predictor: PC1
+Best scalar AUC: 0.999844
+
+OUTLIER DETECTORS
+--------------------
+Mean recall of the baseline 73 across detectors: 0.566210
+Fraction of the 73 flagged by at least two detectors: 0.630137
+
+LOCAL COHESION
+--------------------
+Mean kNN purity inside the small cluster: 0.468493
+Median kNN purity inside the small cluster: 0.400000
+Mean silhouette of the small cluster: -0.177300
+Mean internal / nearest-external distance ratio: 1.637575
+
+FEATURE-SUBSAMPLING STABILITY
+--------------------------------
+Mean run-level Jaccard with the baseline 73: 0.888624
+Median selection frequency among the baseline 73: 1.000000
+
+HEURISTIC EVIDENCE SCORES
+----------------------------
+Stable subtype evidence: 1
+Outlier evidence: 2
+Standardization/magnitude artifact evidence: 3
+Leading hypothesis/hypotheses: standardization_or_magnitude_artifact_evidence
+
+IMPORTANT
+--------------------
+The final classification above is heuristic. Interpret the quantitative stability, cohesion and outlier-overlap measures directly.

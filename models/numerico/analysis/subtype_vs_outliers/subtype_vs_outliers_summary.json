@@ -1,0 +1,19 @@
+{
+  "scores": {
+    "stable_subtype_evidence": 1,
+    "outlier_evidence": 2,
+    "standardization_or_magnitude_artifact_evidence": 3
+  },
+  "leading_hypotheses": [
+    "standardization_or_magnitude_artifact_evidence"
+  ],
+  "raw_jaccard": 0.014245014245014245,
+  "robust_jaccard": 0.0759493670886076,
+  "presence_jaccard": 0.15010570824524314,
+  "median_alternative_jaccard": 0.11302753766692536,
+  "best_scalar_predictor": "PC1",
+  "best_scalar_auc": 0.9998435719233949,
+  "fraction_small_flagged_by_at_least_two": 0.6301369863013698,
+  "small_cluster_mean_knn_purity": 0.4684931506849315,
+  "median_small_subsampling_frequency": 1.0
+}

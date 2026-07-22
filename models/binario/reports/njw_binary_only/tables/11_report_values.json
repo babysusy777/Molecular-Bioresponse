@@ -71,7 +71,7 @@
     "cluster_sizes": "[1056, 936, 1267, 492]",
     "valid_cluster_sizes": true
   },
-  "mixed_labels_source": "/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/reports/njw_mixed_baseline/tables/10_mixed_baseline_labels.csv",
+  "mixed_labels_source": "/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/reports/njw_mixed_baseline_k234_v2/tables/10_mixed_baseline_labels.csv",
   "binary_vs_mixed_comparisons": [
     {
       "comparison": "binary_selected_vs_mixed_classical_selected",
@@ -97,6 +97,15 @@
       "mixed_partition": "mixed_balanced_k2",
       "binary_k": 2,
       "mixed_k": 2,
+      "same_resolution": true,
+      "adjusted_rand_index": 1.0
+    },
+    {
+      "comparison": "binary_k3_vs_mixed_balanced_k3",
+      "binary_partition": "binary_k3",
+      "mixed_partition": "mixed_balanced_k3",
+      "binary_k": 3,
+      "mixed_k": 3,
       "same_resolution": true,
       "adjusted_rand_index": 1.0
     },

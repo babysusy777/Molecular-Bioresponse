@@ -2,4 +2,5 @@ comparison,binary_partition,mixed_partition,binary_k,mixed_k,same_resolution,adj
 binary_selected_vs_mixed_classical_selected,binary_selected,mixed_classical_selected,4,2,False,0.4053543093224308
 binary_selected_vs_mixed_balanced_selected,binary_selected,mixed_balanced_selected,4,4,True,0.9924099919387921
 binary_k2_vs_mixed_balanced_k2,binary_k2,mixed_balanced_k2,2,2,True,1.0
+binary_k3_vs_mixed_balanced_k3,binary_k3,mixed_balanced_k3,3,3,True,1.0
 binary_k4_vs_mixed_balanced_k4,binary_k4,mixed_balanced_k4,4,4,True,0.9924099919387921

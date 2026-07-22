@@ -1,0 +1,13 @@
+{
+  "overall_silhouette": 0.687257730341869,
+  "small_cluster_mean_silhouette": -0.17729975876027226,
+  "large_cluster_mean_silhouette": 0.7044172454871807,
+  "small_cluster_mean_knn_purity": 0.4684931506849315,
+  "small_cluster_median_knn_purity": 0.4,
+  "all_samples_mean_same_cluster_knn_purity": 0.9887230071980805,
+  "small_cluster_mean_internal_pairwise_distance": 108.33818170320494,
+  "small_cluster_median_internal_pairwise_distance": 97.86355812531966,
+  "small_cluster_mean_nearest_large_cluster_distance": 66.15768304666469,
+  "small_cluster_median_nearest_large_cluster_distance": 54.17604978818454,
+  "internal_to_nearest_external_distance_ratio": 1.6375752099236607
+}
