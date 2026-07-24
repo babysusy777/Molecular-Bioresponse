@@ -1,0 +1,64 @@
+{
+  "configuration": {
+    "input_path": "/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/Progetto_Finale/003_Models/000_Dataset/train_filtered_no_activity.csv",
+    "target_path": "/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/Progetto_Finale/003_Models/000_Dataset/train_activity_target.csv",
+    "report_dir": "/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/Progetto_Finale/003_Models/003_Models/0031_Mixed/spectral_biclustering/reports/spectral_biclustering_pipeline",
+    "delta_report_dir": "/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/Progetto_Finale/003_Models/reports/delta_biclustering",
+    "methods": [
+      "bistochastic"
+    ],
+    "row_cluster_values": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "column_cluster_values": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "screening_seeds": [
+      42
+    ],
+    "n_components": 10,
+    "n_best": 5,
+    "n_init": 20,
+    "svd_method": "randomized",
+    "sparse_feature_threshold": 0.95,
+    "representative_features_per_cluster": 15,
+    "r2_tolerance": 0.01,
+    "minimum_row_entropy": 0.8,
+    "minimum_column_entropy": 0.5,
+    "number_of_candidates": 3,
+    "manual_candidates": [],
+    "stability_seeds": [
+      42,
+      7,
+      99,
+      123,
+      2026
+    ],
+    "minimum_row_ari": 0.8,
+    "minimum_column_ari": 0.8,
+    "null_permutations": 20,
+    "null_seed": 3107,
+    "save_screening_block_statistics": true,
+    "save_screening_assignments": false,
+    "top_interesting_blocks": 15,
+    "plot_dpi": 180
+  },
+  "environment": {
+    "python": "3.9.6",
+    "numpy": "2.0.2",
+    "pandas": "2.3.3",
+    "matplotlib": "3.9.4",
+    "scipy": "1.13.1",
+    "scikit_learn": "1.6.1",
+    "platform": "macOS-26.4.1-arm64-arm-64bit"
+  }
+}

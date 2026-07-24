@@ -1,0 +1,43 @@
+METHODOLOGICAL NOTES
+====================
+
+Data
+----
+- The input contains numerical descriptors only.
+- Activity is neither loaded nor analyzed.
+- Constant features are removed before the analysis.
+
+Selection of k
+--------------
+- For each of 30 repetitions,
+  80% of rows are sampled without replacement.
+- PCA is re-estimated on the original values inside every repetition.
+- PCA centers the features using the training-subset means, but it does not
+  divide them by their standard deviations.
+- K-means is fitted on sampled rows and evaluated by silhouette on held-out
+  rows.
+- Stability is measured by pairwise ARI between full-data predictions from
+  repeated fits.
+- Among k values within one standard error of the best mean held-out
+  silhouette, the most stable k is selected; ties favor the smaller k.
+
+Final estimate
+--------------
+- The selected configuration is refitted on all rows using multiple external
+  seeds and n_init=20.
+- The representative seed has the highest mean ARI to the other final fits;
+  ties favor lower inertia.
+
+Sensitivity
+-----------
+- PCA thresholds (0.8, 0.9, 0.95) are compared by ARI with the
+  primary partition.
+- The primary raw-data partition is compared with StandardScaler and
+  RobustScaler representations.
+- A low ARI indicates dependence on feature weighting.
+
+Visualization
+-------------
+- Matrix rows are ordered by K-means cluster and PC1.
+- Columns are ordered by decreasing variance, without clustering the features.
+- The second matrix displays mean-centered rather than standardized values.

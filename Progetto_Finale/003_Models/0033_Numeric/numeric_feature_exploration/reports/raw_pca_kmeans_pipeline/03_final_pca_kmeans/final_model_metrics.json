@@ -1,0 +1,19 @@
+{
+  "selected_k": 2,
+  "representative_seed": 101,
+  "label_mapping_old_to_pc1_order": {
+    "0": 0,
+    "1": 1
+  },
+  "n_components": 94,
+  "retained_variance": 0.9010149180805155,
+  "silhouette_full": 0.11228835067651669,
+  "calinski_harabasz_full": 350.203583124651,
+  "davies_bouldin_full": 2.6817428925005635,
+  "inertia": 15547.292616618086,
+  "mean_seed_ari_of_representative": 1.0,
+  "cluster_sizes": {
+    "0": 995,
+    "1": 2756
+  }
+}

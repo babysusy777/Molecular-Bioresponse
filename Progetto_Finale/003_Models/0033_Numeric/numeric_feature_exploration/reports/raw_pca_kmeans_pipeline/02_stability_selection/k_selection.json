@@ -1,0 +1,9 @@
+{
+  "selected_k": 2,
+  "best_mean_silhouette_k": 2,
+  "best_mean_silhouette": 0.11361206875407284,
+  "one_standard_error_cutoff": 0.11274701810939852,
+  "selected_mean_silhouette": 0.11361206875407284,
+  "selected_mean_pairwise_ari": 0.9972726263843581,
+  "rule": "Among k values within one standard error of the best mean out-of-sample silhouette, select the highest mean pairwise ARI; break exact ties in favor of smaller k."
+}

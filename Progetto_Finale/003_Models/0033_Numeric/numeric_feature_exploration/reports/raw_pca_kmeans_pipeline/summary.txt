@@ -1,0 +1,28 @@
+RAW-DATA PCA/K-MEANS FEATURE EXPLORATION
+==========================================
+Samples: 3751
+Numeric features: 695
+
+DISTRIBUTIONS
+Median zero fraction: 0.919222
+Features with zero fraction >= 0.95: 284
+Features with dominant value fraction >= 0.95: 289
+
+REPEATED OUT-OF-SAMPLE SELECTION
+Selected k: 2
+Mean validation silhouette: 0.113612
+10th-90th percentile validation silhouette: [0.107587, 0.118597]
+Mean pairwise ARI across subsamples: 0.997273
+10th percentile minimum cluster fraction: 0.265236
+
+FINAL REFIT
+Representative seed: 101
+Retained PCs: 94
+Retained variance: 0.901015
+Full-data silhouette: 0.112288
+Representative-seed mean ARI: 1.000000
+Final cluster sizes: 0: 995, 1: 2756
+
+SENSITIVITY
+Minimum ARI across PCA thresholds: 1.000000
+Minimum ARI across numeric representations: -0.005266

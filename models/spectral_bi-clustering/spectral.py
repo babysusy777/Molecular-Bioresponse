@@ -22,7 +22,7 @@ TARGET_PATH = (
 REPORT_DIR = PROJECT_DIR / "reports" / "spectral_biclustering"
 
 N_ROW_CLUSTERS = 4
-N_COLUMN_CLUSTERS = 4
+N_COLUMN_CLUSTERS = 8
 RANDOM_STATE = 42
 
 
