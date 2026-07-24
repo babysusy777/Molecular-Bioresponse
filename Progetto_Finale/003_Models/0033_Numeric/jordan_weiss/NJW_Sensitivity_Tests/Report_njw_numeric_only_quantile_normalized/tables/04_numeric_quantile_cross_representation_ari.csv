@@ -1,0 +1,5 @@
+comparison,numeric_partition,reference_partition,numeric_k,reference_k,same_resolution,adjusted_rand_index
+numeric_quantile_selected_vs_numeric_selected,numeric_quantile_selected,numeric_selected,2,4,False,0.23066044505557354
+numeric_quantile_k2_vs_numeric_k2,numeric_quantile_k2,numeric_k2,2,2,True,0.0008729823408042179
+numeric_quantile_k3_vs_numeric_k3,numeric_quantile_k3,numeric_k3,3,3,True,0.32171053020778384
+numeric_quantile_k4_vs_numeric_k4,numeric_quantile_k4,numeric_k4,4,4,True,0.39768634165085487

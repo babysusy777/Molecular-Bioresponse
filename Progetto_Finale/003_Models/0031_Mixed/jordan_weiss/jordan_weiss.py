@@ -90,7 +90,7 @@ FORCE_INPUT_PATH: Path | None = None
 
 # The script is designed to be placed anywhere inside the project tree. It
 # searches upward for a directory containing "Dataset".
-SCRIPT_DIR = Path(__file__).resolve().parent
+SCRIPT_DIR = Path(__file__).resolve().parent.parent
 
 
 # =============================================================================
@@ -98,15 +98,8 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 # =============================================================================
 
 
-def find_project_root(start: Path) -> Path:
-    for candidate in (start, *start.parents):
-        if (candidate / "Dataset").exists():
-            return candidate
-    return start
-
-
-PROJECT_DIR = find_project_root(SCRIPT_DIR)
-REPORT_DIR = PROJECT_DIR / "reports" / "njw_mixed_baseline_k234_v2"
+PROJECT_DIR = SCRIPT_DIR.parent.parent
+REPORT_DIR = PROJECT_DIR /  "003_Models" / "0031_Mixed" / "jordan_weiss" / "report_jordan_weiss"
 TABLE_DIR = REPORT_DIR / "tables"
 FIGURE_DIR = REPORT_DIR / "figures"
 COORDINATE_DIR = REPORT_DIR / "coordinates"
@@ -193,7 +186,7 @@ class FittedSolution:
 
 def candidate_filtered_paths(root: Path) -> list[Path]:
     return [
-        root / "Dataset" / "processed" / "train_filtered_no_activity.csv",
+        root / "000_Dataset" /  "train_filtered_no_activity.csv",
         root / "Dataset" / "preprocessed" / "train_filtered_no_activity.csv",
         root / "Dataset" / "raw" / "train_filtered_no_activity.csv",
         root / "Dataset" / "train_filtered_no_activity.csv",
@@ -1288,6 +1281,9 @@ def write_automatic_interpretation(
 
 
 def main() -> None:
+
+    print("PROJECT DIR = ******************", PROJECT_DIR)
+
     print(f"Running script version: {SCRIPT_VERSION}")
     print(f"This file: {Path(__file__).resolve()}")
     print(f"New output directory: {REPORT_DIR}")
@@ -1528,61 +1524,6 @@ def main() -> None:
         baseline_labels[TARGET_COL] = loaded.activity.to_numpy()
     baseline_labels.to_csv(BASELINE_LABELS_CSV, index=False)
 
-    # -------------------------------------------------------------------------
-    # J. Machine-readable report values and concise automatic interpretation.
-    # -------------------------------------------------------------------------
-    off_diagonal_weight_ari = weight_ari.to_numpy()[
-        np.triu_indices(len(weight_ari), k=1)
-    ]
-    report_values = {
-        "preprocessing": preprocessing,
-        "classical_selected": solution_summary_row(
-            "classical_mixed_baseline", classical_solution
-        ),
-        "balanced_selected": solution_summary_row(
-            "balanced_weighted_representative", balanced_solution
-        ),
-        "balanced_k2": solution_summary_row(
-            "balanced_k2_macrostructure", balanced_k2
-        ),
-        "balanced_k4": solution_summary_row(
-            "balanced_k4_refinement", balanced_k4
-        ),
-        "minimum_ari_across_weighted_alphas": float(
-            off_diagonal_weight_ari.min()
-        ),
-        "mean_ari_across_weighted_alphas": float(
-            off_diagonal_weight_ari.mean()
-        ),
-        "ari_classical_vs_balanced_selected": float(
-            adjusted_rand_score(
-                classical_solution.labels,
-                balanced_solution.labels,
-            )
-        ),
-        "important_interpretation_rule": (
-            "Do not compare silhouette magnitudes directly across different "
-            "Gower definitions; use ARI, eigengap, sizes, stability, and "
-            "interpretability for cross-formulation comparison."
-        ),
-    }
-    with REPORT_VALUES_JSON.open("w", encoding="utf-8") as handle:
-        json.dump(
-            report_values,
-            handle,
-            indent=2,
-            default=json_compatible,
-        )
-
-    write_automatic_interpretation(
-        preprocessing,
-        classical_solution,
-        balanced_solution,
-        weight_ari,
-        balanced_k2,
-        balanced_k4,
-        nesting_counts,
-    )
 
     print("\n" + "=" * 78)
     print("ANALYSIS COMPLETED")

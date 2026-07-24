@@ -1,0 +1,5 @@
+role_in_narrative,distance,k,sigma_multiplier,sigma_reference_median,sigma,quantile_l1_silhouette_exact,spectral_silhouette_exact,eigengap,cluster_sizes,valid_cluster_sizes
+numeric_quantile_selected,quantile_uniform_mean_l1,2,2.0,0.16240257024765015,0.3248051404953003,0.19349532556815813,0.6061354793178828,0.015952924777199742,"[1474, 2277]",True
+numeric_quantile_k2_macrostructure,quantile_uniform_mean_l1,2,2.0,0.16240257024765015,0.3248051404953003,0.19349532556815813,0.6061354793178828,0.015952924777199742,"[1474, 2277]",True
+numeric_quantile_k3_intermediate_check,quantile_uniform_mean_l1,3,2.0,0.16240257024765015,0.3248051404953003,0.08898151578037848,0.42061036449626477,0.005175815345443915,"[1338, 867, 1546]",True
+numeric_quantile_k4_refinement,quantile_uniform_mean_l1,4,2.0,0.16240257024765015,0.3248051404953003,0.06857637496268212,0.31592436910279653,0.004423653717971579,"[654, 962, 1339, 796]",True

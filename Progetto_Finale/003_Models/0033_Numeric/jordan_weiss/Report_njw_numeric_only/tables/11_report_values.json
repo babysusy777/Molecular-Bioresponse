@@ -1,24 +1,22 @@
 {
-  "script_version": "numeric-only-v1-2026-07-22",
+  "script_version": "numeric-only-final-2026-07-24",
   "preprocessing": {
-    "script_version": "numeric-only-v1-2026-07-22",
-    "input_path": "/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/Dataset/train_filtered_no_activity.csv",
-    "input_kind": "filtered",
+    "script_version": "numeric-only-final-2026-07-24",
+    "input_path": "/Users/federico.colangelo/Desktop/dmml_project/Molecular-Bioresponse/Progetto_Finale/000_Dataset/train_numeric_only.csv",
+    "input_kind": "numeric_only",
+    "extraction_mode": "direct_numeric_file",
     "n_objects": 3751,
-    "features_in_input_file": 1523,
-    "quasi_constant_threshold": 0.99,
-    "quasi_constant_removed_in_this_script": 0,
-    "retained_features_before_block_selection": 1523,
-    "binary_features_excluded": 828,
-    "numeric_candidates": 695,
-    "zero_range_numeric_removed": 0,
+    "features_in_input_file": 695,
+    "binary_features_excluded": 0,
     "numeric_features_used": 695,
+    "zero_range_numeric_removed": 0,
     "mean_numeric_standard_deviation_before_scaling": 0.06997903169817968,
     "median_numeric_standard_deviation_before_scaling": 0.05812830551458699,
     "minimum_numeric_range": 0.181818182,
     "median_numeric_range": 1.0,
     "maximum_numeric_range": 1.0,
-    "activity_available_for_post_hoc_only": true
+    "activity_available_for_post_hoc_only": true,
+    "silhouettes_exact": true
   },
   "numeric_selected": {
     "role_in_narrative": "numeric_selected",
@@ -27,10 +25,10 @@
     "sigma_multiplier": 2.0,
     "sigma_reference_median": 0.04317566007375717,
     "sigma": 0.08635132014751434,
-    "numeric_gower_silhouette_exact": 0.027910536917077913,
-    "spectral_silhouette_exact": 0.3918907512357364,
-    "eigengap": 0.005371856022361007,
-    "cluster_sizes": "[918, 1055, 972, 806]",
+    "numeric_gower_silhouette_exact": 0.027540465218198033,
+    "spectral_silhouette_exact": 0.3918610594499858,
+    "eigengap": 0.005371856022361059,
+    "cluster_sizes": "[809, 970, 1053, 919]",
     "valid_cluster_sizes": true
   },
   "numeric_k2": {
@@ -41,8 +39,8 @@
     "sigma_reference_median": 0.04317566007375717,
     "sigma": 0.08635132014751434,
     "numeric_gower_silhouette_exact": 0.858683276265221,
-    "spectral_silhouette_exact": 0.9995236415066304,
-    "eigengap": 0.7936923908921397,
+    "spectral_silhouette_exact": 0.9995236415067313,
+    "eigengap": 0.7936923908921417,
     "cluster_sizes": "[3748, 3]",
     "valid_cluster_sizes": false
   },
@@ -53,10 +51,10 @@
     "sigma_multiplier": 2.0,
     "sigma_reference_median": 0.04317566007375717,
     "sigma": 0.08635132014751434,
-    "numeric_gower_silhouette_exact": 0.0037516170179921916,
-    "spectral_silhouette_exact": 0.5775792556832379,
-    "eigengap": 0.0035484037903482923,
-    "cluster_sizes": "[1171, 1218, 1362]",
+    "numeric_gower_silhouette_exact": 0.003748941116570491,
+    "spectral_silhouette_exact": 0.5776215747271148,
+    "eigengap": 0.003548403790348334,
+    "cluster_sizes": "[1170, 1218, 1363]",
     "valid_cluster_sizes": true
   },
   "numeric_k4": {
@@ -66,96 +64,14 @@
     "sigma_multiplier": 2.0,
     "sigma_reference_median": 0.04317566007375717,
     "sigma": 0.08635132014751434,
-    "numeric_gower_silhouette_exact": 0.027457708266070795,
-    "spectral_silhouette_exact": 0.39185704080235817,
-    "eigengap": 0.0053718560223610205,
-    "cluster_sizes": "[1055, 922, 973, 801]",
+    "numeric_gower_silhouette_exact": 0.027540465218198033,
+    "spectral_silhouette_exact": 0.3918610594499858,
+    "eigengap": 0.005371856022361059,
+    "cluster_sizes": "[809, 970, 1053, 919]",
     "valid_cluster_sizes": true
   },
-  "mixed_labels_source": "/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/reports/njw_mixed_baseline_k234_v2/tables/10_mixed_baseline_labels.csv",
-  "binary_labels_source": "/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/models/binario/reports/njw_binary_only/tables/10_binary_labels.csv",
-  "cross_representation_comparisons": [
-    {
-      "comparison": "numeric_selected_vs_mixed_classical_selected",
-      "numeric_partition": "numeric_selected",
-      "reference_partition": "mixed_classical_selected",
-      "numeric_k": 4,
-      "reference_k": 2,
-      "same_resolution": false,
-      "adjusted_rand_index": 0.08023721887110138
-    },
-    {
-      "comparison": "numeric_selected_vs_mixed_balanced_selected",
-      "numeric_partition": "numeric_selected",
-      "reference_partition": "mixed_balanced_selected",
-      "numeric_k": 4,
-      "reference_k": 4,
-      "same_resolution": true,
-      "adjusted_rand_index": 0.11413220689609506
-    },
-    {
-      "comparison": "numeric_k2_vs_mixed_balanced_k2",
-      "numeric_partition": "numeric_k2",
-      "reference_partition": "mixed_balanced_k2",
-      "numeric_k": 2,
-      "reference_k": 2,
-      "same_resolution": true,
-      "adjusted_rand_index": -0.0006144556508843487
-    },
-    {
-      "comparison": "numeric_k3_vs_mixed_balanced_k3",
-      "numeric_partition": "numeric_k3",
-      "reference_partition": "mixed_balanced_k3",
-      "numeric_k": 3,
-      "reference_k": 3,
-      "same_resolution": true,
-      "adjusted_rand_index": 0.24437390362798686
-    },
-    {
-      "comparison": "numeric_k4_vs_mixed_balanced_k4",
-      "numeric_partition": "numeric_k4",
-      "reference_partition": "mixed_balanced_k4",
-      "numeric_k": 4,
-      "reference_k": 4,
-      "same_resolution": true,
-      "adjusted_rand_index": 0.11339075498210335
-    },
-    {
-      "comparison": "numeric_selected_vs_binary_selected",
-      "numeric_partition": "numeric_selected",
-      "reference_partition": "binary_selected",
-      "numeric_k": 4,
-      "reference_k": 4,
-      "same_resolution": true,
-      "adjusted_rand_index": 0.11373910994135374
-    },
-    {
-      "comparison": "numeric_k2_vs_binary_k2",
-      "numeric_partition": "numeric_k2",
-      "reference_partition": "binary_k2",
-      "numeric_k": 2,
-      "reference_k": 2,
-      "same_resolution": true,
-      "adjusted_rand_index": -0.0006144556508843487
-    },
-    {
-      "comparison": "numeric_k3_vs_binary_k3",
-      "numeric_partition": "numeric_k3",
-      "reference_partition": "binary_k3",
-      "numeric_k": 3,
-      "reference_k": 3,
-      "same_resolution": true,
-      "adjusted_rand_index": 0.24437390362798686
-    },
-    {
-      "comparison": "numeric_k4_vs_binary_k4",
-      "numeric_partition": "numeric_k4",
-      "reference_partition": "binary_k4",
-      "numeric_k": 4,
-      "reference_k": 4,
-      "same_resolution": true,
-      "adjusted_rand_index": 0.11300671985099298
-    }
-  ],
-  "important_interpretation_rule": "Use ARI and contingency tables across representations. Do not rank numerical-Gower, asymmetric-Jaccard, and mixed-Gower silhouettes directly."
+  "mixed_labels_source": null,
+  "binary_labels_source": null,
+  "cross_representation_comparisons": [],
+  "interpretation_rule": "Use ARI and contingency tables across representations. Do not rank numerical-Gower, asymmetric-Jaccard, and mixed-Gower silhouettes directly."
 }

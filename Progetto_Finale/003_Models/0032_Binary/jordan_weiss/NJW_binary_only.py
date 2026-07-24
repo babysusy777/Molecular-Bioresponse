@@ -1,26 +1,5 @@
 from __future__ import annotations
 
-"""Binary-only clustering: asymmetric Jaccard + Ng-Jordan-Weiss.
-
-This script is designed to be placed inside ``models/binario``.
-It keeps the same clustering protocol used for the mixed-data baseline while
-changing only the representation:
-
-    retained asymmetric binary descriptors
-        -> Jaccard dissimilarity
-        -> Gaussian affinity
-        -> Ng-Jordan-Weiss spectral embedding
-        -> K-means
-
-The script explores k=2,...,10 and sigma in {0.5, 1, 2} times the median
-positive Jaccard dissimilarity. It always refits and exports k=2, k=3, and k=4
-at the bandwidth selected within the binary geometry.
-
-When the mixed-baseline labels are available, it also compares binary-only and
-mixed partitions using Adjusted Rand Index and contingency tables. Silhouette
-values are never used for cross-geometry ranking.
-"""
-
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
@@ -102,7 +81,6 @@ BINARY_K2_K4_COUNTS_CSV = TABLE_DIR / "08_binary_k2_vs_k4_counts.csv"
 BINARY_K2_K4_ROWS_CSV = TABLE_DIR / "09_binary_k2_vs_k4_row_percentages.csv"
 BINARY_LABELS_CSV = TABLE_DIR / "10_binary_labels.csv"
 REPORT_VALUES_JSON = TABLE_DIR / "11_report_values.json"
-AUTO_INTERPRETATION_MD = REPORT_DIR / "automatic_interpretation.md"
 
 
 # =============================================================================
@@ -1197,87 +1175,6 @@ def json_compatible(value: object) -> object:
     return value
 
 
-def write_automatic_interpretation(
-    preprocessing: dict[str, object],
-    selected: FittedSolution,
-    k2: FittedSolution,
-    k3: FittedSolution,
-    k4: FittedSolution,
-    comparisons: pd.DataFrame,
-    mixed_source: Path | None,
-) -> None:
-    lines = [
-        "# Binary-only asymmetric-Jaccard + NJW: automatic interpretation",
-        "",
-        "## 1. Data representation",
-        (
-            f"The analysis used **{preprocessing['n_objects']} observations** and "
-            f"**{preprocessing['binary_features_used']} retained binary descriptors**. "
-            "Joint zeros were ignored, so the pairwise dissimilarity is the "
-            "asymmetric Jaccard dissimilarity."
-        ),
-        (
-            f"The mean number of active descriptors per observation was "
-            f"{preprocessing['mean_ones_per_object']:.2f}, with median "
-            f"{preprocessing['median_ones_per_object']:.2f}. Activity was excluded "
-            "from distance construction, parameter selection, and clustering."
-        ),
-        "",
-        "## 2. Representative binary-only solution",
-        (
-            f"The selected binary-only configuration used k={selected.k} and "
-            f"sigma={selected.sigma_multiplier} times the median positive Jaccard "
-            f"dissimilarity. Cluster sizes were {selected.cluster_sizes.tolist()}, "
-            f"Jaccard silhouette was {selected.jaccard_silhouette:.4f}, spectral "
-            f"silhouette was {selected.spectral_silhouette:.4f}, and eigengap was "
-            f"{selected.eigengap:.6f}."
-        ),
-        "",
-        "## 3. Resolution analysis",
-        (
-            f"At the selected binary bandwidth, k=2 produced "
-            f"{k2.cluster_sizes.tolist()}, k=3 produced {k3.cluster_sizes.tolist()}, "
-            f"and k=4 produced {k4.cluster_sizes.tolist()}. The nesting tables show "
-            "whether the higher-resolution solutions subdivide the same binary "
-            "macrostructure."
-        ),
-        "",
-        "## 4. Comparison with the mixed-data baseline",
-    ]
-
-    if comparisons.empty:
-        lines.extend([
-            (
-                "No mixed-label file was found, so the binary analysis completed "
-                "without cross-representation ARI comparisons."
-            ),
-            (
-                "Expected mixed labels are normally stored in "
-                "`reports/njw_mixed_baseline_k234_v2/tables/"
-                "10_mixed_baseline_labels.csv`."
-            ),
-        ])
-    else:
-        lines.append(f"Mixed labels source: `{mixed_source}`.")
-        lines.append("")
-        for row in comparisons.itertuples(index=False):
-            lines.append(
-                f"- {row.comparison}: ARI={row.adjusted_rand_index:.4f} "
-                f"(binary k={row.binary_k}, mixed k={row.mixed_k})."
-            )
-        lines.extend([
-            "",
-            (
-                "ARI measures agreement between memberships and is the appropriate "
-                "cross-representation comparison. Jaccard and mixed-Gower silhouette "
-                "magnitudes must not be ranked directly because they refer to "
-                "different dissimilarity geometries."
-            ),
-        ])
-
-    AUTO_INTERPRETATION_MD.write_text("\n".join(lines), encoding="utf-8")
-
-
 def verify_required_figures() -> None:
     required = [
         "01_binary_model_selection.png",
@@ -1507,47 +1404,7 @@ def main() -> None:
 
     labels_frame.to_csv(BINARY_LABELS_CSV, index=False)
 
-    # I. Machine-readable report values and interpretation.
-    report_values = {
-        "script_version": SCRIPT_VERSION,
-        "preprocessing": preprocessing,
-        "binary_selected": solution_summary_row(
-            "binary_selected", selected_solution
-        ),
-        "binary_k2": solution_summary_row(
-            "binary_k2_macrostructure", binary_k2
-        ),
-        "binary_k3": solution_summary_row(
-            "binary_k3_intermediate_check", binary_k3
-        ),
-        "binary_k4": solution_summary_row(
-            "binary_k4_refinement", binary_k4
-        ),
-        "mixed_labels_source": None if mixed is None else str(mixed.source_path),
-        "binary_vs_mixed_comparisons": comparisons.to_dict(orient="records"),
-        "important_interpretation_rule": (
-            "Use ARI and contingency tables for binary-versus-mixed comparison. "
-            "Do not rank Jaccard and mixed-Gower silhouette magnitudes directly."
-        ),
-    }
-    with REPORT_VALUES_JSON.open("w", encoding="utf-8") as handle:
-        json.dump(
-            report_values,
-            handle,
-            indent=2,
-            default=json_compatible,
-        )
-
-    write_automatic_interpretation(
-        preprocessing,
-        selected_solution,
-        binary_k2,
-        binary_k3,
-        binary_k4,
-        comparisons,
-        None if mixed is None else mixed.source_path,
-    )
-
+    
     verify_required_figures()
 
     print("\n" + "=" * 78)
