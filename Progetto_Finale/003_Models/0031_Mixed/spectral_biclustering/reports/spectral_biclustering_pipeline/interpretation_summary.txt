@@ -1,0 +1,36 @@
+SPECTRAL BICLUSTERING — AUTOMATIC ANALYSIS SUMMARY
+
+Selected configuration
+- method: scale
+- row clusters: 4
+- column clusters: 8
+- representative seed: 42
+- selection rule: First parsimonious candidate satisfying both ARI thresholds
+
+Stability
+- mean row ARI: 1.0000
+- mean column ARI: 0.9860
+- successful stability-fit fraction: 1.000
+- both prespecified ARI thresholds met: True
+
+Global checkerboard description
+- block R²: 0.3397
+- weighted H-score: 0.038367
+- row-cluster entropy: 0.8776
+- column-cluster entropy: 0.7349
+- sparsity eta²: 0.3535
+- binary/numeric NMI: 0.4555
+
+External association with Activity
+- chi-square p-value: 3.70808e-09
+- Cramer's V: 0.1060
+- NMI: 0.0059
+Activity was not used to fit or select the model.
+
+Interpretation order
+1. Verify ARI stability.
+2. Inspect row-cluster target distributions only as external validation.
+3. Inspect column-cluster sparsity and feature-type composition.
+4. Interpret blocks by contrasts within the same column cluster.
+5. Use the conditional permutation diagnostic only as exploratory evidence about the fixed final configuration.
+6. Do not equate spectral block R² with the delta-biclustering objective.

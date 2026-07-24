@@ -1,11 +1,11 @@
 {
   "configuration": {
-    "input_path": "/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/Progetto_Finale/003_Models/000_Dataset/train_filtered_no_activity.csv",
-    "target_path": "/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/Progetto_Finale/003_Models/000_Dataset/train_activity_target.csv",
-    "report_dir": "/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/Progetto_Finale/003_Models/003_Models/0031_Mixed/spectral_biclustering/reports/spectral_biclustering_pipeline",
-    "delta_report_dir": "/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/Progetto_Finale/003_Models/reports/delta_biclustering",
+    "input_path": "/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/Progetto_Finale/000_Dataset/train_filtered_no_activity.csv",
+    "target_path": "/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/Progetto_Finale/000_Dataset/train_activity_target.csv",
+    "report_dir": "/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/Progetto_Finale/003_Models/0031_Mixed/spectral_biclustering/reports/spectral_biclustering_pipeline",
+    "delta_report_dir": "/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/Progetto_Finale/003_Models/0031_Mixed/spectral_biclustering/reports/delta_biclustering",
     "methods": [
-      "bistochastic"
+      "scale"
     ],
     "row_cluster_values": [
       2,
@@ -23,7 +23,9 @@
       8
     ],
     "screening_seeds": [
-      42
+      42,
+      7,
+      99
     ],
     "n_components": 10,
     "n_best": 5,
@@ -36,6 +38,7 @@
     "minimum_column_entropy": 0.5,
     "number_of_candidates": 3,
     "manual_candidates": [],
+    "minimum_screening_success_fraction": 1.0,
     "stability_seeds": [
       42,
       7,
@@ -43,9 +46,11 @@
       123,
       2026
     ],
+    "minimum_stability_success_fraction": 0.8,
     "minimum_row_ari": 0.8,
     "minimum_column_ari": 0.8,
-    "null_permutations": 20,
+    "reject_numerical_warnings": false,
+    "null_permutations": 199,
     "null_seed": 3107,
     "save_screening_block_statistics": true,
     "save_screening_assignments": false,

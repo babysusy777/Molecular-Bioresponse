@@ -9,7 +9,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from scipy.stats import spearmanr, t
+from scipy.stats import t
 
 
 # Project paths
@@ -233,7 +233,6 @@ def run_similarity(B: np.ndarray, output: Path, cfg: Config) -> None:
                 "mean_jaccard": jaccard.mean(),
                 "mean_smc": smc.mean(),
                 "pearson": np.corrcoef(jaccard, smc)[0, 1],
-                "spearman": spearmanr(jaccard, smc).statistic,
                 "mean_absolute_difference": np.abs(jaccard - smc).mean(),
             }
         )

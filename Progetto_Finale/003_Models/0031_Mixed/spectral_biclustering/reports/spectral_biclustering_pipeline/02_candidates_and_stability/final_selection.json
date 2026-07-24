@@ -1,0 +1,12 @@
+{
+  "method": "scale",
+  "n_row_clusters": 4,
+  "n_column_clusters": 8,
+  "representative_seed": 42,
+  "selection_reason": "First parsimonious candidate satisfying both ARI thresholds",
+  "candidate_rank": 1,
+  "row_ari_mean": 1.0,
+  "column_ari_mean": 0.9859523969240355,
+  "stability_success_fraction": 1.0,
+  "stability_thresholds_met": true
+}

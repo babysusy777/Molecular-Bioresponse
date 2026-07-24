@@ -48,7 +48,7 @@ import warnings
 from dataclasses import asdict, dataclass, replace
 from itertools import combinations, product
 from pathlib import Path
-from typing import Any, Iterable, Sequence
+from typing import Any
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -168,12 +168,6 @@ def parse_arguments() -> argparse.Namespace:
         "--skip-null", action="store_true", help="Skip the column-wise permutation test."
     )
     parser.add_argument(
-        "--null-permutations",
-        type=int,
-        default=None,
-        help="Override the number of null permutations.",
-    )
-    parser.add_argument(
         "--method",
         choices=("scale", "bistochastic", "log"),
         default=None,
@@ -203,10 +197,6 @@ def configure_from_arguments(config: Config, args: argparse.Namespace) -> Config
         )
     if args.skip_null:
         config = replace(config, null_permutations=0)
-    if args.null_permutations is not None:
-        if args.null_permutations < 0:
-            raise ValueError("--null-permutations must be non-negative.")
-        config = replace(config, null_permutations=args.null_permutations)
     if args.method is not None:
         config = replace(config, methods=(args.method,))
     return config
@@ -268,8 +258,7 @@ def setup_output(config: Config) -> dict[str, Path]:
         "screening": config.report_dir / "01_screening",
         "candidates": config.report_dir / "02_candidates_and_stability",
         "final": config.report_dir / "03_final_model",
-        "null": config.report_dir / "04_null_test",
-        "comparison": config.report_dir / "05_method_comparison",
+        "comparison": config.report_dir / "04_method_comparison",
     }
     for path in paths.values():
         path.mkdir(parents=True, exist_ok=True)
@@ -1421,163 +1410,6 @@ def permute_within_columns(values: np.ndarray, rng: np.random.Generator) -> np.n
     return permuted
 
 
-# ---------------------------------------------------------------------------
-# Column-wise permutation test
-# ---------------------------------------------------------------------------
-
-
-def run_null_test(
-    final_selection: dict[str, Any],
-    observed_result: PartitionResult,
-    bundle: DatasetBundle,
-    config: Config,
-    output_paths: dict[str, Path],
-) -> dict[str, Any]:
-    if config.null_permutations <= 0:
-        logging.info("Null test skipped.")
-        return {}
-    logging.warning(
-        "Running a conditional null diagnostic for the already selected "
-        "configuration. The reported Monte-Carlo p-value is not adjusted "
-        "for model selection."
-    )
-    rng = np.random.default_rng(config.null_seed)
-    records: list[dict[str, Any]] = []
-    for permutation_index in range(1, config.null_permutations + 1):
-        logging.info("Null permutation [%d/%d]", permutation_index, config.null_permutations)
-        permuted_values = permute_within_columns(bundle.values, rng)
-        row_labels, column_labels, _ = fit_spectral_labels(
-            permuted_values,
-            config,
-            str(final_selection["method"]),
-            int(final_selection["n_row_clusters"]),
-            int(final_selection["n_column_clusters"]),
-            int(final_selection["representative_seed"]),
-        )
-        metadata = model_metadata(
-            str(final_selection["method"]),
-            int(final_selection["n_row_clusters"]),
-            int(final_selection["n_column_clusters"]),
-            int(final_selection["representative_seed"]),
-        )
-        _, aggregate = compute_block_statistics(
-            permuted_values,
-            row_labels,
-            column_labels,
-            bundle.feature_profiles,
-            metadata,
-        )
-        if not all(
-            np.isfinite(float(aggregate[name]))
-            for name in ("block_r2", "weighted_h_score")
-        ):
-            raise RuntimeError(
-                f"Non-finite null metrics at permutation {permutation_index}."
-            )
-        records.append(
-            {
-                "permutation": permutation_index,
-                "block_r2": aggregate["block_r2"],
-                "weighted_h_score": aggregate["weighted_h_score"],
-            }
-        )
-    null_frame = pd.DataFrame(records)
-    null_frame.to_csv(output_paths["null"] / "null_distribution.csv", index=False)
-    observed_r2 = float(observed_result.metrics["block_r2"])
-    null_r2 = null_frame["block_r2"].to_numpy(dtype=float)
-    p_value = float((1 + np.sum(null_r2 >= observed_r2)) / (len(null_r2) + 1))
-    null_std = float(null_r2.std(ddof=1)) if len(null_r2) > 1 else float("nan")
-    z_score = (
-        float((observed_r2 - null_r2.mean()) / null_std)
-        if np.isfinite(null_std) and null_std > 0
-        else float("nan")
-    )
-    summary = {
-        "observed_block_r2": observed_r2,
-        "null_block_r2_mean": float(null_r2.mean()),
-        "null_block_r2_std": null_std,
-        "null_block_r2_min": float(null_r2.min()),
-        "null_block_r2_max": float(null_r2.max()),
-        "monte_carlo_p_value": p_value,
-        "observed_r2_z_score": z_score,
-        "n_permutations": int(len(null_r2)),
-        "selection_adjusted": False,
-        "inferential_scope": (
-            "Conditional on the selected configuration and representative seed; "
-            "exploratory, not a post-selection confirmatory test."
-        ),
-    }
-    save_json(summary, output_paths["null"] / "null_test_summary.json")
-    save_null_plot(null_frame, observed_r2, output_paths["null"], config)
-    return summary
-
-
-# ---------------------------------------------------------------------------
-# Comparison with delta biclustering
-# ---------------------------------------------------------------------------
-
-
-def find_delta_summary(delta_report_dir: Path) -> tuple[Path, pd.Series] | None:
-    if not delta_report_dir.exists():
-        return None
-    required = {"h_score", "n_rows", "n_features"}
-    for csv_path in sorted(delta_report_dir.rglob("*.csv")):
-        try:
-            frame = pd.read_csv(csv_path)
-        except Exception:
-            continue
-        if not frame.empty and required.issubset(frame.columns):
-            return (csv_path, frame.iloc[0])
-    return None
-
-
-def save_method_comparison(
-    final_result: PartitionResult, config: Config, output_paths: dict[str, Path]
-) -> None:
-    records: list[dict[str, Any]] = [
-        {
-            "method": "spectral_biclustering",
-            "scope": "global checkerboard partition",
-            "n_rows": len(final_result.row_labels),
-            "n_features": len(final_result.column_labels),
-            "n_row_clusters": final_result.n_row_clusters,
-            "n_column_clusters": final_result.n_column_clusters,
-            "n_blocks": final_result.n_row_clusters * final_result.n_column_clusters,
-            "block_r2": final_result.metrics["block_r2"],
-            "weighted_h_score": final_result.metrics["weighted_h_score"],
-        }
-    ]
-    delta = find_delta_summary(config.delta_report_dir)
-    if delta is not None:
-        path, row = delta
-        records.append(
-            {
-                "method": "delta_biclustering",
-                "scope": "local coherent submatrix",
-                "n_rows": row.get("n_rows", np.nan),
-                "n_features": row.get("n_features", np.nan),
-                "n_row_clusters": np.nan,
-                "n_column_clusters": np.nan,
-                "n_blocks": 1,
-                "block_r2": np.nan,
-                "weighted_h_score": row.get("h_score", np.nan),
-                "source_file": str(path),
-            }
-        )
-    pd.DataFrame(records).to_csv(
-        output_paths["comparison"] / "spectral_vs_delta_summary.csv", index=False
-    )
-    note = (
-        "The metrics of the two methods are not optimization-equivalent.\n"
-        "Spectral biclustering partitions all rows and columns into a global "
-        "checkerboard.\n"
-        "Delta biclustering extracts one or more local submatrices satisfying "
-        "a direct coherence constraint.\n"
-        "Therefore block R² and delta H-score must not be used as if they were "
-        "the same objective.\n"
-    )
-    (output_paths["comparison"] / "interpretation_note.txt").write_text(note, encoding="utf-8")
-
 
 # ---------------------------------------------------------------------------
 # Plots
@@ -1826,22 +1658,6 @@ def save_final_plots(
     )
 
 
-def save_null_plot(
-    null_frame: pd.DataFrame, observed_r2: float, output_dir: Path, config: Config
-) -> None:
-    fig, ax = plt.subplots(figsize=(8, 5))
-    ax.hist(null_frame["block_r2"], bins="auto")
-    ax.axvline(observed_r2, linewidth=2, label="Observed block R²")
-    ax.set_xlabel("Block R²")
-    ax.set_ylabel("Frequency")
-    ax.set_title("Conditional column-wise permutation distribution")
-    ax.legend()
-    fig.tight_layout()
-    fig.savefig(
-        output_dir / "null_block_r2_distribution.png", dpi=config.plot_dpi, bbox_inches="tight"
-    )
-    plt.close(fig)
-
 
 # ---------------------------------------------------------------------------
 # Text report and orchestration
@@ -1851,7 +1667,6 @@ def save_null_plot(
 def write_interpretation_summary(
     final_selection: dict[str, Any],
     final_summary: dict[str, Any],
-    null_summary: dict[str, Any],
     output_path: Path,
 ) -> None:
 
@@ -1897,21 +1712,7 @@ def write_interpretation_summary(
                 "Activity was not used to fit or select the model.",
             ]
         )
-    if null_summary:
-        lines.extend(
-            [
-                "",
-                "Conditional column-wise permutation diagnostic",
-                f"- null mean block R²: {null_summary['null_block_r2_mean']:.4f}",
-                f"- Monte-Carlo p-value: {null_summary['monte_carlo_p_value']:.6g}",
-                f"- observed R² z-score: {null_summary['observed_r2_z_score']:.4f}",
-                "- selection-adjusted: False",
-                (
-                    "- scope: fixed selected configuration; exploratory, "
-                    "not confirmatory post-selection inference"
-                ),
-            ]
-        )
+
 
     lines.extend(
         [
@@ -2003,12 +1804,9 @@ def main() -> None:
         seed=int(final_selection["representative_seed"]),
     )
     final_summary = save_final_outputs(final_result, bundle, config, output_paths)
-    null_summary = run_null_test(final_selection, final_result, bundle, config, output_paths)
-    save_method_comparison(final_result, config, output_paths)
     write_interpretation_summary(
         final_selection,
         final_summary,
-        null_summary,
         output_paths["root"] / "interpretation_summary.txt",
     )
 

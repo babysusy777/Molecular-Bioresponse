@@ -1,0 +1,392 @@
+2026-07-24 21:33:54,762 | INFO | Dataset loaded: 3751 rows x 1523 features; value range [0.000000, 1.000000]
+2026-07-24 21:33:54,763 | INFO | Feature types: 828 binary, 695 numeric
+2026-07-24 21:33:54,763 | INFO | Screening [1/90] scale_r2_c3_seed42
+2026-07-24 21:33:55,746 | WARNING | Non-fatal fit warning for scale r=2 c=3 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:33:55,746 | WARNING | Non-fatal fit warning for scale r=2 c=3 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:33:55,746 | WARNING | Non-fatal fit warning for scale r=2 c=3 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:33:55,894 | INFO | Screening [2/90] scale_r2_c3_seed7
+2026-07-24 21:33:56,886 | WARNING | Non-fatal fit warning for scale r=2 c=3 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:33:56,886 | WARNING | Non-fatal fit warning for scale r=2 c=3 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:33:56,886 | WARNING | Non-fatal fit warning for scale r=2 c=3 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:33:56,998 | INFO | Screening [3/90] scale_r2_c3_seed99
+2026-07-24 21:33:58,009 | WARNING | Non-fatal fit warning for scale r=2 c=3 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:33:58,009 | WARNING | Non-fatal fit warning for scale r=2 c=3 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:33:58,009 | WARNING | Non-fatal fit warning for scale r=2 c=3 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:33:58,118 | INFO | Screening [4/90] scale_r2_c4_seed42
+2026-07-24 21:33:59,047 | WARNING | Non-fatal fit warning for scale r=2 c=4 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:33:59,047 | WARNING | Non-fatal fit warning for scale r=2 c=4 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:33:59,047 | WARNING | Non-fatal fit warning for scale r=2 c=4 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:33:59,177 | INFO | Screening [5/90] scale_r2_c4_seed7
+2026-07-24 21:34:00,240 | WARNING | Non-fatal fit warning for scale r=2 c=4 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:00,240 | WARNING | Non-fatal fit warning for scale r=2 c=4 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:00,240 | WARNING | Non-fatal fit warning for scale r=2 c=4 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:00,374 | INFO | Screening [6/90] scale_r2_c4_seed99
+2026-07-24 21:34:01,387 | WARNING | Non-fatal fit warning for scale r=2 c=4 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:01,387 | WARNING | Non-fatal fit warning for scale r=2 c=4 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:01,387 | WARNING | Non-fatal fit warning for scale r=2 c=4 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:01,520 | INFO | Screening [7/90] scale_r2_c5_seed42
+2026-07-24 21:34:02,646 | WARNING | Non-fatal fit warning for scale r=2 c=5 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:02,646 | WARNING | Non-fatal fit warning for scale r=2 c=5 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:02,646 | WARNING | Non-fatal fit warning for scale r=2 c=5 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:02,772 | INFO | Screening [8/90] scale_r2_c5_seed7
+2026-07-24 21:34:03,777 | WARNING | Non-fatal fit warning for scale r=2 c=5 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:03,777 | WARNING | Non-fatal fit warning for scale r=2 c=5 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:03,777 | WARNING | Non-fatal fit warning for scale r=2 c=5 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:03,886 | INFO | Screening [9/90] scale_r2_c5_seed99
+2026-07-24 21:34:04,926 | WARNING | Non-fatal fit warning for scale r=2 c=5 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:04,926 | WARNING | Non-fatal fit warning for scale r=2 c=5 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:04,926 | WARNING | Non-fatal fit warning for scale r=2 c=5 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:05,035 | INFO | Screening [10/90] scale_r2_c6_seed42
+2026-07-24 21:34:06,229 | WARNING | Non-fatal fit warning for scale r=2 c=6 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:06,229 | WARNING | Non-fatal fit warning for scale r=2 c=6 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:06,229 | WARNING | Non-fatal fit warning for scale r=2 c=6 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:06,340 | INFO | Screening [11/90] scale_r2_c6_seed7
+2026-07-24 21:34:07,417 | WARNING | Non-fatal fit warning for scale r=2 c=6 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:07,417 | WARNING | Non-fatal fit warning for scale r=2 c=6 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:07,417 | WARNING | Non-fatal fit warning for scale r=2 c=6 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:07,530 | INFO | Screening [12/90] scale_r2_c6_seed99
+2026-07-24 21:34:08,653 | WARNING | Non-fatal fit warning for scale r=2 c=6 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:08,653 | WARNING | Non-fatal fit warning for scale r=2 c=6 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:08,653 | WARNING | Non-fatal fit warning for scale r=2 c=6 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:08,767 | INFO | Screening [13/90] scale_r2_c7_seed42
+2026-07-24 21:34:09,924 | WARNING | Non-fatal fit warning for scale r=2 c=7 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:09,924 | WARNING | Non-fatal fit warning for scale r=2 c=7 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:09,924 | WARNING | Non-fatal fit warning for scale r=2 c=7 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:10,036 | INFO | Screening [14/90] scale_r2_c7_seed7
+2026-07-24 21:34:11,171 | WARNING | Non-fatal fit warning for scale r=2 c=7 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:11,171 | WARNING | Non-fatal fit warning for scale r=2 c=7 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:11,171 | WARNING | Non-fatal fit warning for scale r=2 c=7 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:11,282 | INFO | Screening [15/90] scale_r2_c7_seed99
+2026-07-24 21:34:12,424 | WARNING | Non-fatal fit warning for scale r=2 c=7 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:12,424 | WARNING | Non-fatal fit warning for scale r=2 c=7 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:12,424 | WARNING | Non-fatal fit warning for scale r=2 c=7 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:12,536 | INFO | Screening [16/90] scale_r2_c8_seed42
+2026-07-24 21:34:13,620 | WARNING | Non-fatal fit warning for scale r=2 c=8 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:13,620 | WARNING | Non-fatal fit warning for scale r=2 c=8 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:13,620 | WARNING | Non-fatal fit warning for scale r=2 c=8 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:13,731 | INFO | Screening [17/90] scale_r2_c8_seed7
+2026-07-24 21:34:14,840 | WARNING | Non-fatal fit warning for scale r=2 c=8 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:14,840 | WARNING | Non-fatal fit warning for scale r=2 c=8 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:14,840 | WARNING | Non-fatal fit warning for scale r=2 c=8 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:14,954 | INFO | Screening [18/90] scale_r2_c8_seed99
+2026-07-24 21:34:16,130 | WARNING | Non-fatal fit warning for scale r=2 c=8 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:16,130 | WARNING | Non-fatal fit warning for scale r=2 c=8 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:16,130 | WARNING | Non-fatal fit warning for scale r=2 c=8 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:16,239 | INFO | Screening [19/90] scale_r3_c3_seed42
+2026-07-24 21:34:17,293 | WARNING | Non-fatal fit warning for scale r=3 c=3 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:17,293 | WARNING | Non-fatal fit warning for scale r=3 c=3 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:17,293 | WARNING | Non-fatal fit warning for scale r=3 c=3 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:17,420 | INFO | Screening [20/90] scale_r3_c3_seed7
+2026-07-24 21:34:18,408 | WARNING | Non-fatal fit warning for scale r=3 c=3 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:18,408 | WARNING | Non-fatal fit warning for scale r=3 c=3 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:18,408 | WARNING | Non-fatal fit warning for scale r=3 c=3 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:18,537 | INFO | Screening [21/90] scale_r3_c3_seed99
+2026-07-24 21:34:19,605 | WARNING | Non-fatal fit warning for scale r=3 c=3 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:19,605 | WARNING | Non-fatal fit warning for scale r=3 c=3 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:19,605 | WARNING | Non-fatal fit warning for scale r=3 c=3 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:19,731 | INFO | Screening [22/90] scale_r3_c4_seed42
+2026-07-24 21:34:20,876 | WARNING | Non-fatal fit warning for scale r=3 c=4 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:20,876 | WARNING | Non-fatal fit warning for scale r=3 c=4 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:20,877 | WARNING | Non-fatal fit warning for scale r=3 c=4 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:21,004 | INFO | Screening [23/90] scale_r3_c4_seed7
+2026-07-24 21:34:22,090 | WARNING | Non-fatal fit warning for scale r=3 c=4 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:22,090 | WARNING | Non-fatal fit warning for scale r=3 c=4 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:22,090 | WARNING | Non-fatal fit warning for scale r=3 c=4 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:22,218 | INFO | Screening [24/90] scale_r3_c4_seed99
+2026-07-24 21:34:23,424 | WARNING | Non-fatal fit warning for scale r=3 c=4 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:23,425 | WARNING | Non-fatal fit warning for scale r=3 c=4 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:23,425 | WARNING | Non-fatal fit warning for scale r=3 c=4 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:23,550 | INFO | Screening [25/90] scale_r3_c5_seed42
+2026-07-24 21:34:24,618 | WARNING | Non-fatal fit warning for scale r=3 c=5 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:24,618 | WARNING | Non-fatal fit warning for scale r=3 c=5 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:24,618 | WARNING | Non-fatal fit warning for scale r=3 c=5 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:24,742 | INFO | Screening [26/90] scale_r3_c5_seed7
+2026-07-24 21:34:25,900 | WARNING | Non-fatal fit warning for scale r=3 c=5 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:25,900 | WARNING | Non-fatal fit warning for scale r=3 c=5 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:25,900 | WARNING | Non-fatal fit warning for scale r=3 c=5 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:26,020 | INFO | Screening [27/90] scale_r3_c5_seed99
+2026-07-24 21:34:27,133 | WARNING | Non-fatal fit warning for scale r=3 c=5 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:27,133 | WARNING | Non-fatal fit warning for scale r=3 c=5 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:27,133 | WARNING | Non-fatal fit warning for scale r=3 c=5 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:27,260 | INFO | Screening [28/90] scale_r3_c6_seed42
+2026-07-24 21:34:28,450 | WARNING | Non-fatal fit warning for scale r=3 c=6 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:28,450 | WARNING | Non-fatal fit warning for scale r=3 c=6 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:28,450 | WARNING | Non-fatal fit warning for scale r=3 c=6 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:28,575 | INFO | Screening [29/90] scale_r3_c6_seed7
+2026-07-24 21:34:29,642 | WARNING | Non-fatal fit warning for scale r=3 c=6 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:29,642 | WARNING | Non-fatal fit warning for scale r=3 c=6 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:29,642 | WARNING | Non-fatal fit warning for scale r=3 c=6 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:29,763 | INFO | Screening [30/90] scale_r3_c6_seed99
+2026-07-24 21:34:30,911 | WARNING | Non-fatal fit warning for scale r=3 c=6 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:30,912 | WARNING | Non-fatal fit warning for scale r=3 c=6 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:30,912 | WARNING | Non-fatal fit warning for scale r=3 c=6 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:31,039 | INFO | Screening [31/90] scale_r3_c7_seed42
+2026-07-24 21:34:32,279 | WARNING | Non-fatal fit warning for scale r=3 c=7 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:32,279 | WARNING | Non-fatal fit warning for scale r=3 c=7 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:32,279 | WARNING | Non-fatal fit warning for scale r=3 c=7 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:32,403 | INFO | Screening [32/90] scale_r3_c7_seed7
+2026-07-24 21:34:33,639 | WARNING | Non-fatal fit warning for scale r=3 c=7 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:33,639 | WARNING | Non-fatal fit warning for scale r=3 c=7 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:33,639 | WARNING | Non-fatal fit warning for scale r=3 c=7 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:33,762 | INFO | Screening [33/90] scale_r3_c7_seed99
+2026-07-24 21:34:34,983 | WARNING | Non-fatal fit warning for scale r=3 c=7 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:34,983 | WARNING | Non-fatal fit warning for scale r=3 c=7 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:34,983 | WARNING | Non-fatal fit warning for scale r=3 c=7 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:35,105 | INFO | Screening [34/90] scale_r3_c8_seed42
+2026-07-24 21:34:36,210 | WARNING | Non-fatal fit warning for scale r=3 c=8 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:36,210 | WARNING | Non-fatal fit warning for scale r=3 c=8 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:36,210 | WARNING | Non-fatal fit warning for scale r=3 c=8 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:36,333 | INFO | Screening [35/90] scale_r3_c8_seed7
+2026-07-24 21:34:37,515 | WARNING | Non-fatal fit warning for scale r=3 c=8 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:37,515 | WARNING | Non-fatal fit warning for scale r=3 c=8 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:37,515 | WARNING | Non-fatal fit warning for scale r=3 c=8 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:37,644 | INFO | Screening [36/90] scale_r3_c8_seed99
+2026-07-24 21:34:38,851 | WARNING | Non-fatal fit warning for scale r=3 c=8 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:38,851 | WARNING | Non-fatal fit warning for scale r=3 c=8 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:38,851 | WARNING | Non-fatal fit warning for scale r=3 c=8 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:38,973 | INFO | Screening [37/90] scale_r4_c3_seed42
+2026-07-24 21:34:40,030 | WARNING | Non-fatal fit warning for scale r=4 c=3 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:40,031 | WARNING | Non-fatal fit warning for scale r=4 c=3 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:40,031 | WARNING | Non-fatal fit warning for scale r=4 c=3 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:40,168 | INFO | Screening [38/90] scale_r4_c3_seed7
+2026-07-24 21:34:41,355 | WARNING | Non-fatal fit warning for scale r=4 c=3 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:41,355 | WARNING | Non-fatal fit warning for scale r=4 c=3 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:41,355 | WARNING | Non-fatal fit warning for scale r=4 c=3 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:41,508 | INFO | Screening [39/90] scale_r4_c3_seed99
+2026-07-24 21:34:42,699 | WARNING | Non-fatal fit warning for scale r=4 c=3 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:42,699 | WARNING | Non-fatal fit warning for scale r=4 c=3 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:42,699 | WARNING | Non-fatal fit warning for scale r=4 c=3 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:42,833 | INFO | Screening [40/90] scale_r4_c4_seed42
+2026-07-24 21:34:44,157 | WARNING | Non-fatal fit warning for scale r=4 c=4 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:44,157 | WARNING | Non-fatal fit warning for scale r=4 c=4 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:44,157 | WARNING | Non-fatal fit warning for scale r=4 c=4 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:44,299 | INFO | Screening [41/90] scale_r4_c4_seed7
+2026-07-24 21:34:45,525 | WARNING | Non-fatal fit warning for scale r=4 c=4 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:45,525 | WARNING | Non-fatal fit warning for scale r=4 c=4 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:45,525 | WARNING | Non-fatal fit warning for scale r=4 c=4 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:45,673 | INFO | Screening [42/90] scale_r4_c4_seed99
+2026-07-24 21:34:46,973 | WARNING | Non-fatal fit warning for scale r=4 c=4 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:46,973 | WARNING | Non-fatal fit warning for scale r=4 c=4 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:46,973 | WARNING | Non-fatal fit warning for scale r=4 c=4 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:47,121 | INFO | Screening [43/90] scale_r4_c5_seed42
+2026-07-24 21:34:48,436 | WARNING | Non-fatal fit warning for scale r=4 c=5 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:48,436 | WARNING | Non-fatal fit warning for scale r=4 c=5 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:48,436 | WARNING | Non-fatal fit warning for scale r=4 c=5 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:48,572 | INFO | Screening [44/90] scale_r4_c5_seed7
+2026-07-24 21:34:49,781 | WARNING | Non-fatal fit warning for scale r=4 c=5 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:49,781 | WARNING | Non-fatal fit warning for scale r=4 c=5 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:49,781 | WARNING | Non-fatal fit warning for scale r=4 c=5 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:49,916 | INFO | Screening [45/90] scale_r4_c5_seed99
+2026-07-24 21:34:51,159 | WARNING | Non-fatal fit warning for scale r=4 c=5 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:51,159 | WARNING | Non-fatal fit warning for scale r=4 c=5 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:51,159 | WARNING | Non-fatal fit warning for scale r=4 c=5 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:51,317 | INFO | Screening [46/90] scale_r4_c6_seed42
+2026-07-24 21:34:52,600 | WARNING | Non-fatal fit warning for scale r=4 c=6 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:52,600 | WARNING | Non-fatal fit warning for scale r=4 c=6 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:52,600 | WARNING | Non-fatal fit warning for scale r=4 c=6 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:52,740 | INFO | Screening [47/90] scale_r4_c6_seed7
+2026-07-24 21:34:54,011 | WARNING | Non-fatal fit warning for scale r=4 c=6 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:54,012 | WARNING | Non-fatal fit warning for scale r=4 c=6 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:54,012 | WARNING | Non-fatal fit warning for scale r=4 c=6 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:54,159 | INFO | Screening [48/90] scale_r4_c6_seed99
+2026-07-24 21:34:55,417 | WARNING | Non-fatal fit warning for scale r=4 c=6 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:55,417 | WARNING | Non-fatal fit warning for scale r=4 c=6 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:55,417 | WARNING | Non-fatal fit warning for scale r=4 c=6 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:55,557 | INFO | Screening [49/90] scale_r4_c7_seed42
+2026-07-24 21:34:57,020 | WARNING | Non-fatal fit warning for scale r=4 c=7 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:57,020 | WARNING | Non-fatal fit warning for scale r=4 c=7 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:57,020 | WARNING | Non-fatal fit warning for scale r=4 c=7 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:57,180 | INFO | Screening [50/90] scale_r4_c7_seed7
+2026-07-24 21:34:58,468 | WARNING | Non-fatal fit warning for scale r=4 c=7 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:58,468 | WARNING | Non-fatal fit warning for scale r=4 c=7 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:58,468 | WARNING | Non-fatal fit warning for scale r=4 c=7 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:34:58,612 | INFO | Screening [51/90] scale_r4_c7_seed99
+2026-07-24 21:34:59,868 | WARNING | Non-fatal fit warning for scale r=4 c=7 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:34:59,868 | WARNING | Non-fatal fit warning for scale r=4 c=7 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:34:59,868 | WARNING | Non-fatal fit warning for scale r=4 c=7 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:00,019 | INFO | Screening [52/90] scale_r4_c8_seed42
+2026-07-24 21:35:01,387 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:01,387 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:01,387 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:01,538 | INFO | Screening [53/90] scale_r4_c8_seed7
+2026-07-24 21:35:02,869 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:02,869 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:02,869 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:03,017 | INFO | Screening [54/90] scale_r4_c8_seed99
+2026-07-24 21:35:04,262 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:04,263 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:04,263 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:04,416 | INFO | Screening [55/90] scale_r5_c3_seed42
+2026-07-24 21:35:05,669 | WARNING | Non-fatal fit warning for scale r=5 c=3 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:05,669 | WARNING | Non-fatal fit warning for scale r=5 c=3 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:05,669 | WARNING | Non-fatal fit warning for scale r=5 c=3 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:05,838 | INFO | Screening [56/90] scale_r5_c3_seed7
+2026-07-24 21:35:07,059 | WARNING | Non-fatal fit warning for scale r=5 c=3 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:07,059 | WARNING | Non-fatal fit warning for scale r=5 c=3 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:07,059 | WARNING | Non-fatal fit warning for scale r=5 c=3 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:07,222 | INFO | Screening [57/90] scale_r5_c3_seed99
+2026-07-24 21:35:08,445 | WARNING | Non-fatal fit warning for scale r=5 c=3 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:08,445 | WARNING | Non-fatal fit warning for scale r=5 c=3 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:08,445 | WARNING | Non-fatal fit warning for scale r=5 c=3 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:08,609 | INFO | Screening [58/90] scale_r5_c4_seed42
+2026-07-24 21:35:09,864 | WARNING | Non-fatal fit warning for scale r=5 c=4 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:09,864 | WARNING | Non-fatal fit warning for scale r=5 c=4 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:09,864 | WARNING | Non-fatal fit warning for scale r=5 c=4 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:10,047 | INFO | Screening [59/90] scale_r5_c4_seed7
+2026-07-24 21:35:11,380 | WARNING | Non-fatal fit warning for scale r=5 c=4 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:11,380 | WARNING | Non-fatal fit warning for scale r=5 c=4 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:11,380 | WARNING | Non-fatal fit warning for scale r=5 c=4 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:11,565 | INFO | Screening [60/90] scale_r5_c4_seed99
+2026-07-24 21:35:12,928 | WARNING | Non-fatal fit warning for scale r=5 c=4 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:12,928 | WARNING | Non-fatal fit warning for scale r=5 c=4 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:12,928 | WARNING | Non-fatal fit warning for scale r=5 c=4 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:13,111 | INFO | Screening [61/90] scale_r5_c5_seed42
+2026-07-24 21:35:14,473 | WARNING | Non-fatal fit warning for scale r=5 c=5 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:14,473 | WARNING | Non-fatal fit warning for scale r=5 c=5 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:14,473 | WARNING | Non-fatal fit warning for scale r=5 c=5 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:14,635 | INFO | Screening [62/90] scale_r5_c5_seed7
+2026-07-24 21:35:15,994 | WARNING | Non-fatal fit warning for scale r=5 c=5 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:15,994 | WARNING | Non-fatal fit warning for scale r=5 c=5 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:15,994 | WARNING | Non-fatal fit warning for scale r=5 c=5 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:16,156 | INFO | Screening [63/90] scale_r5_c5_seed99
+2026-07-24 21:35:17,465 | WARNING | Non-fatal fit warning for scale r=5 c=5 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:17,465 | WARNING | Non-fatal fit warning for scale r=5 c=5 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:17,465 | WARNING | Non-fatal fit warning for scale r=5 c=5 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:17,630 | INFO | Screening [64/90] scale_r5_c6_seed42
+2026-07-24 21:35:18,970 | WARNING | Non-fatal fit warning for scale r=5 c=6 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:18,970 | WARNING | Non-fatal fit warning for scale r=5 c=6 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:18,970 | WARNING | Non-fatal fit warning for scale r=5 c=6 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:19,143 | INFO | Screening [65/90] scale_r5_c6_seed7
+2026-07-24 21:35:20,469 | WARNING | Non-fatal fit warning for scale r=5 c=6 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:20,469 | WARNING | Non-fatal fit warning for scale r=5 c=6 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:20,469 | WARNING | Non-fatal fit warning for scale r=5 c=6 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:20,659 | INFO | Screening [66/90] scale_r5_c6_seed99
+2026-07-24 21:35:22,006 | WARNING | Non-fatal fit warning for scale r=5 c=6 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:22,006 | WARNING | Non-fatal fit warning for scale r=5 c=6 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:22,007 | WARNING | Non-fatal fit warning for scale r=5 c=6 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:22,173 | INFO | Screening [67/90] scale_r5_c7_seed42
+2026-07-24 21:35:23,644 | WARNING | Non-fatal fit warning for scale r=5 c=7 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:23,644 | WARNING | Non-fatal fit warning for scale r=5 c=7 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:23,644 | WARNING | Non-fatal fit warning for scale r=5 c=7 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:23,818 | INFO | Screening [68/90] scale_r5_c7_seed7
+2026-07-24 21:35:25,243 | WARNING | Non-fatal fit warning for scale r=5 c=7 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:25,243 | WARNING | Non-fatal fit warning for scale r=5 c=7 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:25,243 | WARNING | Non-fatal fit warning for scale r=5 c=7 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:25,416 | INFO | Screening [69/90] scale_r5_c7_seed99
+2026-07-24 21:35:26,669 | WARNING | Non-fatal fit warning for scale r=5 c=7 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:26,669 | WARNING | Non-fatal fit warning for scale r=5 c=7 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:26,669 | WARNING | Non-fatal fit warning for scale r=5 c=7 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:26,832 | INFO | Screening [70/90] scale_r5_c8_seed42
+2026-07-24 21:35:28,163 | WARNING | Non-fatal fit warning for scale r=5 c=8 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:28,163 | WARNING | Non-fatal fit warning for scale r=5 c=8 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:28,163 | WARNING | Non-fatal fit warning for scale r=5 c=8 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:28,365 | INFO | Screening [71/90] scale_r5_c8_seed7
+2026-07-24 21:35:29,804 | WARNING | Non-fatal fit warning for scale r=5 c=8 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:29,804 | WARNING | Non-fatal fit warning for scale r=5 c=8 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:29,804 | WARNING | Non-fatal fit warning for scale r=5 c=8 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:29,966 | INFO | Screening [72/90] scale_r5_c8_seed99
+2026-07-24 21:35:31,256 | WARNING | Non-fatal fit warning for scale r=5 c=8 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:31,256 | WARNING | Non-fatal fit warning for scale r=5 c=8 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:31,256 | WARNING | Non-fatal fit warning for scale r=5 c=8 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:31,427 | INFO | Screening [73/90] scale_r6_c3_seed42
+2026-07-24 21:35:32,685 | WARNING | Non-fatal fit warning for scale r=6 c=3 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:32,687 | WARNING | Non-fatal fit warning for scale r=6 c=3 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:32,687 | WARNING | Non-fatal fit warning for scale r=6 c=3 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:32,871 | INFO | Screening [74/90] scale_r6_c3_seed7
+2026-07-24 21:35:34,107 | WARNING | Non-fatal fit warning for scale r=6 c=3 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:34,107 | WARNING | Non-fatal fit warning for scale r=6 c=3 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:34,107 | WARNING | Non-fatal fit warning for scale r=6 c=3 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:34,312 | INFO | Screening [75/90] scale_r6_c3_seed99
+2026-07-24 21:35:35,661 | WARNING | Non-fatal fit warning for scale r=6 c=3 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:35,661 | WARNING | Non-fatal fit warning for scale r=6 c=3 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:35,661 | WARNING | Non-fatal fit warning for scale r=6 c=3 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:35,881 | INFO | Screening [76/90] scale_r6_c4_seed42
+2026-07-24 21:35:37,354 | WARNING | Non-fatal fit warning for scale r=6 c=4 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:37,354 | WARNING | Non-fatal fit warning for scale r=6 c=4 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:37,355 | WARNING | Non-fatal fit warning for scale r=6 c=4 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:37,544 | INFO | Screening [77/90] scale_r6_c4_seed7
+2026-07-24 21:35:38,842 | WARNING | Non-fatal fit warning for scale r=6 c=4 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:38,843 | WARNING | Non-fatal fit warning for scale r=6 c=4 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:38,843 | WARNING | Non-fatal fit warning for scale r=6 c=4 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:39,030 | INFO | Screening [78/90] scale_r6_c4_seed99
+2026-07-24 21:35:40,330 | WARNING | Non-fatal fit warning for scale r=6 c=4 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:40,330 | WARNING | Non-fatal fit warning for scale r=6 c=4 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:40,330 | WARNING | Non-fatal fit warning for scale r=6 c=4 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:40,515 | INFO | Screening [79/90] scale_r6_c5_seed42
+2026-07-24 21:35:41,973 | WARNING | Non-fatal fit warning for scale r=6 c=5 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:41,974 | WARNING | Non-fatal fit warning for scale r=6 c=5 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:41,974 | WARNING | Non-fatal fit warning for scale r=6 c=5 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:42,224 | INFO | Screening [80/90] scale_r6_c5_seed7
+2026-07-24 21:35:43,661 | WARNING | Non-fatal fit warning for scale r=6 c=5 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:43,661 | WARNING | Non-fatal fit warning for scale r=6 c=5 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:43,661 | WARNING | Non-fatal fit warning for scale r=6 c=5 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:43,856 | INFO | Screening [81/90] scale_r6_c5_seed99
+2026-07-24 21:35:45,192 | WARNING | Non-fatal fit warning for scale r=6 c=5 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:45,192 | WARNING | Non-fatal fit warning for scale r=6 c=5 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:45,192 | WARNING | Non-fatal fit warning for scale r=6 c=5 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:45,389 | INFO | Screening [82/90] scale_r6_c6_seed42
+2026-07-24 21:35:46,809 | WARNING | Non-fatal fit warning for scale r=6 c=6 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:46,809 | WARNING | Non-fatal fit warning for scale r=6 c=6 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:46,809 | WARNING | Non-fatal fit warning for scale r=6 c=6 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:47,006 | INFO | Screening [83/90] scale_r6_c6_seed7
+2026-07-24 21:35:48,323 | WARNING | Non-fatal fit warning for scale r=6 c=6 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:48,323 | WARNING | Non-fatal fit warning for scale r=6 c=6 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:48,323 | WARNING | Non-fatal fit warning for scale r=6 c=6 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:48,523 | INFO | Screening [84/90] scale_r6_c6_seed99
+2026-07-24 21:35:49,889 | WARNING | Non-fatal fit warning for scale r=6 c=6 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:49,889 | WARNING | Non-fatal fit warning for scale r=6 c=6 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:49,889 | WARNING | Non-fatal fit warning for scale r=6 c=6 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:50,064 | INFO | Screening [85/90] scale_r6_c7_seed42
+2026-07-24 21:35:51,439 | WARNING | Non-fatal fit warning for scale r=6 c=7 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:51,442 | WARNING | Non-fatal fit warning for scale r=6 c=7 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:51,442 | WARNING | Non-fatal fit warning for scale r=6 c=7 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:51,629 | INFO | Screening [86/90] scale_r6_c7_seed7
+2026-07-24 21:35:52,975 | WARNING | Non-fatal fit warning for scale r=6 c=7 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:52,975 | WARNING | Non-fatal fit warning for scale r=6 c=7 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:52,975 | WARNING | Non-fatal fit warning for scale r=6 c=7 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:53,155 | INFO | Screening [87/90] scale_r6_c7_seed99
+2026-07-24 21:35:54,521 | WARNING | Non-fatal fit warning for scale r=6 c=7 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:54,521 | WARNING | Non-fatal fit warning for scale r=6 c=7 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:54,521 | WARNING | Non-fatal fit warning for scale r=6 c=7 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:54,701 | INFO | Screening [88/90] scale_r6_c8_seed42
+2026-07-24 21:35:56,087 | WARNING | Non-fatal fit warning for scale r=6 c=8 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:56,087 | WARNING | Non-fatal fit warning for scale r=6 c=8 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:56,087 | WARNING | Non-fatal fit warning for scale r=6 c=8 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:56,273 | INFO | Screening [89/90] scale_r6_c8_seed7
+2026-07-24 21:35:57,558 | WARNING | Non-fatal fit warning for scale r=6 c=8 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:57,558 | WARNING | Non-fatal fit warning for scale r=6 c=8 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:57,558 | WARNING | Non-fatal fit warning for scale r=6 c=8 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:35:57,750 | INFO | Screening [90/90] scale_r6_c8_seed99
+2026-07-24 21:35:59,124 | WARNING | Non-fatal fit warning for scale r=6 c=8 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:35:59,125 | WARNING | Non-fatal fit warning for scale r=6 c=8 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:35:59,125 | WARNING | Non-fatal fit warning for scale r=6 c=8 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:36:00,146 | INFO | Selected candidates:
+ candidate_rank method  n_row_clusters  n_column_clusters  block_r2_mean  n_blocks
+              1  scale               4                  8         0.3431        32
+2026-07-24 21:36:00,147 | INFO | Stability fit: scale r=4 c=8 seed=42
+2026-07-24 21:36:01,489 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:36:01,489 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:36:01,489 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:36:01,640 | INFO | Stability fit: scale r=4 c=8 seed=7
+2026-07-24 21:36:02,965 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=7: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:36:02,965 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=7: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:36:02,965 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=7: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:36:03,125 | INFO | Stability fit: scale r=4 c=8 seed=99
+2026-07-24 21:36:04,423 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=99: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:36:04,423 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=99: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:36:04,423 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=99: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:36:04,577 | INFO | Stability fit: scale r=4 c=8 seed=123
+2026-07-24 21:36:05,953 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=123: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:36:05,953 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=123: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:36:05,953 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=123: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:36:06,114 | INFO | Stability fit: scale r=4 c=8 seed=2026
+2026-07-24 21:36:07,417 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=2026: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:36:07,417 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=2026: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:36:07,417 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=2026: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:36:07,600 | INFO | Final selection: {'method': 'scale', 'n_row_clusters': 4, 'n_column_clusters': 8, 'representative_seed': 42, 'selection_reason': 'First parsimonious candidate satisfying both ARI thresholds', 'candidate_rank': 1, 'row_ari_mean': 1.0, 'column_ari_mean': 0.9859523969240355, 'stability_success_fraction': 1.0, 'stability_thresholds_met': True}
+2026-07-24 21:36:08,865 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=42: RuntimeWarning: divide by zero encountered in matmul
+2026-07-24 21:36:08,865 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=42: RuntimeWarning: overflow encountered in matmul
+2026-07-24 21:36:08,865 | WARNING | Non-fatal fit warning for scale r=4 c=8 seed=42: RuntimeWarning: invalid value encountered in matmul
+2026-07-24 21:36:09,923 | INFO | Pipeline completed successfully.
+2026-07-24 21:36:09,923 | INFO | Reports saved in: /Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/Progetto_Finale/003_Models/0031_Mixed/spectral_biclustering/reports/spectral_biclustering_pipeline
+2026-07-24 21:36:09,923 | INFO | Final model: scale r=4 c=8 seed=42 | block R²=0.3397
