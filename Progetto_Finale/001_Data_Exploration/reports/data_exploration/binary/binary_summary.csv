@@ -1,0 +1,9 @@
+metric,value
+molecules,3751.0
+binary_features,828.0
+global_zero_pct,86.71600616647154
+global_one_pct,13.283993833528452
+mean_ones_per_molecule,109.99146894161557
+median_ones_per_molecule,93.0
+min_ones_per_molecule,8.0
+max_ones_per_molecule,444.0

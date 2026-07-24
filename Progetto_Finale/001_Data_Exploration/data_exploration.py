@@ -1,9 +1,5 @@
-#!/usr/bin/env python3
-"""Essential exploratory analysis for the Molecular Bioresponse dataset."""
-
 from __future__ import annotations
 
-import argparse
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -16,6 +12,18 @@ import pandas as pd
 from scipy.stats import spearmanr, t
 
 
+# Project paths
+SCRIPT_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = SCRIPT_DIR.parent
+DATASET_DIR = PROJECT_ROOT / "000_Dataset"
+
+TRAIN_PATH = DATASET_DIR / "raw" / "train.csv"
+BINARY_INPUT_PATH = DATASET_DIR / "train_filtered_no_activity.csv"
+OUTPUT_DIR = SCRIPT_DIR / "reports" / "data_exploration"
+TARGET = "Activity"
+RUN_SIMILARITY = True
+
+
 @dataclass(frozen=True)
 class Config:
     repetitions: int = 30
@@ -25,25 +33,6 @@ class Config:
     top_k: int = 10
     confidence: float = 0.95
     seed: int = 42
-
-
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description="Audit a dataset and compare Jaccard with SMC on binary features."
-    )
-    parser.add_argument("--train", type=Path, required=True)
-    parser.add_argument("--binary-input", type=Path)
-    parser.add_argument("--target", default="Activity")
-    parser.add_argument("--output-dir", type=Path, default=Path("reports/data_exploration"))
-    parser.add_argument("--skip-similarity", action="store_true")
-    parser.add_argument("--repetitions", type=int, default=30)
-    parser.add_argument("--pairs", type=int, default=20_000)
-    parser.add_argument("--anchors", type=int, default=100)
-    parser.add_argument("--candidates", type=int, default=1_000)
-    parser.add_argument("--top-k", type=int, default=10)
-    parser.add_argument("--confidence", type=float, default=0.95)
-    parser.add_argument("--seed", type=int, default=42)
-    return parser.parse_args()
 
 
 def load_features(path: Path, target: str) -> tuple[pd.DataFrame, pd.Series | None]:
@@ -215,39 +204,6 @@ def pair_similarities(
     return jaccard, 1 - mismatches / B.shape[1]
 
 
-def neighbor_overlap(B: np.ndarray, rng: np.random.Generator, cfg: Config) -> float:
-    n = len(B)
-    n_anchors, n_candidates = min(cfg.anchors, n), min(cfg.candidates, n)
-    if cfg.top_k >= n_candidates:
-        raise ValueError("top_k must be smaller than the candidate pool.")
-
-    anchors = rng.choice(n, n_anchors, replace=False)
-    candidates = rng.choice(n, n_candidates, replace=False)
-    A, C = B[anchors].astype(np.int32), B[candidates].astype(np.int32)
-    intersections = A @ C.T
-    unions = A.sum(1)[:, None] + C.sum(1)[None, :] - intersections
-    jaccard = np.divide(
-        intersections,
-        unions,
-        out=np.full(unions.shape, -np.inf, dtype=float),
-        where=unions != 0,
-    )
-    smc = 1 - (
-        A.sum(1)[:, None] + C.sum(1)[None, :] - 2 * intersections
-    ) / B.shape[1]
-
-    for row, anchor in enumerate(anchors):
-        self_match = candidates == anchor
-        jaccard[row, self_match] = smc[row, self_match] = -np.inf
-
-    overlaps = []
-    for j_row, s_row in zip(jaccard, smc):
-        j_top = candidates[np.lexsort((candidates, -j_row))[: cfg.top_k]]
-        s_top = candidates[np.lexsort((candidates, -s_row))[: cfg.top_k]]
-        overlaps.append(len(set(j_top) & set(s_top)) / cfg.top_k)
-    return float(np.mean(overlaps))
-
-
 def confidence_interval(values: pd.Series, confidence: float) -> tuple[float, float]:
     mean = values.mean()
     margin = t.ppf((1 + confidence) / 2, len(values) - 1) * values.sem()
@@ -279,7 +235,6 @@ def run_similarity(B: np.ndarray, output: Path, cfg: Config) -> None:
                 "pearson": np.corrcoef(jaccard, smc)[0, 1],
                 "spearman": spearmanr(jaccard, smc).statistic,
                 "mean_absolute_difference": np.abs(jaccard - smc).mean(),
-                "top_k_overlap": neighbor_overlap(B, rng, cfg),
             }
         )
 
@@ -310,28 +265,22 @@ def run_similarity(B: np.ndarray, output: Path, cfg: Config) -> None:
     print("\nSIMILARITY ANALYSIS\n", summary.to_string(index=False))
 
 
-def main() -> None:
-    args = parse_args()
-    cfg = Config(
-        args.repetitions,
-        args.pairs,
-        args.anchors,
-        args.candidates,
-        args.top_k,
-        args.confidence,
-        args.seed,
-    )
-    X, y = load_features(args.train, args.target)
-    run_audit(X, y, args.output_dir / "general")
+def main() -> None: 
+    for path in (TRAIN_PATH, BINARY_INPUT_PATH):
+        if not path.is_file():
+            raise FileNotFoundError(f"Required dataset not found: {path}")
 
-    binary_path = args.binary_input or args.train
+    cfg = Config()
+    X, y = load_features(TRAIN_PATH, TARGET)
+    run_audit(X, y, OUTPUT_DIR / "general")
+
     B = prepare_binary_data(
-        binary_path, args.target, len(X), args.output_dir / "binary"
+        BINARY_INPUT_PATH, TARGET, len(X), OUTPUT_DIR / "binary"
     )
-    if not args.skip_similarity:
-        run_similarity(B, args.output_dir / "similarity", cfg)
+    if RUN_SIMILARITY:
+        run_similarity(B, OUTPUT_DIR / "similarity", cfg)
 
-    print(f"\nResults saved in: {args.output_dir.resolve()}")
+    print(f"\nResults saved in: {OUTPUT_DIR}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,11 @@
+metric,value
+rows,3751
+features,1776
+binary_features,834
+numeric_non_binary_features,942
+non_numeric_features,0
+missing_values,0
+duplicate_rows,0
+constant_features,0
+quasi_constant_99_features,253
+features_over_95_pct_zeros,878
