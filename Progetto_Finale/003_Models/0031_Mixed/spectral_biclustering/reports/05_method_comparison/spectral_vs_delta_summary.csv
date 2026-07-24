@@ -1,0 +1,3 @@
+method,scope,n_rows,n_features,n_row_clusters,n_column_clusters,n_blocks,block_r2,weighted_h_score,source_file
+spectral_biclustering,global checkerboard partition,3751.0,1523.0,4.0,8.0,32,0.39835527652625624,0.0401809638452716,
+delta_biclustering,local coherent submatrix,3165.0,1251.0,,,1,,0.0099923772278652,/Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/reports/delta_biclustering/bicluster_summary.csv

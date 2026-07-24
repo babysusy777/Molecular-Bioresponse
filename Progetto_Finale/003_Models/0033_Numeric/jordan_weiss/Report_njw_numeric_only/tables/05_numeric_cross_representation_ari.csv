@@ -1,0 +1,10 @@
+comparison,numeric_partition,reference_partition,numeric_k,reference_k,same_resolution,adjusted_rand_index
+numeric_selected_vs_mixed_classical_selected,numeric_selected,mixed_classical_selected,4,2,False,0.08023721887110138
+numeric_selected_vs_mixed_balanced_selected,numeric_selected,mixed_balanced_selected,4,4,True,0.11413220689609506
+numeric_k2_vs_mixed_balanced_k2,numeric_k2,mixed_balanced_k2,2,2,True,-0.0006144556508843487
+numeric_k3_vs_mixed_balanced_k3,numeric_k3,mixed_balanced_k3,3,3,True,0.24437390362798686
+numeric_k4_vs_mixed_balanced_k4,numeric_k4,mixed_balanced_k4,4,4,True,0.11339075498210335
+numeric_selected_vs_binary_selected,numeric_selected,binary_selected,4,4,True,0.11373910994135374
+numeric_k2_vs_binary_k2,numeric_k2,binary_k2,2,2,True,-0.0006144556508843487
+numeric_k3_vs_binary_k3,numeric_k3,binary_k3,3,3,True,0.24437390362798686
+numeric_k4_vs_binary_k4,numeric_k4,binary_k4,4,4,True,0.11300671985099298

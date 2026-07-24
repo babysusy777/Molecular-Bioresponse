@@ -1,0 +1,10 @@
+{
+  "observed_block_r2": 0.39835527652625624,
+  "null_block_r2_mean": 0.05273947962063974,
+  "null_block_r2_std": 0.0049308383195937975,
+  "null_block_r2_min": 0.043994525775014504,
+  "null_block_r2_max": 0.06157569800907714,
+  "monte_carlo_p_value": 0.047619047619047616,
+  "observed_r2_z_score": 70.09270523680208,
+  "n_permutations": 20
+}

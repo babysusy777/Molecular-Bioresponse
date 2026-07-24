@@ -1,0 +1,4 @@
+role_in_narrative,gower_configuration,numerical_block_weight,binary_block_weight,k,sigma_multiplier,sigma_reference_median,sigma,gower_silhouette_exact,spectral_silhouette_exact,eigengap,cluster_sizes,valid_cluster_sizes
+weight_sensitivity,weighted_alpha_0.4,0.4,0.6,4,0.5,0.5072563290596008,0.2536281645298004,0.1773222251323316,0.8411646469622319,0.077506182368054,"[1056, 1267, 938, 490]",True
+weight_sensitivity,weighted_alpha_0.5,0.5,0.5,4,0.5,0.43060219287872314,0.21530109643936157,0.1732687023183623,0.8376427455429822,0.07433816858123239,"[1056, 1267, 951, 477]",True
+weight_sensitivity,weighted_alpha_0.6,0.6,0.4,4,0.5,0.35377925634384155,0.17688962817192078,0.16791380405365025,0.830999631454182,0.06969075975911806,"[952, 1267, 1056, 476]",True

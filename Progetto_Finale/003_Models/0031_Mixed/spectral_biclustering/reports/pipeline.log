@@ -1,0 +1,76 @@
+2026-07-20 09:56:23,445 | INFO | Dataset loaded: 3751 rows x 1523 features; value range [0.000000, 1.000000]
+2026-07-20 09:56:23,445 | INFO | Feature types: 828 binary, 695 numeric
+2026-07-20 09:56:23,445 | INFO | Screening [1/30] bistochastic_r2_c3_seed42
+2026-07-20 09:56:27,315 | INFO | Screening [2/30] bistochastic_r2_c4_seed42
+2026-07-20 09:56:31,019 | INFO | Screening [3/30] bistochastic_r2_c5_seed42
+2026-07-20 09:56:34,779 | INFO | Screening [4/30] bistochastic_r2_c6_seed42
+2026-07-20 09:56:38,636 | INFO | Screening [5/30] bistochastic_r2_c7_seed42
+2026-07-20 09:56:42,838 | INFO | Screening [6/30] bistochastic_r2_c8_seed42
+2026-07-20 09:56:46,946 | INFO | Screening [7/30] bistochastic_r3_c3_seed42
+2026-07-20 09:56:50,817 | INFO | Screening [8/30] bistochastic_r3_c4_seed42
+2026-07-20 09:56:54,818 | INFO | Screening [9/30] bistochastic_r3_c5_seed42
+2026-07-20 09:56:58,647 | INFO | Screening [10/30] bistochastic_r3_c6_seed42
+2026-07-20 09:57:02,523 | INFO | Screening [11/30] bistochastic_r3_c7_seed42
+2026-07-20 09:57:06,406 | INFO | Screening [12/30] bistochastic_r3_c8_seed42
+2026-07-20 09:57:10,292 | INFO | Screening [13/30] bistochastic_r4_c3_seed42
+2026-07-20 09:57:14,159 | INFO | Screening [14/30] bistochastic_r4_c4_seed42
+2026-07-20 09:57:18,176 | INFO | Screening [15/30] bistochastic_r4_c5_seed42
+2026-07-20 09:57:22,081 | INFO | Screening [16/30] bistochastic_r4_c6_seed42
+2026-07-20 09:57:26,047 | INFO | Screening [17/30] bistochastic_r4_c7_seed42
+2026-07-20 09:57:29,997 | INFO | Screening [18/30] bistochastic_r4_c8_seed42
+2026-07-20 09:57:33,954 | INFO | Screening [19/30] bistochastic_r5_c3_seed42
+2026-07-20 09:57:37,906 | INFO | Screening [20/30] bistochastic_r5_c4_seed42
+2026-07-20 09:57:41,880 | INFO | Screening [21/30] bistochastic_r5_c5_seed42
+2026-07-20 09:57:45,966 | INFO | Screening [22/30] bistochastic_r5_c6_seed42
+2026-07-20 09:57:50,000 | INFO | Screening [23/30] bistochastic_r5_c7_seed42
+2026-07-20 09:57:54,037 | INFO | Screening [24/30] bistochastic_r5_c8_seed42
+2026-07-20 09:57:58,113 | INFO | Screening [25/30] bistochastic_r6_c3_seed42
+2026-07-20 09:58:02,173 | INFO | Screening [26/30] bistochastic_r6_c4_seed42
+2026-07-20 09:58:06,238 | INFO | Screening [27/30] bistochastic_r6_c5_seed42
+2026-07-20 09:58:10,334 | INFO | Screening [28/30] bistochastic_r6_c6_seed42
+2026-07-20 09:58:14,446 | INFO | Screening [29/30] bistochastic_r6_c7_seed42
+2026-07-20 09:58:18,678 | INFO | Screening [30/30] bistochastic_r6_c8_seed42
+2026-07-20 09:58:23,698 | INFO | Selected candidates:
+ candidate_rank       method  n_row_clusters  n_column_clusters  block_r2_mean  n_blocks
+              1 bistochastic               3                  8       0.396195        24
+              2 bistochastic               4                  7       0.391945        28
+              3 bistochastic               4                  8       0.398355        32
+2026-07-20 09:58:23,698 | INFO | Stability fit: bistochastic r=3 c=8 seed=42
+2026-07-20 09:58:27,650 | INFO | Stability fit: bistochastic r=3 c=8 seed=7
+2026-07-20 09:58:31,561 | INFO | Stability fit: bistochastic r=3 c=8 seed=99
+2026-07-20 09:58:35,467 | INFO | Stability fit: bistochastic r=3 c=8 seed=123
+2026-07-20 09:58:39,473 | INFO | Stability fit: bistochastic r=3 c=8 seed=2026
+2026-07-20 09:58:43,422 | INFO | Stability fit: bistochastic r=4 c=7 seed=42
+2026-07-20 09:58:47,426 | INFO | Stability fit: bistochastic r=4 c=7 seed=7
+2026-07-20 09:58:51,424 | INFO | Stability fit: bistochastic r=4 c=7 seed=99
+2026-07-20 09:58:55,427 | INFO | Stability fit: bistochastic r=4 c=7 seed=123
+2026-07-20 09:58:59,445 | INFO | Stability fit: bistochastic r=4 c=7 seed=2026
+2026-07-20 09:59:03,726 | INFO | Stability fit: bistochastic r=4 c=8 seed=42
+2026-07-20 09:59:07,720 | INFO | Stability fit: bistochastic r=4 c=8 seed=7
+2026-07-20 09:59:11,708 | INFO | Stability fit: bistochastic r=4 c=8 seed=99
+2026-07-20 09:59:15,729 | INFO | Stability fit: bistochastic r=4 c=8 seed=123
+2026-07-20 09:59:19,737 | INFO | Stability fit: bistochastic r=4 c=8 seed=2026
+2026-07-20 09:59:23,760 | INFO | Final selection: {'method': 'bistochastic', 'n_row_clusters': 4, 'n_column_clusters': 8, 'representative_seed': 42, 'selection_reason': 'No candidate satisfied both ARI thresholds; selected the most stable candidate', 'candidate_rank': 3, 'row_ari_mean': 0.901507945664577, 'column_ari_mean': 0.6183702616367518}
+2026-07-20 09:59:29,045 | INFO | Null permutation [1/20]
+2026-07-20 09:59:30,382 | INFO | Null permutation [2/20]
+2026-07-20 09:59:31,680 | INFO | Null permutation [3/20]
+2026-07-20 09:59:33,051 | INFO | Null permutation [4/20]
+2026-07-20 09:59:34,485 | INFO | Null permutation [5/20]
+2026-07-20 09:59:35,912 | INFO | Null permutation [6/20]
+2026-07-20 09:59:37,213 | INFO | Null permutation [7/20]
+2026-07-20 09:59:38,556 | INFO | Null permutation [8/20]
+2026-07-20 09:59:39,970 | INFO | Null permutation [9/20]
+2026-07-20 09:59:41,456 | INFO | Null permutation [10/20]
+2026-07-20 09:59:42,824 | INFO | Null permutation [11/20]
+2026-07-20 09:59:44,144 | INFO | Null permutation [12/20]
+2026-07-20 09:59:45,637 | INFO | Null permutation [13/20]
+2026-07-20 09:59:46,962 | INFO | Null permutation [14/20]
+2026-07-20 09:59:48,365 | INFO | Null permutation [15/20]
+2026-07-20 09:59:49,661 | INFO | Null permutation [16/20]
+2026-07-20 09:59:51,059 | INFO | Null permutation [17/20]
+2026-07-20 09:59:52,457 | INFO | Null permutation [18/20]
+2026-07-20 09:59:53,902 | INFO | Null permutation [19/20]
+2026-07-20 09:59:55,157 | INFO | Null permutation [20/20]
+2026-07-20 09:59:56,657 | INFO | Pipeline completed successfully.
+2026-07-20 09:59:56,657 | INFO | Reports saved in: /Users/susannabaldo/Desktop/Machine_Learning_Project/Molecular-Bioresponse/reports/spectral_biclustering_pipeline
+2026-07-20 09:59:56,657 | INFO | Final model: bistochastic r=4 c=8 seed=42 | block R²=0.3984

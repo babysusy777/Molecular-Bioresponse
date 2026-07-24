@@ -1,0 +1,310 @@
+{
+  "preprocessing": {
+    "input_path": "/Users/federico.colangelo/Desktop/dmml_project/Molecular-Bioresponse/Dataset/train_filtered_no_activity.csv",
+    "input_kind": "filtered",
+    "n_objects": 3751,
+    "features_in_input_file": 1523,
+    "quasi_constant_threshold": 0.99,
+    "quasi_constant_removed_in_this_script": 0,
+    "zero_range_numeric_removed_in_this_script": 0,
+    "remaining_features": 1523,
+    "remaining_numeric_features": 695,
+    "remaining_binary_features": 828,
+    "numeric_percentage": 45.633617859487856,
+    "binary_percentage": 54.366382140512144,
+    "activity_available_for_post_hoc_only": true,
+    "numerical_transform": "feature-wise empirical quantile to uniform",
+    "quantile_landmarks": 1000,
+    "quantile_subsampling": "disabled: all objects used",
+    "binary_transform": "unchanged asymmetric Jaccard block",
+    "analysis_role": "sensitivity analysis"
+  },
+  "quantile_classical_selected": {
+    "role_in_narrative": "quantile_classical_selected",
+    "gower_configuration": "quantile_classical",
+    "numerical_block_weight": null,
+    "binary_block_weight": null,
+    "k": 2,
+    "sigma_multiplier": 2.0,
+    "sigma_reference_median": 0.29382097721099854,
+    "sigma": 0.5876419544219971,
+    "gower_silhouette_exact": 0.216403683758299,
+    "spectral_silhouette_exact": 0.6550793849670504,
+    "eigengap": 0.019032437045991425,
+    "cluster_sizes": "[2323, 1428]",
+    "valid_cluster_sizes": true
+  },
+  "quantile_balanced_selected": {
+    "role_in_narrative": "quantile_balanced_selected",
+    "gower_configuration": "quantile_weighted_alpha_0.5",
+    "numerical_block_weight": 0.5,
+    "binary_block_weight": 0.5,
+    "k": 4,
+    "sigma_multiplier": 0.5,
+    "sigma_reference_median": 0.4916748106479645,
+    "sigma": 0.24583740532398224,
+    "gower_silhouette_exact": 0.14855106013423294,
+    "spectral_silhouette_exact": 0.8026075566153157,
+    "eigengap": 0.053911305130100395,
+    "cluster_sizes": "[1056, 982, 1267, 446]",
+    "valid_cluster_sizes": true
+  },
+  "quantile_balanced_k2": {
+    "role_in_narrative": "quantile_balanced_k2",
+    "gower_configuration": "quantile_weighted_alpha_0.5",
+    "numerical_block_weight": 0.5,
+    "binary_block_weight": 0.5,
+    "k": 2,
+    "sigma_multiplier": 0.5,
+    "sigma_reference_median": 0.4916748106479645,
+    "sigma": 0.24583740532398224,
+    "gower_silhouette_exact": 0.14234366282815936,
+    "spectral_silhouette_exact": 0.8535227049457783,
+    "eigengap": 0.11385196219198987,
+    "cluster_sizes": "[1428, 2323]",
+    "valid_cluster_sizes": true
+  },
+  "quantile_balanced_k3": {
+    "role_in_narrative": "quantile_balanced_k3",
+    "gower_configuration": "quantile_weighted_alpha_0.5",
+    "numerical_block_weight": 0.5,
+    "binary_block_weight": 0.5,
+    "k": 3,
+    "sigma_multiplier": 0.5,
+    "sigma_reference_median": 0.4916748106479645,
+    "sigma": 0.24583740532398224,
+    "gower_silhouette_exact": 0.14509619348208935,
+    "spectral_silhouette_exact": 0.6570788798790541,
+    "eigengap": 0.03689947081034067,
+    "cluster_sizes": "[1267, 1428, 1056]",
+    "valid_cluster_sizes": true
+  },
+  "quantile_balanced_k4": {
+    "role_in_narrative": "quantile_balanced_k4",
+    "gower_configuration": "quantile_weighted_alpha_0.5",
+    "numerical_block_weight": 0.5,
+    "binary_block_weight": 0.5,
+    "k": 4,
+    "sigma_multiplier": 0.5,
+    "sigma_reference_median": 0.4916748106479645,
+    "sigma": 0.24583740532398224,
+    "gower_silhouette_exact": 0.14855106013423294,
+    "spectral_silhouette_exact": 0.802607556615316,
+    "eigengap": 0.05391130513009995,
+    "cluster_sizes": "[1056, 1267, 446, 982]",
+    "valid_cluster_sizes": true
+  },
+  "minimum_ari_across_alphas": 0.9730513595792216,
+  "mean_ari_across_alphas": 0.9818698332377783,
+  "ari_quantile_classical_vs_quantile_balanced_selected": 0.3219608230916372,
+  "cross_representation_comparisons": [
+    {
+      "comparison": "mixed_quantile_classical_selected_vs_mixed_quantile_balanced_selected",
+      "candidate_partition": "mixed_quantile_classical_selected",
+      "reference_partition": "mixed_quantile_balanced_selected",
+      "candidate_k": 2,
+      "reference_k": 4,
+      "same_resolution": false,
+      "adjusted_rand_index": 0.3219608230916372
+    },
+    {
+      "comparison": "mixed_quantile_classical_selected_vs_mixed_classical_selected",
+      "candidate_partition": "mixed_quantile_classical_selected",
+      "reference_partition": "mixed_classical_selected",
+      "candidate_k": 2,
+      "reference_k": 2,
+      "same_resolution": true,
+      "adjusted_rand_index": 0.6386653190420518
+    },
+    {
+      "comparison": "mixed_quantile_balanced_selected_vs_mixed_classical_selected",
+      "candidate_partition": "mixed_quantile_balanced_selected",
+      "reference_partition": "mixed_classical_selected",
+      "candidate_k": 4,
+      "reference_k": 2,
+      "same_resolution": false,
+      "adjusted_rand_index": 0.4105947574149392
+    },
+    {
+      "comparison": "mixed_quantile_classical_selected_vs_mixed_balanced_selected",
+      "candidate_partition": "mixed_quantile_classical_selected",
+      "reference_partition": "mixed_balanced_selected",
+      "candidate_k": 2,
+      "reference_k": 4,
+      "same_resolution": false,
+      "adjusted_rand_index": 0.3177872313895073
+    },
+    {
+      "comparison": "mixed_quantile_balanced_selected_vs_mixed_balanced_selected",
+      "candidate_partition": "mixed_quantile_balanced_selected",
+      "reference_partition": "mixed_balanced_selected",
+      "candidate_k": 4,
+      "reference_k": 4,
+      "same_resolution": true,
+      "adjusted_rand_index": 0.9835747262515852
+    },
+    {
+      "comparison": "mixed_quantile_classical_selected_vs_binary_selected",
+      "candidate_partition": "mixed_quantile_classical_selected",
+      "reference_partition": "binary_selected",
+      "candidate_k": 2,
+      "reference_k": 4,
+      "same_resolution": false,
+      "adjusted_rand_index": 0.31595235424428025
+    },
+    {
+      "comparison": "mixed_quantile_balanced_selected_vs_binary_selected",
+      "candidate_partition": "mixed_quantile_balanced_selected",
+      "reference_partition": "binary_selected",
+      "candidate_k": 4,
+      "reference_k": 4,
+      "same_resolution": true,
+      "adjusted_rand_index": 0.9763395295823232
+    },
+    {
+      "comparison": "mixed_quantile_classical_selected_vs_numeric_selected",
+      "candidate_partition": "mixed_quantile_classical_selected",
+      "reference_partition": "numeric_selected",
+      "candidate_k": 2,
+      "reference_k": 4,
+      "same_resolution": false,
+      "adjusted_rand_index": 0.15311594158116446
+    },
+    {
+      "comparison": "mixed_quantile_balanced_selected_vs_numeric_selected",
+      "candidate_partition": "mixed_quantile_balanced_selected",
+      "reference_partition": "numeric_selected",
+      "candidate_k": 4,
+      "reference_k": 4,
+      "same_resolution": true,
+      "adjusted_rand_index": 0.11584128950714133
+    },
+    {
+      "comparison": "mixed_quantile_classical_selected_vs_numeric_quantile_selected",
+      "candidate_partition": "mixed_quantile_classical_selected",
+      "reference_partition": "numeric_quantile_selected",
+      "candidate_k": 2,
+      "reference_k": 2,
+      "same_resolution": true,
+      "adjusted_rand_index": 0.46461702333568955
+    },
+    {
+      "comparison": "mixed_quantile_balanced_selected_vs_numeric_quantile_selected",
+      "candidate_partition": "mixed_quantile_balanced_selected",
+      "reference_partition": "numeric_quantile_selected",
+      "candidate_k": 4,
+      "reference_k": 2,
+      "same_resolution": false,
+      "adjusted_rand_index": 0.1317043902382122
+    },
+    {
+      "comparison": "mixed_quantile_balanced_k2_vs_mixed_balanced_k2",
+      "candidate_partition": "mixed_quantile_balanced_k2",
+      "reference_partition": "mixed_balanced_k2",
+      "candidate_k": 2,
+      "reference_k": 2,
+      "same_resolution": true,
+      "adjusted_rand_index": 1.0
+    },
+    {
+      "comparison": "mixed_quantile_balanced_k2_vs_binary_k2",
+      "candidate_partition": "mixed_quantile_balanced_k2",
+      "reference_partition": "binary_k2",
+      "candidate_k": 2,
+      "reference_k": 2,
+      "same_resolution": true,
+      "adjusted_rand_index": 1.0
+    },
+    {
+      "comparison": "mixed_quantile_balanced_k2_vs_numeric_k2",
+      "candidate_partition": "mixed_quantile_balanced_k2",
+      "reference_partition": "numeric_k2",
+      "candidate_k": 2,
+      "reference_k": 2,
+      "same_resolution": true,
+      "adjusted_rand_index": -0.0006144556508843487
+    },
+    {
+      "comparison": "mixed_quantile_balanced_k2_vs_numeric_quantile_k2",
+      "candidate_partition": "mixed_quantile_balanced_k2",
+      "reference_partition": "numeric_quantile_k2",
+      "candidate_k": 2,
+      "reference_k": 2,
+      "same_resolution": true,
+      "adjusted_rand_index": 0.189559969874699
+    },
+    {
+      "comparison": "mixed_quantile_balanced_k3_vs_mixed_balanced_k3",
+      "candidate_partition": "mixed_quantile_balanced_k3",
+      "reference_partition": "mixed_balanced_k3",
+      "candidate_k": 3,
+      "reference_k": 3,
+      "same_resolution": true,
+      "adjusted_rand_index": 1.0
+    },
+    {
+      "comparison": "mixed_quantile_balanced_k3_vs_binary_k3",
+      "candidate_partition": "mixed_quantile_balanced_k3",
+      "reference_partition": "binary_k3",
+      "candidate_k": 3,
+      "reference_k": 3,
+      "same_resolution": true,
+      "adjusted_rand_index": 1.0
+    },
+    {
+      "comparison": "mixed_quantile_balanced_k3_vs_numeric_k3",
+      "candidate_partition": "mixed_quantile_balanced_k3",
+      "reference_partition": "numeric_k3",
+      "candidate_k": 3,
+      "reference_k": 3,
+      "same_resolution": true,
+      "adjusted_rand_index": 0.24437390362798686
+    },
+    {
+      "comparison": "mixed_quantile_balanced_k3_vs_numeric_quantile_k3",
+      "candidate_partition": "mixed_quantile_balanced_k3",
+      "reference_partition": "numeric_quantile_k3",
+      "candidate_k": 3,
+      "reference_k": 3,
+      "same_resolution": true,
+      "adjusted_rand_index": 0.20496343140032067
+    },
+    {
+      "comparison": "mixed_quantile_balanced_k4_vs_mixed_balanced_k4",
+      "candidate_partition": "mixed_quantile_balanced_k4",
+      "reference_partition": "mixed_balanced_k4",
+      "candidate_k": 4,
+      "reference_k": 4,
+      "same_resolution": true,
+      "adjusted_rand_index": 0.9835747262515852
+    },
+    {
+      "comparison": "mixed_quantile_balanced_k4_vs_binary_k4",
+      "candidate_partition": "mixed_quantile_balanced_k4",
+      "reference_partition": "binary_k4",
+      "candidate_k": 4,
+      "reference_k": 4,
+      "same_resolution": true,
+      "adjusted_rand_index": 0.9763395295823232
+    },
+    {
+      "comparison": "mixed_quantile_balanced_k4_vs_numeric_k4",
+      "candidate_partition": "mixed_quantile_balanced_k4",
+      "reference_partition": "numeric_k4",
+      "candidate_k": 4,
+      "reference_k": 4,
+      "same_resolution": true,
+      "adjusted_rand_index": 0.11507818006730362
+    },
+    {
+      "comparison": "mixed_quantile_balanced_k4_vs_numeric_quantile_k4",
+      "candidate_partition": "mixed_quantile_balanced_k4",
+      "reference_partition": "numeric_quantile_k4",
+      "candidate_k": 4,
+      "reference_k": 4,
+      "same_resolution": true,
+      "adjusted_rand_index": 0.11416478676898724
+    }
+  ],
+  "interpretation_rule": "Quantile transformation is nonlinear and changes the distance geometry. Treat this run as a sensitivity analysis and use matched-resolution ARI and contingency tables for cross-representation conclusions."
+}
