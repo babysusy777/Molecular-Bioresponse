@@ -1,0 +1,4 @@
+role,configuration,numerical_block_weight,binary_block_weight,k,sigma_reference_median,sigma_multiplier,sigma,gower_silhouette,spectral_silhouette,silhouettes_exact,eigengap,valid_cluster_sizes,minimum_cluster_size,maximum_cluster_size,cluster_sizes
+weight_sensitivity,quantile_weighted_alpha_0.4,0.4,0.6,4,0.5569279193878174,0.5,0.2784639596939087,0.16018134186706962,0.8206333347753584,True,0.0638043182210866,True,476,1267,"[1056, 1267, 952, 476]"
+weight_sensitivity,quantile_weighted_alpha_0.5,0.5,0.5,4,0.4916748106479645,0.5,0.24583740532398224,0.14855106013423294,0.8026075566153155,True,0.053911305130100035,True,446,1267,"[1056, 1267, 982, 446]"
+weight_sensitivity,quantile_weighted_alpha_0.6,0.6,0.4,4,0.4256742596626282,0.5,0.2128371298313141,0.13252207516899658,0.76279583800917,True,0.0395466149990428,True,449,1267,"[1056, 979, 1267, 449]"

@@ -1,72 +1,69 @@
 {
-  "script_version": "numeric-only-quantile-uniform-v1-2026-07-22",
+  "script_version": "numeric-only-quantile-final-2026-07-24",
   "preprocessing": {
-    "script_version": "numeric-only-quantile-uniform-v1-2026-07-22",
-    "input_path": "/Users/federico.colangelo/Desktop/dmml_project/Molecular-Bioresponse/Dataset/train_filtered_no_activity.csv",
-    "input_kind": "filtered",
+    "script_version": "numeric-only-quantile-final-2026-07-24",
+    "analysis_role": "numeric-only quantile sensitivity analysis",
+    "input_path": "/Users/federico.colangelo/Desktop/dmml_project/Molecular-Bioresponse/Progetto_Finale/000_Dataset/train_numeric_only.csv",
     "n_objects": 3751,
-    "features_in_input_file": 1523,
-    "quasi_constant_threshold": 0.99,
-    "quasi_constant_removed_in_this_script": 0,
-    "retained_features_before_block_selection": 1523,
-    "binary_features_excluded": 828,
-    "numeric_candidates": 695,
-    "zero_range_numeric_removed": 0,
+    "features_in_input_file": 695,
     "numeric_features_used": 695,
-    "mean_numeric_standard_deviation_before_scaling": 0.06997903169817968,
-    "median_numeric_standard_deviation_before_scaling": 0.05812830551458699,
+    "zero_range_numeric_removed": 0,
+    "normalization_method": "feature-wise empirical quantile to Uniform[0,1]",
+    "quantile_n_quantiles": 1000,
+    "quantile_subsampling": "disabled: all objects used",
+    "mean_numeric_standard_deviation_before_transform": 0.06997903169817968,
+    "median_numeric_standard_deviation_before_transform": 0.05812830551458699,
     "minimum_numeric_range": 0.181818182,
     "median_numeric_range": 1.0,
     "maximum_numeric_range": 1.0,
+    "fraction_values_le_0_01_before_transform": 0.7568610001361747,
+    "fraction_values_le_0_05_before_transform": 0.7912226763510546,
+    "fraction_values_le_0_10_before_transform": 0.839343369346112,
+    "median_of_feature_medians_before_transform": 0.0,
     "activity_available_for_post_hoc_only": true,
-    "normalization_method": "feature-wise empirical quantile to uniform [0,1]",
-    "quantile_n_quantiles": 1000,
-    "fraction_numeric_values_le_0_01_before_transform": 0.7568610001361747,
-    "fraction_numeric_values_le_0_05_before_transform": 0.7912226763510546,
-    "fraction_numeric_values_le_0_10_before_transform": 0.839343369346112,
-    "median_of_feature_medians_before_transform": 0.0
+    "silhouettes_exact": true
   },
-  "numeric_selected": {
-    "role_in_narrative": "numeric_selected",
+  "numeric_quantile_selected": {
+    "role_in_narrative": "numeric_quantile_selected",
     "distance": "quantile_uniform_mean_l1",
     "k": 2,
     "sigma_multiplier": 2.0,
     "sigma_reference_median": 0.16240257024765015,
     "sigma": 0.3248051404953003,
-    "quantile_l1_silhouette_exact": 0.19368829752932448,
-    "spectral_silhouette_exact": 0.6061474690692343,
-    "eigengap": 0.015952924777199787,
-    "cluster_sizes": "[2278, 1473]",
+    "quantile_l1_silhouette_exact": 0.19349532556815813,
+    "spectral_silhouette_exact": 0.6061354793178828,
+    "eigengap": 0.015952924777199742,
+    "cluster_sizes": "[1474, 2277]",
     "valid_cluster_sizes": true
   },
-  "numeric_k2": {
-    "role_in_narrative": "numeric_k2_macrostructure",
+  "numeric_quantile_k2": {
+    "role_in_narrative": "numeric_quantile_k2_macrostructure",
     "distance": "quantile_uniform_mean_l1",
     "k": 2,
     "sigma_multiplier": 2.0,
     "sigma_reference_median": 0.16240257024765015,
     "sigma": 0.3248051404953003,
-    "quantile_l1_silhouette_exact": 0.193423005506489,
-    "spectral_silhouette_exact": 0.6061241646504519,
-    "eigengap": 0.015952924777199767,
-    "cluster_sizes": "[2276, 1475]",
+    "quantile_l1_silhouette_exact": 0.19349532556815813,
+    "spectral_silhouette_exact": 0.6061354793178828,
+    "eigengap": 0.015952924777199742,
+    "cluster_sizes": "[1474, 2277]",
     "valid_cluster_sizes": true
   },
-  "numeric_k3": {
-    "role_in_narrative": "numeric_k3_intermediate_check",
+  "numeric_quantile_k3": {
+    "role_in_narrative": "numeric_quantile_k3_intermediate_check",
     "distance": "quantile_uniform_mean_l1",
     "k": 3,
     "sigma_multiplier": 2.0,
     "sigma_reference_median": 0.16240257024765015,
     "sigma": 0.3248051404953003,
-    "quantile_l1_silhouette_exact": 0.08905022869681684,
-    "spectral_silhouette_exact": 0.4205501118688264,
-    "eigengap": 0.005175815345443906,
-    "cluster_sizes": "[1546, 1337, 868]",
+    "quantile_l1_silhouette_exact": 0.08898151578037848,
+    "spectral_silhouette_exact": 0.42061036449626477,
+    "eigengap": 0.005175815345443915,
+    "cluster_sizes": "[1338, 867, 1546]",
     "valid_cluster_sizes": true
   },
-  "numeric_k4": {
-    "role_in_narrative": "numeric_k4_refinement",
+  "numeric_quantile_k4": {
+    "role_in_narrative": "numeric_quantile_k4_refinement",
     "distance": "quantile_uniform_mean_l1",
     "k": 4,
     "sigma_multiplier": 2.0,
@@ -74,131 +71,50 @@
     "sigma": 0.3248051404953003,
     "quantile_l1_silhouette_exact": 0.06857637496268212,
     "spectral_silhouette_exact": 0.31592436910279653,
-    "eigengap": 0.0044236537179715985,
-    "cluster_sizes": "[796, 1339, 962, 654]",
+    "eigengap": 0.004423653717971579,
+    "cluster_sizes": "[654, 962, 1339, 796]",
     "valid_cluster_sizes": true
   },
-  "mixed_labels_source": "/Users/federico.colangelo/Desktop/dmml_project/Molecular-Bioresponse/reports/njw_mixed_baseline_k234_v2/tables/10_mixed_baseline_labels.csv",
-  "binary_labels_source": "/Users/federico.colangelo/Desktop/dmml_project/Molecular-Bioresponse/models/binario/reports/njw_binary_only/tables/10_binary_labels.csv",
-  "baseline_numeric_labels_source": "/Users/federico.colangelo/Desktop/dmml_project/Molecular-Bioresponse/models/numerico/reports/njw_numeric_only/tables/10_numeric_labels.csv",
+  "mixed_labels_source": null,
+  "binary_labels_source": null,
+  "baseline_numeric_labels_source": "/Users/federico.colangelo/Desktop/dmml_project/Molecular-Bioresponse/Progetto_Finale/003_Models/0033_Numeric/jordan_weiss/Report_njw_numeric_only/tables/10_numeric_labels.csv",
   "cross_representation_comparisons": [
     {
-      "comparison": "numeric_selected_vs_mixed_classical_selected",
-      "numeric_partition": "numeric_selected",
-      "reference_partition": "mixed_classical_selected",
-      "numeric_k": 2,
-      "reference_k": 2,
-      "same_resolution": true,
-      "adjusted_rand_index": 0.2545090001460841
-    },
-    {
-      "comparison": "numeric_selected_vs_mixed_balanced_selected",
-      "numeric_partition": "numeric_selected",
-      "reference_partition": "mixed_balanced_selected",
-      "numeric_k": 2,
-      "reference_k": 4,
-      "same_resolution": false,
-      "adjusted_rand_index": 0.12929558330254048
-    },
-    {
-      "comparison": "numeric_k2_vs_mixed_balanced_k2",
-      "numeric_partition": "numeric_k2",
-      "reference_partition": "mixed_balanced_k2",
-      "numeric_k": 2,
-      "reference_k": 2,
-      "same_resolution": true,
-      "adjusted_rand_index": 0.189559969874699
-    },
-    {
-      "comparison": "numeric_k3_vs_mixed_balanced_k3",
-      "numeric_partition": "numeric_k3",
-      "reference_partition": "mixed_balanced_k3",
-      "numeric_k": 3,
-      "reference_k": 3,
-      "same_resolution": true,
-      "adjusted_rand_index": 0.20496343140032067
-    },
-    {
-      "comparison": "numeric_k4_vs_mixed_balanced_k4",
-      "numeric_partition": "numeric_k4",
-      "reference_partition": "mixed_balanced_k4",
-      "numeric_k": 4,
-      "reference_k": 4,
-      "same_resolution": true,
-      "adjusted_rand_index": 0.1128242971102147
-    },
-    {
-      "comparison": "numeric_selected_vs_binary_selected",
-      "numeric_partition": "numeric_selected",
-      "reference_partition": "binary_selected",
-      "numeric_k": 2,
-      "reference_k": 4,
-      "same_resolution": false,
-      "adjusted_rand_index": 0.12831491209723442
-    },
-    {
-      "comparison": "numeric_k2_vs_binary_k2",
-      "numeric_partition": "numeric_k2",
-      "reference_partition": "binary_k2",
-      "numeric_k": 2,
-      "reference_k": 2,
-      "same_resolution": true,
-      "adjusted_rand_index": 0.189559969874699
-    },
-    {
-      "comparison": "numeric_k3_vs_binary_k3",
-      "numeric_partition": "numeric_k3",
-      "reference_partition": "binary_k3",
-      "numeric_k": 3,
-      "reference_k": 3,
-      "same_resolution": true,
-      "adjusted_rand_index": 0.20496343140032067
-    },
-    {
-      "comparison": "numeric_k4_vs_binary_k4",
-      "numeric_partition": "numeric_k4",
-      "reference_partition": "binary_k4",
-      "numeric_k": 4,
-      "reference_k": 4,
-      "same_resolution": true,
-      "adjusted_rand_index": 0.11249078079855623
-    },
-    {
-      "comparison": "numeric_quantile_selected_vs_numeric_baseline_selected",
+      "comparison": "numeric_quantile_selected_vs_numeric_selected",
       "numeric_partition": "numeric_quantile_selected",
-      "reference_partition": "numeric_baseline_selected",
+      "reference_partition": "numeric_selected",
       "numeric_k": 2,
       "reference_k": 4,
       "same_resolution": false,
-      "adjusted_rand_index": 0.2311656122271713
+      "adjusted_rand_index": 0.23066044505557354
     },
     {
-      "comparison": "numeric_quantile_k2_vs_numeric_baseline_k2",
+      "comparison": "numeric_quantile_k2_vs_numeric_k2",
       "numeric_partition": "numeric_quantile_k2",
-      "reference_partition": "numeric_baseline_k2",
+      "reference_partition": "numeric_k2",
       "numeric_k": 2,
       "reference_k": 2,
       "same_resolution": true,
-      "adjusted_rand_index": 0.0008702237592572026
+      "adjusted_rand_index": 0.0008729823408042179
     },
     {
-      "comparison": "numeric_quantile_k3_vs_numeric_baseline_k3",
+      "comparison": "numeric_quantile_k3_vs_numeric_k3",
       "numeric_partition": "numeric_quantile_k3",
-      "reference_partition": "numeric_baseline_k3",
+      "reference_partition": "numeric_k3",
       "numeric_k": 3,
       "reference_k": 3,
       "same_resolution": true,
-      "adjusted_rand_index": 0.32225643907979007
+      "adjusted_rand_index": 0.32171053020778384
     },
     {
-      "comparison": "numeric_quantile_k4_vs_numeric_baseline_k4",
+      "comparison": "numeric_quantile_k4_vs_numeric_k4",
       "numeric_partition": "numeric_quantile_k4",
-      "reference_partition": "numeric_baseline_k4",
+      "reference_partition": "numeric_k4",
       "numeric_k": 4,
       "reference_k": 4,
       "same_resolution": true,
-      "adjusted_rand_index": 0.39746818126531347
+      "adjusted_rand_index": 0.39768634165085487
     }
   ],
-  "important_interpretation_rule": "Use ARI and contingency tables across representations. Do not rank quantile-L1, baseline numerical, asymmetric-Jaccard, and mixed-Gower silhouettes directly."
+  "interpretation_rule": "Treat quantile normalization as a nonlinear sensitivity analysis. Use ARI and contingency tables across representations; do not rank silhouettes directly across different geometries."
 }

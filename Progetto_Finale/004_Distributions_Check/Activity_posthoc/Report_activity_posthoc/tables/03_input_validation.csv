@@ -1,0 +1,4 @@
+model,path,n_rows,n_columns,row_index_aligned,contains_activity,activity_matches_canonical
+mixed,/Users/federico.colangelo/Desktop/dmml_project/Molecular-Bioresponse/Progetto_Finale/003_Models/0031_Mixed/jordan_weiss/report_jordan_weiss/tables/10_mixed_baseline_labels.csv,3751,6,True,False,True
+binary,/Users/federico.colangelo/Desktop/dmml_project/Molecular-Bioresponse/Progetto_Finale/003_Models/0032_Binary/jordan_weiss/reports/njw_binary_only/tables/10_binary_labels.csv,3751,14,True,True,True
+numeric,/Users/federico.colangelo/Desktop/dmml_project/Molecular-Bioresponse/Progetto_Finale/003_Models/0033_Numeric/jordan_weiss/Report_njw_numeric_only/tables/10_numeric_labels.csv,3751,6,True,True,True
